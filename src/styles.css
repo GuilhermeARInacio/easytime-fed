@@ -13,6 +13,10 @@ body{
     font-family: 'Inter', sans-serif;
 }
 
+.logo{
+    width: 20em;
+}
+
 .subtitulo{
     font-size: 1.2em;
     font-weight: 600;

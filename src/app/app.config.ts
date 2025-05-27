@@ -10,13 +10,7 @@ export const appConfig: ApplicationConfig = {
       eventCoalescing: true 
     }), 
     provideHttpClient(),
-    provideForms(),
     provideRouter(routes)
   ]
 };
-
-
-function provideForms(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
 
