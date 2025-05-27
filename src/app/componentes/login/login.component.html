@@ -5,10 +5,10 @@
     <div class="container login">
         <form class="container">
             <label for="login">Login</label>
-            <input [(ngModel)]="login" placeholder="Login" />
+            <input [(ngModel)]="login" name="login" placeholder="Login" />
             
             <label for="senha">Senha</label>
-            <input [(ngModel)]="senha" id="senha" type="password">
+            <input [(ngModel)]="senha" name="senha" placeholder="Senha" type="password">
 
             <button (click)="enviarLogin()" class="botao">ENTRAR</button>
             <a href="" class="link">Esqueci minha senha</a>

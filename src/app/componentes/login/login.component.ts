@@ -22,16 +22,16 @@ export class LoginComponent {
   }
   enviarLogin() {
     alert(`Login: ${this.login}, Senha: ${this.senha}`);
-    // this.usuarioService.login(this.login, this.senha).subscribe({
-    //   next: (response) => {
-    //     console.log('Login successful:', response);
-    //     this.error = null;
-    //   },
-    //   error: (err) => {
-    //     console.error('Login failed:', err);
-    //     this.error = 'Login ou senha inválidos';
-    //   }
-    // })
+    this.usuarioService.login(this.login, this.senha).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        this.error = null;
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        this.error = 'Login ou senha inválidos';
+      }
+    })
   }
 
 }
