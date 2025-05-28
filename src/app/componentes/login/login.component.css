@@ -1,0 +1,45 @@
+.container{
+    height: 100vh;
+}
+
+.login{
+    width: 25vw;
+    height: 50vh;
+    background-color: white;
+
+    box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+    -webkit-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+    -moz-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+} 
+
+.login label{
+    width: 85%;
+    font-weight: 700;
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+.login input{
+    width: 85%;
+    height: 3em;
+    margin: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+}
+
+.senha-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.senha-input .icon {
+    position: absolute;
+    top: 0.6em;
+    right: 10%;
+    font-size: 24px;
+    width: 1em;
+}

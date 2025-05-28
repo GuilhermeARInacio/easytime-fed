@@ -1,3 +1,12 @@
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,6 +16,11 @@
 
 body{
     background-color: #fafafa;
+}
+
+.section{
+    width: 100vw;
+    height: 100vh;
 }
 
 .ff-inter{
@@ -41,30 +55,8 @@ router-outlet{
     height: fit-content;
 }
 
-.login{
-    width: 25vw;
-    height: 50vh;
-    background-color: white;
-
-    box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
-    -webkit-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
-    -moz-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
-} 
-
-.login label{
-    width: 85%;
-    font-weight: 700;
-    font-size: 1em;
-}
-
-.login input{
-    width: 85%;
-    height: 3em;
-    margin: 1em;
-    margin-top: 0.5em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding-left: 10px;
+.icon{
+    cursor: pointer;
 }
 
 .botao{
@@ -89,4 +81,15 @@ router-outlet{
 
 .link:hover{
     color: #1E88E5;
+}
+
+.mensagem-erro{
+    font-size: 0.8em;
+    text-align: left;
+    height: 1em;
+    width: 85%;
+}
+
+.mensagem-erro p {
+    color: #ff2121;
 }

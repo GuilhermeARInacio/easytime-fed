@@ -1,18 +1,30 @@
-<section class="container ff-inter">
-    <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
-    <p class="subtitulo">Sistema de ponto eletrônico</p>
+<section class="section ff-inter">
+    <div class="container">
+        <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
+        <p class="subtitulo">Sistema de ponto eletrônico</p>
 
-    <div class="container login">
-        <form class="container">
-            <label for="login">Login</label>
-            <input [(ngModel)]="login" name="login" placeholder="Login" />
-            
-            <label for="senha">Senha</label>
-            <input [(ngModel)]="senha" name="senha" placeholder="Senha" type="password">
+        <div class="container login">
+            <form class="container" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
+                <label for="login">Login</label>
+                <input name="login" formControlName="login" placeholder="Login" />
+                <div class="mensagem-erro">
+                    <p *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p> 
+                </div>
 
-            <button (click)="enviarLogin()" class="botao">ENTRAR</button>
-            <a href="" class="link">Esqueci minha senha</a>
-        </form>
+                <label for="senha">Senha</label>
+                <div class="senha-input">
+                    <input formControlName="senha" name="senha" placeholder="Senha" type="{{ showPassword ? 'text' : 'password' }}"/>
+                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
+                </div>
+                <div class="mensagem-erro">
+                    <p *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p> 
+                </div>
+                
+                <button (click)="enviarLogin()" class="botao">ENTRAR</button>
+                <a href="" class="link">Esqueci minha senha</a>
+            </form>
+        </div>
     </div>
+    
     
 </section>
