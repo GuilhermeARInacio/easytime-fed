@@ -45,12 +45,46 @@ body{
     margin: 0.5em;
 }
 
-.container{
+.texto{
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0.5em;
+}
+
+.display-flex{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.container-form{
+    width: 25vw;
+    height: fit-content;
+    padding: 1em 0.5em;
+    background-color: white;
+
+    box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+    -webkit-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+    -moz-box-shadow: 5px -1px 16px 0px rgba(222,222,222,0.75);
+} 
+
+.container-form label{
+    width: 85%;
+    font-weight: 700;
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+.container-form input{
+    width: 85%;
+    height: 3em;
+    margin: 0.5em;
 }
 
 form{
@@ -91,15 +125,19 @@ router-outlet{
     color: #1E88E5;
 }
 
-.mensagem-erro{
+.caixa-mensagem{
     font-size: 0.8em;
     text-align: center;
     height: 1em;
     width: 85%;
 }
 
-.mensagem-erro p {
+.caixa-mensagem .erro {
     color: #ff2121;
+}
+
+.caixa-mensagem .sucesso {
+    color: #4caf50;
 }
 
 input{

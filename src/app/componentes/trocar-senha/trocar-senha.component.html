@@ -1,0 +1,24 @@
+<section class="section ff-inter">
+    <div class="display-flex section">
+        <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
+        <p class="subtitulo">Sistema de ponto eletrônico</p>
+
+        <div class="display-flex container-form">
+            <p class="texto text-center">Digite um email valido para receber o código para troca de senha</p>
+            <form class="display-flex" [formGroup]="formularioEmail" (ngSubmit)="enviarEmail()">
+                <label for="email">E-mail</label>
+                <input name="email" type="email" placeholder="E-mail" formControlName="email" [class.shake]="shakeFields['email']" [class.invalid]="formularioEmail.get('email')?.invalid && formularioEmail.get('email')?.touched"/>
+                <div class="caixa-mensagem">
+                    <p class="erro" *ngIf="formularioEmail.get('email')?.errors?.['required'] && formularioEmail.get('email')?.touched">E-mail é obrigatório</p>
+                    <p class="erro" *ngIf="formularioEmail.get('email')?.errors?.['email'] && formularioEmail.get('email')?.touched">Formato de e-mail inválido</p>
+
+                    <p class="mensagem-sucesso" *ngIf="sucesso != null">{{ sucesso }}</p>
+                    <p class="erro" *ngIf="error != null">{{ error }}</p>
+                </div>
+
+                <button type="submit" class="botao">ENVIAR</button>
+                <a routerLink="/login" routerLinkActive="router-link-active" class="link">Voltar</a>
+            </form>
+        </div>
+    </div>
+</section>

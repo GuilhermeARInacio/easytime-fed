@@ -1,15 +1,15 @@
 <section class="section ff-inter">
-    <div class="container">
+    <div class="display-flex section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
         <p class="subtitulo">Sistema de ponto eletrônico</p>
 
-        <div class="container login">
-            <form class="container" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
+        <div class="display-flex container-form">
+            <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
                 <label for="login">Login</label>
                 <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']" [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"/>
-                <div class="mensagem-erro">
-                    <p *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
-                    <p *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">O login só pode conter letras</p> 
+                <div class="caixa-mensagem">
+                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
+                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">O login só pode conter letras</p> 
                 </div>
 
                 <label for="senha">Senha</label>
@@ -17,19 +17,17 @@
                     <input formControlName="senha" name="senha" placeholder="Senha" type="{{ showPassword ? 'text' : 'password' }}" [class.shake]="shakeFields['senha']" [class.invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched"/>
                     <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
                 </div>
-                <div class="mensagem-erro" style="height: 1.5em;">
-                    <p *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p>
-                    <p *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">A senha precisa conter pelo menos 8 digitos</p>
-                    <p *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">A senha precisa de pelo menos uma letra, um número e um simbolo</p> 
+                <div class="caixa-mensagem" style="height: 1.5em;">
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p>
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">A senha precisa conter pelo menos 8 digitos</p>
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">A senha precisa de pelo menos uma letra, um número e um simbolo</p> 
 
-                    <p *ngIf="error != null">{{ error }}</p>
+                    <p class="erro" *ngIf="error != null">{{ error }}</p>
                 </div>
                 
-                <button (click)="enviarLogin()" class="botao">ENTRAR</button>
-                <a href="" class="link">Esqueci minha senha</a>
+                <button type="submit" class="botao">ENTRAR</button>
+                <a routerLink="/trocar-senha" routerLinkActive="router-link-active" class="link">Esqueci minha senha</a>
             </form>
         </div>
     </div>
-    
-    
 </section>
