@@ -6,18 +6,23 @@
         <div class="container login">
             <form class="container" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
                 <label for="login">Login</label>
-                <input name="login" formControlName="login" placeholder="Login" />
+                <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']" [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"/>
                 <div class="mensagem-erro">
-                    <p *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p> 
+                    <p *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
+                    <p *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">O login só pode conter letras</p> 
                 </div>
 
                 <label for="senha">Senha</label>
                 <div class="senha-input">
-                    <input formControlName="senha" name="senha" placeholder="Senha" type="{{ showPassword ? 'text' : 'password' }}"/>
+                    <input formControlName="senha" name="senha" placeholder="Senha" type="{{ showPassword ? 'text' : 'password' }}" [class.shake]="shakeFields['senha']" [class.invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched"/>
                     <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
                 </div>
-                <div class="mensagem-erro">
-                    <p *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p> 
+                <div class="mensagem-erro" style="height: 1.5em;">
+                    <p *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p>
+                    <p *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">A senha precisa conter pelo menos 8 digitos</p>
+                    <p *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">A senha precisa de pelo menos uma letra, um número e um simbolo</p> 
+
+                    <p *ngIf="error != null">{{ error }}</p>
                 </div>
                 
                 <button (click)="enviarLogin()" class="botao">ENTRAR</button>

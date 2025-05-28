@@ -7,6 +7,14 @@
   'opsz' 24
 }
 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -85,11 +93,25 @@ router-outlet{
 
 .mensagem-erro{
     font-size: 0.8em;
-    text-align: left;
+    text-align: center;
     height: 1em;
     width: 85%;
 }
 
 .mensagem-erro p {
     color: #ff2121;
+}
+
+input{
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+}
+
+input.invalid{
+    border: #ff2121 2px solid;
+}
+
+input.shake {
+  animation: shake 0.3s;
 }
