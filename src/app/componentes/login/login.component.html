@@ -9,7 +9,7 @@
                 <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']" [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"/>
                 <div class="caixa-mensagem">
                     <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
-                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">O login só pode conter letras</p> 
+                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">Login deve conter letras, pode ter números, pontos e underlines</p> 
                 </div>
 
                 <label for="senha">Senha</label>

@@ -87,9 +87,12 @@ export class TrocarSenhaComponent {
         next: (response) => {
           console.log('Senha atualizada com sucesso:', response);
           this.error = null;
-          this.sucesso = response;
+          this.sucesso = response + ". Redirecionando para a página de login...";
 
           this.formulario.markAsUntouched();
+          setTimeout(() => {
+            this.router.navigate(['/login'], { state: { response: response } });
+          }, 1000);
         },
         error: (err) => {
           this.formulario.markAsUntouched();

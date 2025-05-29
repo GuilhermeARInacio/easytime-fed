@@ -28,7 +28,7 @@ export class LoginComponent {
     this.formulario = this.formBuilder.group({
       login: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern("^(?=.*[a-zA-Z])[a-zA-Z0-9._]+$")
       ])],
       senha: ['', Validators.compose([
         Validators.required,
@@ -49,7 +49,6 @@ export class LoginComponent {
     if (this.formulario.valid) {
       this.usuarioService.login(this.formulario.value).subscribe({
         next: (response) => {
-          localStorage.clear();
           localStorage.setItem('token', response.token);
           this.error = null;
           this.router.navigate(['/home']);
