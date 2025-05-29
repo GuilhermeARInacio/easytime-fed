@@ -36,7 +36,7 @@ body{
 }
 
 .logo{
-    width: 20em;
+    width: 18vw;
 }
 
 .subtitulo{
@@ -48,7 +48,7 @@ body{
 .texto{
     font-size: 1em;
     font-weight: 600;
-    margin: 0.5em;
+    margin: 0.2em;
 }
 
 .display-flex{
@@ -104,7 +104,8 @@ router-outlet{
 .botao{
     width: 85%;
     height: 3em;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 1em;
     background-color: #2979FF;
     color: white;
     border: none;
@@ -119,6 +120,7 @@ router-outlet{
 
 .link{
     text-decoration: none;
+    font-size: 0.9em; 
 }
 
 .link:hover{
@@ -138,6 +140,7 @@ router-outlet{
 
 .caixa-mensagem .sucesso {
     color: #4caf50;
+    
 }
 
 input{
