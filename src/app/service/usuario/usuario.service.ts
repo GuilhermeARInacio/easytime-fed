@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from '../../interface/login';
 import { TrocarSenha } from '../../interface/trocar-senha';
+import { LoginResponse } from '../../interface/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,26 +18,10 @@ export class UsuarioService {
   }
 
   enviarCodigo(email: { email: string }): Observable<string> {
-    // const token = this.getToken();
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${token}`
-    // });
     return this.http.post<string>(`${this.API_URL}senha/enviar-codigo`, email, { responseType: 'text' as 'json' });
   }
 
   trocarSenha(trocarSenha: TrocarSenha): Observable<string> {
-    // const token = this.getToken();
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${token}`
-    // });
     return this.http.post<string>(`${this.API_URL}senha/redefinir`, trocarSenha, { responseType: 'text' as 'json' });
   }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-}
-
-export interface LoginResponse {
-  token: string;
 }

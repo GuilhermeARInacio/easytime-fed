@@ -4,12 +4,16 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../service/usuario/usuario.service';
 import { temLetraValidacao, temEspecialValidacao, senhasIguaisValidacao, temNumeroValidacao } from '../../validators/custom-validators';
+import { NotificacaoComponent } from '../notificacao/notificacao.component';
+import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { Notificacao } from '../../interface/notificacao';
+import { not } from 'rxjs/internal/util/not';
 
 @Component({
   selector: 'app-trocar-senha',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule, NotificacaoComponent],
   templateUrl: './trocar-senha.component.html',
-  styleUrl: './trocar-senha.component.css'
+  styleUrl: './trocar-senha.component.css',
 })
 export class TrocarSenhaComponent {
 
@@ -21,20 +25,20 @@ export class TrocarSenhaComponent {
   email: string | null = null;
 
   constructor(
-    private usuarioService: UsuarioService, 
+    private usuarioService: UsuarioService,
+    private notificacaoService: NotificacaoService, 
     private router : Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ){
     const navegacao = this.router.getCurrentNavigation();
     if (navegacao?.extras.state) {
       this.sucesso = navegacao.extras.state['response'] || null;
       this.email = navegacao.extras.state['email'] || null;
-      console.log('Dados recebidos:', this.sucesso, this.email);
     }
   }
 
-  ngOnInit(){    
+  ngOnInit(){
     this.formulario = this.formBuilder.group({
       codigo: ['', Validators.compose([
         Validators.required,
@@ -67,6 +71,21 @@ export class TrocarSenhaComponent {
     this.formulario.get('repetirSenha')?.valueChanges.subscribe(() => {
       this.error = null;
     });
+
+    if (this.email) {
+      this.abrirNotificacao({
+        titulo: 'E-mail enviado',
+        mensagem: 'Um e-mail foi enviado para o endereço cadastrado com o código de recuperação. Verifique sua caixa de entrada.',
+        tipo: 'enviado',
+        icon: 'send'
+      })
+    }
+  }
+
+  abrirNotificacao(notificacao: Notificacao) {
+    setTimeout(() => {
+      this.notificacaoService.abrirNotificacao(notificacao);
+    }, 0);
   }
 
   togglePasswordVisibility() {

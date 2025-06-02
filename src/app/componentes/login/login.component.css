@@ -2,14 +2,22 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 100%;
+}
+
+.senha-input input {
+    margin: 0.5em 0;
 }
 
 .senha-input .icon {
     position: absolute;
-    top: 0.6em;
-    right: 10%;
+    right: 0.5em;
     font-size: 24px;
     width: 1em;
+}
+
+@media (min-width: 1701px){
+  .senha-input .icon{
+    font-size: 2em;
+  }
 }

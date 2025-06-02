@@ -1,0 +1,8 @@
+<div class="notificacao" *ngIf="true" [@notificacaoAnimacao]>
+    <div class="notificacao-header">
+        <span class="material-symbols-outlined notificacao-icon">{{ notificacao?.icon }}</span>
+        <p class="notificacao-titulo">{{ notificacao?.titulo }}</p>
+    </div>
+        
+    <p class="notificacao-texto">{{ notificacao?.mensagem }}</p>
+</div>

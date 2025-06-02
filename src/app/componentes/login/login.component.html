@@ -9,7 +9,7 @@
                 <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']" [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"/>
                 <div class="caixa-mensagem">
                     <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
-                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">Login deve conter letras, pode ter números, pontos e underlines</p> 
+                    <p class="erro" style="margin-top: 0.5em;" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">Login deve conter letras, pode ter números, pontos e underlines</p> 
                 </div>
 
                 <label for="senha">Senha</label>
@@ -25,7 +25,7 @@
                     <p class="erro" *ngIf="error != null">{{ error }}</p>
                 </div>
                 
-                <button type="submit" class="botao">ENTRAR</button>
+                <button type="submit" class="botao">Entrar</button>
                 <a routerLink="/enviar-codigo" routerLinkActive="router-link-active" class="link">Esqueci minha senha</a>
             </form>
         </div>

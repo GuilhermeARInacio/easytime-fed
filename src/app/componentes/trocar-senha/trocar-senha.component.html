@@ -5,9 +5,6 @@
 
         <div class="display-flex container-form">
             <p class="texto text-center">Digite o código e a nova senha</p>
-            <div class="caixa-mensagem">
-                <p *ngIf="sucesso != null" class="sucesso"> {{ sucesso }} </p>
-            </div>
 
             <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()">
                 
@@ -54,4 +51,6 @@
             </form>
         </div>
     </div>
+
+    <app-notificacao></app-notificacao>
 </section>

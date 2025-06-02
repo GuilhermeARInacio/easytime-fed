@@ -50,8 +50,10 @@ export class LoginComponent {
       this.usuarioService.login(this.formulario.value).subscribe({
         next: (response) => {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('login', this.formulario.get('login')?.value || '');
+          
           this.error = null;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/bater-ponto']);
         },
         error: (err) => {
           console.error('Login failed:', err);

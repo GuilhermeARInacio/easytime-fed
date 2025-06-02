@@ -40,6 +40,7 @@ export class EnviarCodigoComponent {
   enviarEmail(){
     if (this.formulario.valid) {
       this.carregando = true;
+      this.error = null;
 
       this.usuarioService.enviarCodigo(this.formulario.value).subscribe({
         next: (response) => {
