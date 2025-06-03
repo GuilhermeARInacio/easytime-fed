@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { BaterPonto } from '../../interface/bater-ponto';
 import { Observable } from 'rxjs';
 import { BaterPontoResponse } from '../../interface/bater-ponto-response';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PontoService {
-  private API_URL = 'http://localhost:8081/';
+  private API_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
