@@ -25,6 +25,9 @@ pids
 .angular
 src/environments
 
+# Replit
+.replit
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
