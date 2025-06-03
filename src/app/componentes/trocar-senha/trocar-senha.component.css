@@ -1,0 +1,140 @@
+.container-form{
+    width: 30vw;
+}
+
+.senha-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.senha-input input {
+    margin: 0.5em 0;
+}
+
+.senha-input .icon {
+    position: absolute;
+    right: 0.5em;
+    font-size: 24px;
+    width: 1em;
+}
+
+.input-codigo{
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.input-codigo::placeholder{
+    text-transform: capitalize;
+    font-weight:400;
+}
+
+.lista-validacao{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+    gap: 0.5em;
+}
+
+.lista-validacao ul {
+    padding-left: 0.2em;
+    list-style-position: inside;   
+    margin: 0;
+}
+
+.lista-validacao li {
+    display: list-item;
+    margin: 0.2em 0;
+}
+
+@media (max-width: 1500px) { 
+  .container-form{
+    width: 30vw;
+  }
+}
+
+@media (max-width: 1200px) { 
+  .logo {
+    width: 18vw;
+  }
+
+  .subtitulo {
+    font-size: 1.1em;
+  }
+
+  .container-form {
+    width: 38vw;
+  }
+
+  .senha-input .icon{
+    top: 0.5em
+  }
+
+  .lista-validacao{
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 992px) { 
+  .logo {
+    width: 22vw;
+  }
+
+  .container-form {
+    width: 50vw;
+  }
+
+  .caixa-mensagem {
+    font-size: 0.7em;
+  }
+
+  .lista-validacao{
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) { 
+    .logo {
+    width: 30vw;
+  }
+
+  .subtitulo {
+    font-size: 0.9em;
+  }
+
+  .texto {
+    font-size: 0.8em;
+  }
+
+  .container-form {
+    width: 80vw;
+  }
+
+  .botao{
+    height: 2em;
+    font-size: 0.9em;
+  }
+
+  .lista-validacao{
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 380px) { 
+    .logo {
+    width: 35vw;
+  }
+
+  .lista-validacao{
+    font-size: 0.8em;
+  }
+}
+
+@media (min-width: 1701px){
+  .senha-input .icon{
+    font-size: 2em;
+  }
+}

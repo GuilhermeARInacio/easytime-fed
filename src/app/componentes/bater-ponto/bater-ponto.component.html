@@ -1,0 +1,16 @@
+<section class="section ff-inter">
+    <div class="display-flex section">
+        <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
+        <p class="subtitulo">Sistema de ponto eletrônico</p>
+
+        <div class="display-flex container-form">
+            <p class="texto text-center">Registre seu ponto</p>
+            <p class="horario-atual"> {{ horarioAtual }} </p>
+
+            <button (click)="baterPonto()" class="botao">Registrar</button>
+            <a (click)="sair()" class="link">Sair</a>
+        </div>
+    </div>
+
+    <app-notificacao></app-notificacao>
+</section>

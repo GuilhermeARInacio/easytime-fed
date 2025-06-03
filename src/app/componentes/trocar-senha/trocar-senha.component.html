@@ -1,0 +1,54 @@
+<section class="section ff-inter">
+    <div class="display-flex section">
+        <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
+        <p class="subtitulo">Sistema de ponto eletrônico</p>
+
+        <div class="display-flex container-form">
+            <p class="texto text-center">Digite o código e a nova senha</p>
+
+            <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()">
+                
+                <label for="codigo">Código</label>
+                <input style="text-transform: uppercase;" class="input-codigo" name="codigo" maxlength="8" type="text" placeholder="Código" formControlName="codigo" [class.shake]="shakeFields['codigo']" [class.invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"/>
+                <div class="caixa-mensagem">
+                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['required'] && formulario.get('codigo')?.touched">O código é obrigatório</p>
+                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['minlength'] && formulario.get('codigo')?.touched">O código precisa ter pelo menos 8 caractéres</p>
+                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['maxlength'] && formulario.get('codigo')?.touched">O código só pode ter 8 caracteres</p>
+                </div>
+
+
+                <label for="novaSenha">Nova senha</label>
+                <input name="novaSenha" type="{{ showPassword ? 'text' : 'password' }}" placeholder="Nova senha" formControlName="novaSenha" [class.shake]="shakeFields['novaSenha']" [class.invalid]="formulario.get('novaSenha')?.invalid && formulario.get('novaSenha')?.touched"/>
+                <div class="caixa-mensagem">
+                    <p class="erro" *ngIf="formulario.get('novaSenha')?.errors?.['required'] && formulario.get('novaSenha')?.touched">A nova senha é obrigatória</p>
+                </div>
+
+
+                <label for="repetirSenha">Confirmar nova senha</label>
+                <div class="senha-input">
+                    <input name="repetirSenha" type="{{ showPassword ? 'text' : 'password' }}" placeholder="Confirmar nova senha" formControlName="repetirSenha" [class.shake]="shakeFields['repetirSenha']" [class.invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"/>
+                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
+                </div>
+
+                <div class="caixa-mensagem" [style.height]="formulario.get('novaSenha')?.touched ? '3.5em' : '1em'">
+                    <div *ngIf="formulario.get('novaSenha')?.touched || formulario.get('repetirSenha')?.touched" class="lista-validacao">
+                        <ul>
+                            <li [ngClass]="formulario.get('novaSenha')?.errors?.['minlength'] || formulario.get('novaSenha')?.errors?.['required'] ? 'erro' : 'sucesso'">Pelo menos 8 caractéres</li>
+                            <li [ngClass]="formulario.get('novaSenha')?.errors?.['temLetraValidacao'] ? 'erro' : 'sucesso'">Pelo menos uma letra</li>
+                            <li [ngClass]="formulario.get('novaSenha')?.errors?.['temNumeroValidacao'] ? 'erro' : 'sucesso'">Pelo menos um número</li>
+                        </ul>
+                        <ul>
+                            <li [ngClass]="formulario.get('novaSenha')?.errors?.['temEspecialValidacao'] ? 'erro' : 'sucesso'">Pelo menos um símbolo</li>
+                            <li [ngClass]="formulario.errors?.['senhasIguaisValidacao'] ? 'erro' : 'sucesso'">Senhas iguais</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button type="submit" class="botao">Redefinir senha</button>
+                <a routerLink="/enviar-codigo" routerLinkActive="router-link-active" class="link">Não recebi o e-mail</a>
+            </form>
+        </div>
+    </div>
+
+    <app-notificacao></app-notificacao>
+</section>
