@@ -12,18 +12,7 @@ export class PontoService {
 
   constructor(private http: HttpClient) { }
 
-  baterPonto(login: BaterPonto): Observable<BaterPontoResponse> {
-    const headers = this.inserirTokenHeader();
-    return this.http.post<BaterPontoResponse>(`${this.API_URL}ponto`, login, { headers });
+  baterPonto(ponto: BaterPonto): Observable<BaterPontoResponse> {
+    return this.http.post<BaterPontoResponse>(`${this.API_URL}ponto`, ponto, { });
   }
-
-  inserirTokenHeader(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return headers;
-  }
-
 }

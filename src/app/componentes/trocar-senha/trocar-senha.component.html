@@ -42,8 +42,6 @@
                             <li [ngClass]="formulario.errors?.['senhasIguaisValidacao'] ? 'erro' : 'sucesso'">Senhas iguais</li>
                         </ul>
                     </div>
-
-                    <p class="erro" *ngIf="error != null">{{ error }}</p>
                 </div>
 
                 <button type="submit" class="botao">Redefinir senha</button>

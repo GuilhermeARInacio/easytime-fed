@@ -108,6 +108,13 @@ export class TrocarSenhaComponent {
           this.error = null;
           this.sucesso = response + ". Redirecionando para a página de login...";
 
+          this.abrirNotificacao({
+            titulo: 'Senha alterada',
+            mensagem: this.sucesso,
+            tipo: 'sucesso',
+            icon: ''
+          })
+
           this.formulario.markAsUntouched();
           setTimeout(() => {
             this.router.navigate(['/login'], { state: { response: response } });
@@ -122,6 +129,13 @@ export class TrocarSenhaComponent {
           } else {
             this.error = err.error.message || 'Código inválido. Solicite um novo código de recuperação.';
           }
+          
+          this.abrirNotificacao({
+            titulo: 'Erro',
+            mensagem: this.error ?? '',
+            tipo: 'erro',
+            icon: ''
+          })
         }
       });
     } else {
