@@ -5,12 +5,13 @@ import { Login } from '../../interface/login';
 import { TrocarSenha } from '../../interface/trocar-senha';
 import { LoginResponse } from '../../interface/login-response';
 import { IGNORAR_INTERCPTOR } from '../../interceptor/token-validation.interceptor';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  private API_URL = 'http://localhost:8081/';
+  private API_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

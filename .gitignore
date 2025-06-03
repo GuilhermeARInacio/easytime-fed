@@ -23,6 +23,7 @@ pids
 
 # Angular
 .angular
+src/environments
 
 ### IntelliJ IDEA ###
 .idea
