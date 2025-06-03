@@ -19,7 +19,7 @@ O EasyTime permite que colaboradores registrem seus horários de entrada e saíd
 
 2. **Clone o repositório:**
    ```sh
-   git clone https://github.com/seu-usuario/easytime.git
+   git clone https://github.com/GuilhermeARInacio/easytime-fed.git
    cd easytime/easytime-fed
 3. **Instale as dependências:**
    ```sh
