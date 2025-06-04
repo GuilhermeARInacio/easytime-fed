@@ -1,6 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrocarSenhaComponent } from './trocar-senha.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('TrocarSenhaComponent', () => {
   let component: TrocarSenhaComponent;
@@ -8,7 +10,10 @@ describe('TrocarSenhaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrocarSenhaComponent]
+      imports: [TrocarSenhaComponent, HttpClientTestingModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: {} } // Mocking ActivatedRoute if needed
+      ]
     })
     .compileComponents();
 

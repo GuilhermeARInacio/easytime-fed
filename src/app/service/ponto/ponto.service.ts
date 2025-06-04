@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BaterPonto } from '../../interface/bater-ponto';
 import { Observable } from 'rxjs';
 import { BaterPontoResponse } from '../../interface/bater-ponto-response';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

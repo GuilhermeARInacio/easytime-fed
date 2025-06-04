@@ -5,7 +5,7 @@ import { Login } from '../../interface/login';
 import { TrocarSenha } from '../../interface/trocar-senha';
 import { LoginResponse } from '../../interface/login-response';
 import { IGNORAR_INTERCPTOR } from '../../interceptor/token-validation.interceptor';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
