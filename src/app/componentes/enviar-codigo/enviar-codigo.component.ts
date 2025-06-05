@@ -57,7 +57,10 @@ export class EnviarCodigoComponent {
           if (err.status === 401) {
             this.error = 'Login ou senha inválidos. Verifique suas credenciais.';
           } else {
-            this.error = err.error.message || 'Erro ao enviar email. Verifique se o email está correto.';
+            this.error =
+              (err.error && err.error.message)
+                ? err.error.message
+                : 'Erro ao enviar email. Verifique se o email está correto.';
           }
         }
       });
