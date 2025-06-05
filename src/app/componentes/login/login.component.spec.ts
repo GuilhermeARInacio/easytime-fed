@@ -50,6 +50,11 @@ describe('LoginComponent', () => {
     usuarioServiceSpy.login.and.returnValue(of(response));
     spyOn(localStorage, 'setItem');
 
+    component.formulario.setValue({
+      login: 'usuarioValido',
+      senha: 'senhaValida@123'
+    });
+
     component.enviarLogin();
 
     expect(usuarioServiceSpy.login).toHaveBeenCalledWith(component.formulario.value);

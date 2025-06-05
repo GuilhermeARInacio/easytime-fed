@@ -10,33 +10,6 @@ import { UsuarioService } from '../../service/usuario/usuario.service';
 describe('EnviarCodigoComponent', () => {
   let component: EnviarCodigoComponent;
   let fixture: ComponentFixture<EnviarCodigoComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        EnviarCodigoComponent, 
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: ActivatedRoute, useValue: {} }
-      ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(EnviarCodigoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-
-describe('EnviarCodigoComponent', () => {
-  let component: EnviarCodigoComponent;
-  let fixture: ComponentFixture<EnviarCodigoComponent>;
   let usuarioServiceSpy: jasmine.SpyObj<any>;
   let routerSpy: jasmine.SpyObj<any>;
 
