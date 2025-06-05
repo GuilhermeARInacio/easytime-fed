@@ -6,27 +6,44 @@
         <div class="display-flex container-form">
             <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
                 <label for="login">Login</label>
-                <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']" [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"/>
+                <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']"
+                    [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched" />
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">Login é obrigatório</p>
-                    <p class="erro" style="margin-top: 0.5em;" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">Login deve conter letras, pode ter números, pontos e underlines</p> 
+                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">
+                        Login é obrigatório
+                    </p>
+                    <p class="erro" style="margin-top: 0.5em;" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">
+                        Login deve conter letras, pode ter números, pontos e underlines
+                    </p>
                 </div>
 
                 <label for="senha">Senha</label>
                 <div class="senha-input">
-                    <input formControlName="senha" name="senha" placeholder="Senha" type="{{ showPassword ? 'text' : 'password' }}" [class.shake]="shakeFields['senha']" [class.invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched"/>
-                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
+                    <input formControlName="senha" name="senha" placeholder="Senha"
+                        type="{{ showPassword ? 'text' : 'password' }}" [class.shake]="shakeFields['senha']"
+                        [class.invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched" />
+                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> 
+                        {{ showPassword ? 'visibility_off' : 'visibility'}} 
+                    </span>
                 </div>
                 <div class="caixa-mensagem" style="height: 1.5em;">
-                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Senha é obrigatória</p>
-                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">A senha precisa conter pelo menos 8 digitos</p>
-                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">A senha precisa de pelo menos uma letra, um número e um simbolo</p> 
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">
+                        Senha é obrigatória
+                    </p>
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">
+                        A senha precisa conter pelo menos 8 digitos
+                    </p>
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">
+                        A senha precisa de pelo menos uma letra, um número e um simbolo
+                    </p>
 
                     <p class="erro" *ngIf="error != null">{{ error }}</p>
                 </div>
-                
+
                 <button type="submit" class="botao">Entrar</button>
-                <a routerLink="/enviar-codigo" routerLinkActive="router-link-active" class="link">Esqueci minha senha</a>
+                <a routerLink="/enviar-codigo" routerLinkActive="router-link-active" class="link">
+                    Esqueci minha senha
+                </a>
             </form>
         </div>
     </div>

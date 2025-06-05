@@ -1,69 +1,69 @@
-:root{
+:root {
   --cor-fonte-notificacao: #087120db;
   --cor-fundo-notificacao: #d4f8d4;
 }
 
 .notificacao {
-    position: fixed;
-    max-width: 20em;
-    top: 10px;
-    right: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1000;
-    background-color: var(--cor-fundo-notificacao);
+  position: fixed;
+  max-width: 20em;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+  background-color: var(--cor-fundo-notificacao);
 
-    box-shadow: 7px 4px 14px -4px rgba(189,189,189,0.75);
-    -webkit-box-shadow: 7px 4px 14px -4px rgba(189,189,189,0.75);
-    -moz-box-shadow: 7px 4px 14px -4px rgba(189,189,189,0.75);
+  box-shadow: 7px 4px 14px -4px rgba(189, 189, 189, 0.75);
+  -webkit-box-shadow: 7px 4px 14px -4px rgba(189, 189, 189, 0.75);
+  -moz-box-shadow: 7px 4px 14px -4px rgba(189, 189, 189, 0.75);
 }
 
-.notificacao-header{
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 0.9em;
+.notificacao-header {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.9em;
 }
 
-.notificacao-icon{
-    width: 1em;
-    font-size: 1.5em;
-    margin-right: 5px;
-    color: var(--cor-fonte-notificacao);
+.notificacao-icon {
+  width: 1em;
+  font-size: 1.5em;
+  margin-right: 5px;
+  color: var(--cor-fonte-notificacao);
 }
 
-.notificacao-titulo{
-    font-weight: 600;
-    color: var(--cor-fonte-notificacao);
+.notificacao-titulo {
+  font-weight: 600;
+  color: var(--cor-fonte-notificacao);
 }
 
-.notificacao-texto{
+.notificacao-texto {
+  font-size: 0.8em;
+  margin-bottom: 0.5em;
+}
+
+@media (max-width: 480px) {
+  .notificacao {
+    max-width: 15em;
+  }
+
+  .notificacao-header {
     font-size: 0.8em;
-    margin-bottom: 0.5em;
+  }
+
+  .notificacao-icon {
+    width: 1em;
+    font-size: 1.3em;
+  }
+
+  .notificacao-texto {
+    font-size: 0.7em;
+    margin-bottom: 0.2em;
+  }
 }
 
-@media (max-width: 480px) { 
-    .notificacao {
-        max-width: 15em;
-    }
-
-    .notificacao-header{
-        font-size: 0.8em;
-    }
-
-    .notificacao-icon{
-        width: 1em;
-        font-size: 1.3em;
-    }
-
-    .notificacao-texto{
-        font-size: 0.7em;
-        margin-bottom: 0.2em;
-    }
-}
-
-@media (max-width: 320px) { 
-    .logo {
+@media (max-width: 320px) {
+  .logo {
     width: 40vw;
   }
 
@@ -75,13 +75,13 @@
     width: 80vw;
   }
 
-  .botao{
+  .botao {
     height: 2em;
     font-size: 0.9em;
   }
 }
 
-@media (min-width: 1701px) { 
+@media (min-width: 1701px) {
   .logo {
     width: 15vw;
   }
@@ -95,34 +95,34 @@
     padding: 2em;
   }
 
-  .container-form label{
+  .container-form label {
     font-size: 2em;
   }
 
-  .container-form input{
+  .container-form input {
     height: 3em;
     font-size: 1.5em;
   }
 
-  .container-form input::placeholder{
+  .container-form input::placeholder {
     font-size: 1.2em;
   }
 
-  .botao{
+  .botao {
     height: 2.3em;
     font-size: 1.8em;
   }
 
-  .link{
+  .link {
     font-size: 1.5em;
   }
 
-  .caixa-mensagem{
+  .caixa-mensagem {
     height: 1.9em;
     font-size: 1.4em;
   }
 
-  .texto{
+  .texto {
     font-size: 1.7em;
   }
 }
