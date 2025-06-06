@@ -12,7 +12,7 @@
                     <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">
                         Por favor, preencha o login
                     </p>
-                    <p class="erro" style="margin-top: 0.5em;" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">
+                    <p class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">
                         Login deve conter letras, pode ter números, pontos e underlines
                     </p>
                 </div>
@@ -26,7 +26,7 @@
                         {{ showPassword ? 'visibility_off' : 'visibility'}} 
                     </span>
                 </div>
-                <div class="caixa-mensagem" style="height: 1.5em;">
+                <div class="caixa-mensagem">
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">
                         Por favor, preencha a senha
                     </p>

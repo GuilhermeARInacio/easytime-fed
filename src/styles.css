@@ -129,12 +129,13 @@ router-outlet {
 }
 
 .caixa-mensagem {
+  height: fit-content;
+  width: 100%;
   font-size: 0.75em;
   text-align: center;
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-  height: 1em;
-  width: 100%;
+  margin-top: 0.8em;
+  margin-bottom: 1em;
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,7 +304,6 @@ input.shake {
   }
 
   .caixa-mensagem {
-    height: 1.9em;
     font-size: 1.3em;
   }
 
