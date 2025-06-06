@@ -229,7 +229,7 @@ input.shake {
     font-size: 1em;
   }
 
-  .container-form {
+  .container-form input{
     height: 3em;
   }
 
