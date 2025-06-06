@@ -12,7 +12,7 @@
                     [class.invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched" />
                 <div class="caixa-mensagem">
                     <p class="erro" *ngIf="formulario.get('email')?.errors?.['required'] && formulario.get('email')?.touched">
-                        E-mail é obrigatório
+                        Por favor, preencha o e-mail
                     </p>
                     <p class="erro" *ngIf="formulario.get('email')?.errors?.['email'] && formulario.get('email')?.touched">
                         Formato de e-mail inválido

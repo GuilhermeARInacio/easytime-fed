@@ -10,7 +10,7 @@
                     [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched" />
                 <div class="caixa-mensagem">
                     <p class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched">
-                        Login é obrigatório
+                        Por favor, preencha o login
                     </p>
                     <p class="erro" style="margin-top: 0.5em;" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched">
                         Login deve conter letras, pode ter números, pontos e underlines
@@ -28,13 +28,13 @@
                 </div>
                 <div class="caixa-mensagem" style="height: 1.5em;">
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">
-                        Senha é obrigatória
+                        Por favor, preencha a senha
                     </p>
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">
-                        A senha precisa conter pelo menos 8 digitos
+                        A senha deve conter pelo menos 8 digitos
                     </p>
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">
-                        A senha precisa de pelo menos uma letra, um número e um simbolo
+                        A senha deve conter ao menos uma letra, um número e um caractere especial.
                     </p>
 
                     <p class="erro" *ngIf="error != null">{{ error }}</p>

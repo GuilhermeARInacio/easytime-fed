@@ -11,8 +11,8 @@
                 <label for="codigo">Código</label>
                 <input style="text-transform: uppercase;" class="input-codigo" name="codigo" maxlength="8" type="text" placeholder="Código" formControlName="codigo" [class.shake]="shakeFields['codigo']" [class.invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"/>
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['required'] && formulario.get('codigo')?.touched">O código é obrigatório</p>
-                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['minlength'] && formulario.get('codigo')?.touched">O código precisa ter pelo menos 8 caractéres</p>
+                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['required'] && formulario.get('codigo')?.touched">Por favor, preencha o código</p>
+                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['minlength'] && formulario.get('codigo')?.touched">O código deve ter 8 caractéres</p>
                     <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['maxlength'] && formulario.get('codigo')?.touched">O código só pode ter 8 caracteres</p>
                 </div>
 
@@ -20,7 +20,7 @@
                 <label for="novaSenha">Nova senha</label>
                 <input name="novaSenha" type="{{ showPassword ? 'text' : 'password' }}" placeholder="Nova senha" formControlName="novaSenha" [class.shake]="shakeFields['novaSenha']" [class.invalid]="formulario.get('novaSenha')?.invalid && formulario.get('novaSenha')?.touched"/>
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('novaSenha')?.errors?.['required'] && formulario.get('novaSenha')?.touched">A nova senha é obrigatória</p>
+                    <p class="erro" *ngIf="formulario.get('novaSenha')?.errors?.['required'] && formulario.get('novaSenha')?.touched">Por favor, preencha a senha</p>
                 </div>
 
 
