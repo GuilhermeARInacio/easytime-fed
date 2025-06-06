@@ -34,7 +34,7 @@
                         A senha deve conter pelo menos 8 digitos
                     </p>
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">
-                        A senha deve conter ao menos uma letra, um número e um caractere especial.
+                        A senha deve conter ao menos uma letra, um número e um caractére especial.
                     </p>
 
                     <p class="erro" *ngIf="error != null">{{ error }}</p>
