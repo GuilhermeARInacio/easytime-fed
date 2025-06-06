@@ -229,6 +229,10 @@ input.shake {
     font-size: 1em;
   }
 
+  .container-form {
+    height: 3em;
+  }
+
   .texto {
     font-size: 0.8em;
   }
