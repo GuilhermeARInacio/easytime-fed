@@ -1,3 +1,3 @@
 export interface BaterPonto {
-    login: string;
+    horarioAtual: string;
 }

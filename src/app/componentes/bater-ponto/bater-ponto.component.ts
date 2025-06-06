@@ -38,7 +38,7 @@ export class BaterPontoComponent {
 
   baterPonto(){
     const ponto = {
-      login: localStorage.getItem('login') || ''
+      horarioAtual: this.horarioAtual
     }
     this.pontoService.baterPonto(ponto).subscribe({
       next: (response) => {
