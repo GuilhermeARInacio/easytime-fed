@@ -30,7 +30,7 @@
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">
                         Por favor, preencha a senha
                     </p>
-                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minLength'] && formulario.get('senha')?.touched">
+                    <p class="erro" *ngIf="formulario.get('senha')?.errors?.['minlength'] && formulario.get('senha')?.touched">
                         A senha deve conter pelo menos 8 digitos
                     </p>
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['senhaValidacao'] && formulario.get('senha')?.touched">

@@ -48,7 +48,7 @@ body {
   font-size: 1em;
   font-weight: 400;
   margin: 0.2em;
-  margin-bottom: 2.5em;
+  margin-bottom: 2em;
 }
 
 .display-flex {
@@ -119,7 +119,7 @@ router-outlet {
 }
 
 .link {
-  margin-top: 1em;
+  margin-top: 0.8em;
   text-decoration: none;
   font-size: 0.9em;
   cursor: pointer;
@@ -166,7 +166,7 @@ input.shake {
 
 @media (max-width: 1500px) {
   .logo {
-    width: 15vw;
+    width: 14vw;
   }
 
   .caixa-mensagem {
