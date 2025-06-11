@@ -1,11 +1,11 @@
 <section class="section ff-inter">
-    <div class="display-flex section">
+    <div class="center section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
         <p class="subtitulo">Sistema de ponto eletrônico</p>
 
-        <div class="display-flex container-form">
+        <div class="center container-form">
             <p class="texto text-center">Digite um email válido para receber o código para troca de senha</p>
-            <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarEmail()">
+            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarEmail()">
                 <label for="email">E-mail</label>
                 <input name="email" type="email" placeholder="E-mail" formControlName="email"
                     [class.shake]="shakeFields['email']"

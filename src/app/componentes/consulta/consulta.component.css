@@ -1,0 +1,80 @@
+.data{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+
+.data span{
+    width: 50%;
+}
+
+.data input{
+    width: 100%;
+    height: 2.5em;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    margin-top: 1em;
+}
+
+.texto{
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    margin-left: 0;
+}
+
+.botoes{
+    width: fit-content;
+    gap: 1em;
+    align-items: center;
+    margin-top: 1em;
+    align-self: flex-end;
+}
+
+.botao{
+    width: 8em;
+    height: 2.5em;
+    font-weight: 600;
+    font-size: 1em;
+    margin: 0;
+}
+
+.exportar{
+    background-color: #69b46c; /* Green */
+    color: white;
+    border: none;
+}
+
+.exportar:hover{
+    background-color: #5a9b5f; /* Darker green */
+}
+
+.tabela{
+    width: 100%;
+    margin-top: 2em;
+    
+}
+
+.tabela table{
+    border-collapse: collapse;
+    border-radius: 5px;
+
+    box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+    -webkit-box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+    -moz-box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+}
+
+.tabela th, .tabela td{
+    padding: 1em;
+    text-align: center;
+}
+
+.tabela th{
+    border-bottom: 1px solid #ccc;
+}
+
+.tabela td{
+    border-top: 1px solid #ccc;
+}
+

@@ -1,12 +1,12 @@
 <section class="section ff-inter">
-    <div class="display-flex section">
+    <div class="center section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
         <p class="subtitulo">Sistema de ponto eletrônico</p>
 
-        <div class="display-flex container-form">
+        <div class="center container-form">
             <p class="texto text-center">Digite o código e a nova senha</p>
 
-            <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()">
+            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()">
                 
                 <label for="codigo">Código</label>
                 <input style="text-transform: uppercase;" class="input-codigo" name="codigo" maxlength="8" type="text" placeholder="Código" formControlName="codigo" [class.shake]="shakeFields['codigo']" [class.invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"/>

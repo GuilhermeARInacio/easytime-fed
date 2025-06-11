@@ -1,10 +1,10 @@
 <section class="section ff-inter">
-    <div class="display-flex section">
+    <div class="center section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
         <p class="subtitulo">Sistema de ponto eletrônico</p>
 
-        <div class="display-flex container-form">
-            <form class="display-flex" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
+        <div class="center container-form">
+            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarLogin()">
                 <label for="login">Login</label>
                 <input name="login" formControlName="login" placeholder="Login" [class.shake]="shakeFields['login']"
                     [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched" />
