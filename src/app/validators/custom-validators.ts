@@ -62,3 +62,17 @@ export function senhaValidacao(control: AbstractControl): ValidationErrors | nul
   }
   return { senhaValidacao: true };
 }
+
+export function validarDatas(inicio: string, final: string): ValidationErrors | null {
+  if (!final || !inicio) {
+    return null;
+  }
+
+  const finalFormatada = new Date(final);
+  const inicioFormatada = new Date(inicio);
+
+  if (finalFormatada < inicioFormatada) {
+    return { dataValida: true };
+  }
+  return null;
+}

@@ -7,7 +7,6 @@ import { temLetraValidacao, temEspecialValidacao, senhasIguaisValidacao, temNume
 import { NotificacaoComponent } from '../notificacao/notificacao.component';
 import { NotificacaoService } from '../../service/notificacao/notificacao.service';
 import { Notificacao } from '../../interface/notificacao';
-import { not } from 'rxjs/internal/util/not';
 
 @Component({
   selector: 'app-trocar-senha',

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PontoService } from '../../service/ponto/ponto.service';
-import { platformBrowser } from '@angular/platform-browser';
 import { NotificacaoComponent } from "../notificacao/notificacao.component";
 
 @Component({
@@ -90,4 +89,8 @@ export class BaterPontoComponent {
     });
   }
 
+
+  consultar(){
+    this.router.navigate(['/consulta']);
+  }
 }

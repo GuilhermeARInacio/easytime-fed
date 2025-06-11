@@ -1,11 +1,98 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { UsuarioService } from '../../service/usuario/usuario.service';
+import { RegistroPonto } from '../../interface/registro-ponto';
+import { validarDatas } from '../../validators/custom-validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
-  imports: [],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
 export class ConsultaComponent {
 
+  formulario!: FormGroup;
+  registros: RegistroPonto[] = [];
+  error: string | null = null;
+  sucesso: string | null = null;
+  shakeFields: { [key: string]: boolean } = {};
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService,
+    private notificacaoService: NotificacaoService,
+    private router: Router
+  ){}
+
+  ngOnInit() {
+    if(!localStorage.getItem('token')) {
+      this.router.navigate(['/login']);
+    }
+
+    this.formulario = this.formBuilder.group({
+      inicio: ['', Validators.required],
+      final: ['', Validators.required]
+    },
+    {    
+      validators: validarDatas('inicio', 'final')
+    });
+  }
+
+  consultar() {
+    this.error = null;
+    this.sucesso = null;
+    this.shakeFields = {};
+
+    if(this.formulario.valid){
+      const consultarRegistro = {
+        login: localStorage.getItem('login') || '',
+        dtInicio: this.formatarData(this.formulario.value.inicio),
+        dtFinal: this.formatarData(this.formulario.value.final)
+      }
+
+      console.log('Consultando registros:', consultarRegistro);
+
+      this.usuarioService.consultarPonto(consultarRegistro).subscribe({
+        next: (response) => {
+          this.registros = response;
+          console.log(this.registros);
+          this.sucesso = 'Registros consultados com sucesso.';
+          if (this.registros.length === 0) {
+            this.error = 'Nenhum registro encontrado para o período informado.';
+          }
+        },
+        error: (error) => {
+          this.error = error.error.message || 'Erro ao consultar registros.';
+        }
+      });
+    } else {
+      this.formulario.markAllAsTouched();
+
+      this.error = 'Por favor, preencha os campos corretamente.';
+      console.log(this.error);
+
+      Object.keys(this.formulario.controls).forEach((controlName) => {
+        const control = this.formulario.get(controlName);
+        if (control?.invalid) {
+          this.shakeFields[controlName] = true;
+
+          // Remove a classe após a animação (300ms)
+          setTimeout(() => {
+            this.shakeFields[controlName] = false;
+          }, 300);
+        }
+      });
+    }
+  }
+
+  formatarData(data: string): string {
+    if (!data) return '';
+
+    const [ano, mes, dia] = data.split('-');
+    return `${dia}/${mes}/${ano}`;
+  }
 }
