@@ -1,14 +1,15 @@
-import { NotificacaoService } from './../../service/notificacao/notificacao.service';
+import { NotificacaoService } from '../../service/notificacao/notificacao.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PontoService } from '../../service/ponto/ponto.service';
-import { NotificacaoComponent } from "../notificacao/notificacao.component";
+import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
 import { UsuarioService } from '../../service/usuario/usuario.service';
+import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
 
 @Component({
   selector: 'app-bater-ponto',
-  imports: [CommonModule, NotificacaoComponent],
+  imports: [CommonModule, NotificacaoComponent, MenuLateralComponent],
   templateUrl: './bater-ponto.component.html',
   styleUrl: './bater-ponto.component.css'
 })
@@ -61,7 +62,7 @@ export class BaterPontoComponent {
             this.error = 'Login expirado. Por favor, faça login novamente.';
 
             setInterval(() => {
-              this.usuarioService.sair();
+              this.sair();
             }, 1000);
           } else {
             this.error = err.error || 'Erro ao bater ponto. Tente novamente mais tarde.';
@@ -87,7 +88,8 @@ export class BaterPontoComponent {
   }
 
   sair(){
-    this.usuarioService.sair();
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   consultar(){

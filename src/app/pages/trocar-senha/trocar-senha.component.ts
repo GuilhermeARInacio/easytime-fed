@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../service/usuario/usuario.service';
 import { temLetraValidacao, temEspecialValidacao, senhasIguaisValidacao, temNumeroValidacao } from '../../validators/custom-validators';
-import { NotificacaoComponent } from '../notificacao/notificacao.component';
+import { NotificacaoComponent } from '../../componentes/notificacao/notificacao.component';
 import { NotificacaoService } from '../../service/notificacao/notificacao.service';
 import { Notificacao } from '../../interface/notificacao';
 

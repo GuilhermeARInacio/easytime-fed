@@ -6,10 +6,11 @@ import { UsuarioService } from '../../service/usuario/usuario.service';
 import { RegistroPonto } from '../../interface/registro-ponto';
 import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
+import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
 
 @Component({
   selector: 'app-consulta',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
@@ -80,7 +81,7 @@ export class ConsultaComponent {
             this.error = error.error.message || 'Login expirado. Por favor, faça login novamente.';
             
             setInterval(() => {
-              this.usuarioService.sair();
+              this.sair();
             }, 1000);
           }
           this.error = error.error.message || 'Erro ao consultar registros.';
@@ -109,5 +110,10 @@ export class ConsultaComponent {
 
     const [ano, mes, dia] = data.split('-');
     return `${dia}/${mes}/${ano}`;
+  }
+
+  sair() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

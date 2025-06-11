@@ -1,0 +1,44 @@
+<div class="menu-lateral menu-lateral--collapsed">
+    <span (click)="toggleMenu()" class="material-symbols-outlined icone-menu">
+        menu
+    </span>
+
+    <div class="links">
+        <ul>
+            <li>
+                <a (click)="navegarParaBaterPonto()" class="icone-menu">
+                    <span class="material-symbols-outlined">
+                        schedule
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a (click)="navegarParaConsulta()" class="icone-menu">
+                    <span class="material-symbols-outlined">
+                        receipt_long
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <a (click)="sair()" class="icone-menu icone-sair">
+            <span class="material-symbols-outlined">
+                logout
+            </span>
+        </a>
+    </div>
+    <!-- <div class="menu-lateral__header">
+        <h1>Menu Lateral</h1>
+    </div>
+    <nav class="menu-lateral__nav">
+        <ul>
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/consulta">Consulta de Ponto</a></li>
+            <li><a routerLink="/cadastro">Cadastro de Ponto</a></li>
+            <li><a routerLink="/relatorios">Relatórios</a></li>
+            <li><a routerLink="/configuracoes">Configurações</a></li>
+        </ul>
+    </nav> -->
+</div>
+
+

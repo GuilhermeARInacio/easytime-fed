@@ -24,11 +24,6 @@ export class UsuarioService {
     });
   }
 
-  sair() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
-
   enviarCodigo(email: { email: string }): Observable<string> {
     return this.http.post<string>(`${this.API_URL}senha/enviar-codigo`, email, { 
       responseType: 'text' as 'json',
