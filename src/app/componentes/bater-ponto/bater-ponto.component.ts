@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PontoService } from '../../service/ponto/ponto.service';
 import { NotificacaoComponent } from "../notificacao/notificacao.component";
+import { UsuarioService } from '../../service/usuario/usuario.service';
 
 @Component({
   selector: 'app-bater-ponto',
@@ -21,7 +22,8 @@ export class BaterPontoComponent {
   constructor(
     private router : Router,
     private pontoService: PontoService,
-    private notificacaoService: NotificacaoService
+    private notificacaoService: NotificacaoService,
+    private usuarioService: UsuarioService
   ){}
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class BaterPontoComponent {
             this.error = 'Login expirado. Por favor, faça login novamente.';
 
             setInterval(() => {
-              this.sair();
+              this.usuarioService.sair();
             }, 1000);
           } else {
             this.error = err.error || 'Erro ao bater ponto. Tente novamente mais tarde.';
@@ -75,11 +77,6 @@ export class BaterPontoComponent {
     });
   }
 
-  sair() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
-
   atualizarHorario() {
     const agora = new Date();
     this.horarioAtual = agora.toLocaleTimeString('pt-BR', {
@@ -89,6 +86,9 @@ export class BaterPontoComponent {
     });
   }
 
+  sair(){
+    this.usuarioService.sair();
+  }
 
   consultar(){
     this.router.navigate(['/consulta']);

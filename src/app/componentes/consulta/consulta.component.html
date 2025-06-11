@@ -12,14 +12,11 @@
                         <span class="display-column">
                             <label for="inicio">Data de inicio</label>
                             <input type="date" name="inicio" formControlName="inicio" 
-                                   [class.shake]="shakeFields['inicio']" [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched">
+                                   [class.shake]="shakeFields['inicio']" [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
 
                             <div class="caixa-mensagem">
                                 <p class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched">
                                     Por favor, preencha a data de início
-                                </p>
-                                <p class="erro" *ngIf="formulario.errors?.['validarDatas'] && formulario.get('final')?.touched">
-                                    A data de início deve ser anterior à data de fim
                                 </p>
                             </div>
                         </span>
@@ -27,16 +24,21 @@
                         <span class="display-column">
                             <label for="final">Data de fim</label>
                             <input type="date"name="final" formControlName="final" 
-                                   [class.shake]="shakeFields['final']" [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched">
+                                   [class.shake]="shakeFields['final']" [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
 
                             <div class="caixa-mensagem">
-                                <p class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched">
+                                <p class="erro" *ngIf="formulario.get('final')?.errors?.['required'] && formulario.get('final')?.touched">
                                     Por favor, preencha a data final
                                 </p>
                             </div>
                         </span>
                     </div>
-    
+
+                    <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.get('inicio')?.touched && formulario.get('final')?.touched">
+                        <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']"> A data de início deve ser anterior à data final </p> <br>
+                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas devem ser anteriores à data atual </p>
+                    </div>
+
                     <div class="botoes display-row">
                         <button class="botao" type="submit">Consultar</button>
                         <button class="botao exportar"> Exportar </button>
@@ -44,7 +46,7 @@
                 </form>
             </div>
 
-            <div class="caixa-mensagem" *ngIf="registros.length === 0">
+            <div class="caixa-mensagem" *ngIf="registros.length === 0 && error">
                 <p class="erro"> {{ error }}</p>
             </div>
 
@@ -72,6 +74,7 @@
                             <td>{{ registro.entrada3 }}</td>
                             <td>{{ registro.saida3 }}</td>
                             <td>{{ registro.horasTrabalhadas }}</td>
+                            <td>editar</td>
                         </tr>
                     </tbody>
                 </table>

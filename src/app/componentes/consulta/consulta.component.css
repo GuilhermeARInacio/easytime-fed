@@ -30,6 +30,8 @@ form{
     margin-left: 0;
 }
 
+.caixa-mensagem{}
+
 .botoes{
     width: fit-content;
     gap: 1em;

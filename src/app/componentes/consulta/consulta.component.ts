@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NotificacaoService } from '../../service/notificacao/notificacao.service';
 import { UsuarioService } from '../../service/usuario/usuario.service';
 import { RegistroPonto } from '../../interface/registro-ponto';
-import { validarDatas } from '../../validators/custom-validators';
+import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -38,7 +38,17 @@ export class ConsultaComponent {
       final: ['', Validators.required]
     },
     {    
-      validators: validarDatas('inicio', 'final')
+      validators: Validators.compose([
+        dataFinalAntesDeInicio('inicio', 'final'),
+        datasDepoisDeDataAtual('inicio', 'final')
+      ])
+    });
+
+    this.formulario.get('inicio')?.valueChanges.subscribe(() => {
+      this.error = null;
+    });
+    this.formulario.get('final')?.valueChanges.subscribe(() => {
+      this.error = null;
     });
   }
 
@@ -66,14 +76,19 @@ export class ConsultaComponent {
           }
         },
         error: (error) => {
+          if( error.status === 401) {
+            this.error = error.error.message || 'Login expirado. Por favor, faça login novamente.';
+            
+            setInterval(() => {
+              this.usuarioService.sair();
+            }, 1000);
+          }
           this.error = error.error.message || 'Erro ao consultar registros.';
         }
       });
     } else {
+      console.log('Formulário inválido:', this.formulario.errors);
       this.formulario.markAllAsTouched();
-
-      this.error = 'Por favor, preencha os campos corretamente.';
-      console.log(this.error);
 
       Object.keys(this.formulario.controls).forEach((controlName) => {
         const control = this.formulario.get(controlName);

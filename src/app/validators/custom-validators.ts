@@ -63,16 +63,37 @@ export function senhaValidacao(control: AbstractControl): ValidationErrors | nul
   return { senhaValidacao: true };
 }
 
-export function validarDatas(inicio: string, final: string): ValidationErrors | null {
-  if (!final || !inicio) {
+export function dataFinalAntesDeInicio(inicio: string, final: string): ValidatorFn {
+  return (formulario: AbstractControl): ValidationErrors | null => {
+    const dtFinal = new Date(formulario.get('final')?.value);
+    const dtInicio = new Date(formulario.get('inicio')?.value);
+
+    if (!dtFinal || !dtInicio || isNaN(dtFinal.getTime()) || isNaN(dtInicio.getTime())) {
+      return null;
+    }
+
+    if (dtFinal < dtInicio) {
+      return { dataFinalAntesDeInicio: true };
+    }
+
     return null;
-  }
+  };
+}
 
-  const finalFormatada = new Date(final);
-  const inicioFormatada = new Date(inicio);
+export function datasDepoisDeDataAtual(inicio: string, final: string): ValidatorFn {
+  return (formulario: AbstractControl): ValidationErrors | null => {
+    const dtFinal = new Date(formulario.get('final')?.value);
+    const dtInicio = new Date(formulario.get('inicio')?.value);
 
-  if (finalFormatada < inicioFormatada) {
-    return { dataValida: true };
-  }
-  return null;
+    if (!dtFinal || !dtInicio) {
+      return null;
+    }
+
+    const dataAtual = new Date();
+    if (dtInicio > dataAtual || dtFinal > dataAtual) {
+      return { datasDepoisDeDataAtual: true };
+    }
+
+    return null;
+  };
 }
