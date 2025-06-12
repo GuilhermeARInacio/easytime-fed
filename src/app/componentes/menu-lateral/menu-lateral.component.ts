@@ -38,8 +38,12 @@ export class MenuLateralComponent {
 
   toggleMenu() {
     const menu = document.querySelector('.menu-lateral');
+    const menuSuspenso = document.querySelector('.menu-suspenso');
+
     if (menu) {
       menu.classList.toggle('menu-lateral--collapsed');
+      menuSuspenso?.classList.toggle('menu-suspenso--shown');
+      
       this.menuColapsado = !this.menuColapsado;
     }
   }

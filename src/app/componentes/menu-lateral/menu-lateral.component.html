@@ -1,4 +1,11 @@
 <div class="overlay" *ngIf="!menuColapsado" (click)="toggleMenu()"></div>
+<div class="menu-suspenso">
+    <div (click)="toggleMenu()" class="menu-botao">
+        <span class="material-symbols-outlined icone-menu">
+            menu
+        </span>
+    </div>
+</div>
 <div class="menu-lateral menu-lateral--collapsed">
     <div (click)="toggleMenu()" class="menu-group display-row menu-botao">
         <span class="material-symbols-outlined icone-menu">
