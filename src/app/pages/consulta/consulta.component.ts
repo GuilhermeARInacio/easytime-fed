@@ -112,6 +112,14 @@ export class ConsultaComponent {
     return `${dia}/${mes}/${ano}`;
   }
 
+  formatarDataRetorno(data: string): string {
+    if (!data) return '';
+
+    const [dia, mes, ano] = data.split('/');
+    const anoCurto = ano.slice(-2); // pega os dois últimos dígitos
+    return `${dia}/${mes}/${anoCurto}`;
+  }
+
   sair() {
     localStorage.clear();
     this.router.navigate(['/login']);

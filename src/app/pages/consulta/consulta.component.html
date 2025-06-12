@@ -1,9 +1,6 @@
 <section class="section ff-inter">
     <div class="center section">
         <app-menu-lateral></app-menu-lateral>
-
-        <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
-        <p class="subtitulo">Sistema de ponto eletrônico</p>
     
         <div class="container">
             <div class="display-column">
@@ -57,18 +54,18 @@
                     <thead>
                         <tr>
                             <th>Data</th>
-                            <th>Entrada 1</th>
-                            <th>Saída 1</th>
-                            <th>Entrada 2</th>
-                            <th>Saida 2</th>
-                            <th>Entrada 3</th>
-                            <th>Saida 3</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Entrada</th>
+                            <th>Saida</th>
+                            <th>Entrada</th>
+                            <th>Saida</th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let registro of registros">
-                            <td>{{ registro.data }}</td>
+                            <td>{{ formatarDataRetorno(registro.data) }}</td>
                             <td>{{ registro.entrada1 }}</td>
                             <td>{{ registro.saida1 }}</td>
                             <td>{{ registro.entrada2 }}</td>
@@ -76,7 +73,7 @@
                             <td>{{ registro.entrada3 }}</td>
                             <td>{{ registro.saida3 }}</td>
                             <td>{{ registro.horasTrabalhadas }}</td>
-                            <td>
+                            <td class="editar-cel">
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>

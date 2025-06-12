@@ -93,3 +93,108 @@ form{
     cursor: pointer;
 }
 
+.editar-cel{
+    width: 1em;
+    padding: 0.3em;
+}
+
+.editar-cel span{
+    font-size: 1.5em;
+}
+
+@media (max-width: 1200px) {
+    .container{
+        width: 80%;
+    }
+
+    .botao{
+        width: 7em;
+        font-size: 0.9em;
+        padding: 0.5em;
+    }
+    
+    .tabela th{
+        min-width: 6em;
+        padding: 0.5em;
+        font-size: 0.9em;
+    }
+
+    .tabela td{
+        font-size: 0.8em;
+        padding: 0.7em;
+    }
+}
+
+@media (max-width: 992px) {
+    .texto{
+        font-size: 1em;
+    }
+
+    .data label{
+        font-size: 0.8em;
+    }
+
+    .data input{
+        height: 2em;
+        font-size: 1em;
+    }
+
+    .tabela th{
+        min-width: 5em;
+        padding: 0.5em;
+        font-size: 0.8em;
+    }
+
+    .tabela td{
+        font-size: 0.7em;
+        padding: 0.6em;
+    }
+
+    .editar-cel{
+        width: fit-content;
+    }
+
+    .editar-cel span{
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container{
+        width: 90%;
+        height: 90%;
+        margin-top: 4em;
+    }
+
+    .botoes{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .botao{
+        width: 100%;
+        height: 2em;
+        font-size: 0.9em;
+    }
+
+    .tabela th{
+        min-width: 4em;
+        font-size: 0.6em;
+    }
+
+    .tabela td{
+        font-size: 0.5em;
+    }
+
+    .editar-cel span{
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 320px) {
+  
+}
+
+@media (min-width: 1701px) {
+
+}
