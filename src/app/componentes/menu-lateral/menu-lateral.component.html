@@ -1,44 +1,34 @@
+<div class="overlay" *ngIf="!menuColapsado" (click)="toggleMenu()"></div>
 <div class="menu-lateral menu-lateral--collapsed">
-    <span (click)="toggleMenu()" class="material-symbols-outlined icone-menu">
-        menu
-    </span>
+    <div (click)="toggleMenu()" class="menu-group display-row menu-botao">
+        <span class="material-symbols-outlined icone-menu">
+            menu
+        </span>
+        <p class="menu-legenda" *ngIf="!menuColapsado">Menu</p>
+    </div>
 
-    <div class="links">
+    <div class="menu-list">
         <ul>
-            <li>
-                <a (click)="navegarParaBaterPonto()" class="icone-menu">
-                    <span class="material-symbols-outlined">
-                        schedule
-                    </span>
-                </a>
+            <li class="display-row menu-botao" (click)="navegarParaBaterPonto()" [ngClass]="{'ativo': rotaAtual === '/bater-ponto'}">
+                <span class="material-symbols-outlined icone-menu">
+                    schedule
+                </span>
+                <p class="menu-legenda" *ngIf="!menuColapsado">Bater Ponto</p>
             </li>
-            <li>
-                <a (click)="navegarParaConsulta()" class="icone-menu">
-                    <span class="material-symbols-outlined">
-                        receipt_long
-                    </span>
-                </a>
+            <li (click)="navegarParaConsulta()" class="display-row menu-botao" [ngClass]="{'ativo': rotaAtual === '/consulta'}">
+                <span class="material-symbols-outlined icone-menu">
+                    receipt_long
+                </span>
+                <p class="menu-legenda" *ngIf="!menuColapsado">Consultar registros</p>
+            </li>
+            <li (click)="sair()" class="display-row menu-botao">
+                <span  class="material-symbols-outlined icone-menu icone-sair">
+                    logout
+                </span>
+                <p class="menu-legenda" *ngIf="!menuColapsado">Sair</p>
             </li>
         </ul>
-
-        <a (click)="sair()" class="icone-menu icone-sair">
-            <span class="material-symbols-outlined">
-                logout
-            </span>
-        </a>
     </div>
-    <!-- <div class="menu-lateral__header">
-        <h1>Menu Lateral</h1>
-    </div>
-    <nav class="menu-lateral__nav">
-        <ul>
-            <li><a routerLink="/home">Home</a></li>
-            <li><a routerLink="/consulta">Consulta de Ponto</a></li>
-            <li><a routerLink="/cadastro">Cadastro de Ponto</a></li>
-            <li><a routerLink="/relatorios">Relatórios</a></li>
-            <li><a routerLink="/configuracoes">Configurações</a></li>
-        </ul>
-    </nav> -->
 </div>
 
 

@@ -84,3 +84,12 @@ form{
     border-top: 1px solid #ccc;
 }
 
+.tabela td span{
+    color: #252d38;
+}
+
+.tabela td span:hover{
+    color: #1a4a9c;
+    cursor: pointer;
+}
+

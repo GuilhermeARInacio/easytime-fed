@@ -36,7 +36,7 @@
                         </span>
                     </div>
 
-                    <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.get('inicio')?.touched && formulario.get('final')?.touched">
+                    <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.errors">
                         <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']"> A data de início deve ser anterior à data final </p> <br>
                         <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas devem ser anteriores à data atual </p>
                     </div>
@@ -76,7 +76,11 @@
                             <td>{{ registro.entrada3 }}</td>
                             <td>{{ registro.saida3 }}</td>
                             <td>{{ registro.horasTrabalhadas }}</td>
-                            <td>editar</td>
+                            <td>
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,18 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-lateral',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './menu-lateral.component.html',
   styleUrl: './menu-lateral.component.css'
 })
 export class MenuLateralComponent {
   menuColapsado: boolean = true;
+  rotaAtual: string = '';
 
   constructor(
     private router: Router
-  ){}
+  ){
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd){
+        this.rotaAtual = e.urlAfterRedirects;
+      }
+    })
+  }
 
   sair(){
     localStorage.clear();
@@ -29,7 +37,6 @@ export class MenuLateralComponent {
   }
 
   toggleMenu() {
-    console.log('Toggling menu');
     const menu = document.querySelector('.menu-lateral');
     if (menu) {
       menu.classList.toggle('menu-lateral--collapsed');
