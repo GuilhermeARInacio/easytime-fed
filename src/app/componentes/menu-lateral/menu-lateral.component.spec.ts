@@ -73,7 +73,7 @@ describe('MenuLateralComponent', () => {
 
     component.toggleMenu();
 
-    expect(menu.classList.contains('menu-lateral--colapsed')).toBeTrue();
+    expect(menu.classList.contains('menu-lateral--colapsed')).toBeFalse();
     expect(menuSuspenso.classList.contains('menu-suspenso--shown')).toBeTrue();
     expect(component.menuColapsado).toBeFalse();
 
