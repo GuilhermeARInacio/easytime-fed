@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificacaoService } from '../../service/notificacao/notificacao.service';
-import { UsuarioService } from '../../service/usuario/usuario.service';
 import { RegistroPonto } from '../../interface/registro-ponto';
 import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
 import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
 import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
+import { PontoService } from '../../service/ponto/ponto.service';
 
 @Component({
   selector: 'app-consulta',
@@ -25,7 +25,7 @@ export class ConsultaComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
+    private pontoService: PontoService,
     private notificacaoService: NotificacaoService,
     private router: Router
   ){}
@@ -67,7 +67,7 @@ export class ConsultaComponent {
         dtFinal: this.formatarData(this.formulario.value.final)
       }
 
-      this.usuarioService.consultarPonto(consultarRegistro).subscribe({
+      this.pontoService.consultarPonto(consultarRegistro).subscribe({
         next: (response) => {
           this.registros = response;
 
@@ -86,11 +86,22 @@ export class ConsultaComponent {
         },
         error: (error) => {
           if( error.status === 401) {
-            this.error = error.error || 'Login expirado. Por favor, faça login novamente.';
+            this.error = 'Login expirado. Por favor, faça login novamente.';
             
-            setInterval(() => {
+            this.notificacaoService.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: 'Login expirado. Por favor, faça login novamente.',
+              tipo: 'erro',
+              icon: ''
+            });
+
+            setTimeout(() => {
               this.sair();
             }, 1000);
+          }
+          if(error.error.includes('Nenhum registro')){
+            this.error = 'Nenhum registro encontrado para o período informado.';
+            return;
           }
           
           this.error = error.error || 'Erro ao consultar registros.';

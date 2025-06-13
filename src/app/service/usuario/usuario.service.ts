@@ -37,8 +37,4 @@ export class UsuarioService {
       context: new HttpContext().set(IGNORAR_INTERCPTOR, true) 
     });
   }
-
-  consultarPonto(consultarResgistros: ConsultaRegistros): Observable<RegistroPonto[]> {
-    return this.http.put<RegistroPonto[]>(`${this.API_URL}ponto/consulta`, consultarResgistros, { });
-  }
 }
