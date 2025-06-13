@@ -66,7 +66,7 @@ describe('ConsultaComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  it('deve chamar pontoService.consultarPonto e abrir notificação de sucesso', () => {
+  it('deve chamar pontoService.consultarPonto e abrir notificação de sucesso', fakeAsync(() => {
     spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
     component.formulario.get('inicio')?.setValue('2025-06-01');
     component.formulario.get('final')?.setValue('2025-06-10');
@@ -96,16 +96,17 @@ describe('ConsultaComponent', () => {
       dtFinal: '10/06/2025'
     });
     
+    tick(1000);
     expect(component.error).toBeNull();
     expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
-      titulo: 'Consulta com sucesso',
+      titulo: 'Consulta bem sucedida',
       mensagem: 'Registros consultados com sucesso.',
       tipo: 'sucesso',
       icon: ''
     }));
-  });
+  }));
 
-  it('deve chamar pontoService.consultarPonto e retornar erro quando lista vazia', () => {
+  it('deve chamar pontoService.consultarPonto e retornar erro quando lista vazia', fakeAsync(() => {
     spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
     component.formulario.get('inicio')?.setValue('2025-06-01');
     component.formulario.get('final')?.setValue('2025-06-10');
@@ -120,9 +121,10 @@ describe('ConsultaComponent', () => {
       dtFinal: '10/06/2025'
     });
     
+    tick(1000);
     expect(component.registros.length).toBe(0);
     expect(component.error).toBe('Nenhum registro encontrado para o período informado.');
-  });
+  }));
 
   it('deve tratar erro 401 ao consultar e chamar sair', fakeAsync(() => {
     spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
@@ -150,7 +152,7 @@ describe('ConsultaComponent', () => {
     component.formulario.get('inicio')?.setValue('2025-06-01');
     component.formulario.get('final')?.setValue('2025-06-10');
     
-    pontoServiceSpy.consultarPonto.and.returnValue(throwError(() => ({ status: 400, error: 'Nenhum registro encontrado.' })));
+    pontoServiceSpy.consultarPonto.and.returnValue(throwError(() => ({ status: 400, error: 'Nenhum registro encontrado para o período informado.' })));
 
     component.consultar();
     expect(component.error).toBe('Nenhum registro encontrado para o período informado.');

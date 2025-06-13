@@ -103,6 +103,25 @@ form{
     font-size: 1.5em;
 }
 
+.spinner {
+  width: 1.5em;
+  height: 1.5em;
+  border: 3px solid #ccc;
+  border-top: 3px solid #427bee;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.caixa-mensagem{
+    margin-top: 1.5em;
+    height: 2em;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
 @media (max-width: 1200px) {
     .container{
         width: 80%;
