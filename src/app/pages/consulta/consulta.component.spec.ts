@@ -7,7 +7,6 @@ import { PontoService } from '../../service/ponto/ponto.service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormControl, FormGroup } from '@angular/forms';
 
 describe('ConsultaComponent', () => {
   let component: ConsultaComponent;
