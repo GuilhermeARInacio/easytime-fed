@@ -22,6 +22,7 @@ export class ConsultaComponent {
   error: string | null = null;
   sucesso: string | null = null;
   shakeFields: { [key: string]: boolean } = {};
+  carregando: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,27 +68,32 @@ export class ConsultaComponent {
         dtFinal: this.formatarData(this.formulario.value.final)
       }
 
+      this.carregando = true;
+
       this.pontoService.consultarPonto(consultarRegistro).subscribe({
         next: (response) => {
-          this.registros = response;
+          setTimeout(() => {
+            this.registros = response;
 
-          this.sucesso = 'Registros consultados com sucesso.';
+            this.sucesso = 'Registros consultados com sucesso.';
+            this.notificacaoService.abrirNotificacao({
+              titulo: 'Consulta bem sucedida',
+              mensagem: this.sucesso,
+              tipo: 'sucesso',
+              icon: ''
+            });
 
-          this.notificacaoService.abrirNotificacao({
-            titulo: 'Consulta com sucesso',
-            mensagem: this.sucesso,
-            tipo: 'sucesso',
-            icon: ''
-          });
+            this.carregando = false;
 
-          if (this.registros.length === 0) {
-            this.error = 'Nenhum registro encontrado para o período informado.';
-          }
+            if (this.registros.length === 0) {
+              this.error = 'Nenhum registro encontrado para o período informado.';
+            }
+          }, 1000)
         },
         error: (error) => {
           if( error.status === 401) {
             this.error = 'Login expirado. Por favor, faça login novamente.';
-            
+
             this.notificacaoService.abrirNotificacao({
               titulo: 'Erro',
               mensagem: 'Login expirado. Por favor, faça login novamente.',
@@ -99,8 +105,8 @@ export class ConsultaComponent {
               this.sair();
             }, 1000);
           }
-          if(error.error.includes('Nenhum registro')){
-            this.error = 'Nenhum registro encontrado para o período informado.';
+          if(error.error.includes('Nenhum ponto')){
+            this.error = 'Não existem registros de ponto para o período informado.';
             return;
           }
           
@@ -116,7 +122,6 @@ export class ConsultaComponent {
         if (control?.invalid) {
           this.shakeFields[controlName] = true;
 
-          // Remove a classe após a animação (300ms)
           setTimeout(() => {
             this.shakeFields[controlName] = false;
           }, 300);
