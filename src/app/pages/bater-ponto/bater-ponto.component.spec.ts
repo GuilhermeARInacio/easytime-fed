@@ -76,7 +76,15 @@ describe('BaterPontoComponent', () => {
 
     component.baterPonto();
 
-    expect(pontoServiceSpy.baterPonto).toHaveBeenCalledWith({ login: 'usuarioValido' });
+    expect(pontoServiceSpy.baterPonto).toHaveBeenCalledWith({ 
+      horarioAtual: new Date()
+      .toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }) 
+    });
+    
     expect(component.error).toBeNull();
     expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Registro de Ponto',

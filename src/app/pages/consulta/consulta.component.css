@@ -1,0 +1,240 @@
+.container{
+    width: 70%;
+}
+
+form{
+    display: contents;
+}
+
+.data{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+
+.data span{
+    width: 50%;
+}
+
+.data input{
+    width: 100%;
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.texto{
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    margin-left: 0;
+}
+
+.botoes{
+    width: fit-content;
+    gap: 1em;
+    align-items: center;
+    margin-top: 1em;
+    align-self: flex-end;
+}
+
+.botao{
+    width: 8em;
+    height: 2.5em;
+    font-weight: 600;
+    font-size: 1em;
+    margin: 0;
+}
+
+.exportar{
+    background-color: #69b46c; /* Green */
+    color: white;
+    border: none;
+}
+
+.exportar:hover{
+    background-color: #5a9b5f; /* Darker green */
+}
+
+.tabela{
+    width: 100%;
+    margin-top: 2em;
+    overflow-x: auto;
+}
+
+.tabela table{
+    border-collapse: collapse;
+    border-radius: 5px;
+    width: 100%;
+
+    box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+    -webkit-box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+    -moz-box-shadow: -1px 2px 22px 1px rgba(232,232,232,0.64);
+}
+
+.tabela th, .tabela td{
+    padding: 1em;
+    text-align: center;
+}
+
+.tabela th{
+    border-bottom: 1px solid #ccc;
+}
+
+.tabela td{
+    border-top: 1px solid #ccc;
+}
+
+.tabela td span{
+    color: #252d38;
+}
+
+.tabela td span:hover{
+    color: #1a4a9c;
+    cursor: pointer;
+}
+
+.editar-cel{
+    width: 1em;
+    padding: 0.3em;
+}
+
+.editar-cel span{
+    font-size: 1.5em;
+}
+
+@media (max-width: 1200px) {
+    .container{
+        width: 80%;
+    }
+
+    .botao{
+        width: 7em;
+        font-size: 0.9em;
+        padding: 0.5em;
+    }
+    
+    .tabela th{
+        min-width: 6em;
+        padding: 0.5em;
+        font-size: 0.9em;
+    }
+
+    .tabela td{
+        font-size: 0.8em;
+        padding: 0.7em;
+    }
+}
+
+@media (max-width: 992px) {
+    .texto{
+        font-size: 1em;
+    }
+
+    .data label{
+        font-size: 0.8em;
+    }
+
+    .data input{
+        height: 2em;
+        font-size: 1em;
+    }
+
+    .tabela th{
+        min-width: 5em;
+        padding: 0.5em;
+        font-size: 0.8em;
+    }
+
+    .tabela td{
+        font-size: 0.7em;
+        padding: 0.6em;
+    }
+
+    .editar-cel{
+        width: fit-content;
+    }
+
+    .editar-cel span{
+        font-size: 1.3em;
+    }
+}
+
+.tabela table {
+        min-width: 100px; /* ajuste conforme necessário */
+    }
+
+@media (max-width: 480px) {
+    .container{
+        width: 100vw;
+        height: 100vh;
+        padding-top: 4em;
+    }
+
+    .texto{
+        font-size: 0.9em;
+    }
+
+    .data label{
+        font-size: 0.em;
+    }
+
+    .data input {
+        font-size: 0.8em;
+    }
+
+    .botoes{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .botao{
+        width: 100%;
+        height: 2em;
+        font-size: 0.9em;
+    }
+
+    .tabela{
+        width: auto;  
+        display: flex;
+        align-items: flex-start
+    }
+
+    .tabela::-webkit-scrollbar {
+        height: 0.3em;
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .tabela::-webkit-scrollbar-thumb {
+        background: #b0b0b0;
+        border-radius: 4px;
+    }
+
+    .tabela::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    
+
+    .tabela th{
+        min-width: 4em;
+        font-size: 0.8em;
+    }
+
+    .tabela td{
+        font-size: 0.7em;
+    }
+
+    .editar-cel span{
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 320px) {
+  
+}
+
+@media (min-width: 1701px) {
+
+}

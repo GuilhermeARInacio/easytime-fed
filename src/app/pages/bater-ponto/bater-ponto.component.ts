@@ -1,14 +1,15 @@
-import { NotificacaoService } from './../../service/notificacao/notificacao.service';
+import { NotificacaoService } from '../../service/notificacao/notificacao.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PontoService } from '../../service/ponto/ponto.service';
-import { platformBrowser } from '@angular/platform-browser';
-import { NotificacaoComponent } from "../notificacao/notificacao.component";
+import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
+import { UsuarioService } from '../../service/usuario/usuario.service';
+import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
 
 @Component({
   selector: 'app-bater-ponto',
-  imports: [CommonModule, NotificacaoComponent],
+  imports: [CommonModule, NotificacaoComponent, MenuLateralComponent],
   templateUrl: './bater-ponto.component.html',
   styleUrl: './bater-ponto.component.css'
 })
@@ -22,7 +23,8 @@ export class BaterPontoComponent {
   constructor(
     private router : Router,
     private pontoService: PontoService,
-    private notificacaoService: NotificacaoService
+    private notificacaoService: NotificacaoService,
+    private usuarioService: UsuarioService
   ){}
 
   ngOnInit() {
@@ -76,11 +78,6 @@ export class BaterPontoComponent {
     });
   }
 
-  sair() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
-
   atualizarHorario() {
     const agora = new Date();
     this.horarioAtual = agora.toLocaleTimeString('pt-BR', {
@@ -90,4 +87,12 @@ export class BaterPontoComponent {
     });
   }
 
+  sair(){
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  consultar(){
+    this.router.navigate(['/consulta']);
+  }
 }

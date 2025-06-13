@@ -6,6 +6,9 @@ import { TrocarSenha } from '../../interface/trocar-senha';
 import { LoginResponse } from '../../interface/login-response';
 import { IGNORAR_INTERCPTOR } from '../../interceptor/token-validation.interceptor';
 import { environment } from '../../../environments/environment';
+import { RegistroPonto } from '../../interface/registro-ponto';
+import { ConsultaRegistros } from '../../interface/consulta-registros';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ import { environment } from '../../../environments/environment';
 export class UsuarioService {
   private API_URL = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(login: Login): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}login`, login, {

@@ -1,0 +1,89 @@
+<section class="section ff-inter">
+    <div class="center section">
+        <app-menu-lateral></app-menu-lateral>
+    
+        <div class="container">
+            <div class="display-column">
+                <p class="texto">Consultar ponto</p>
+
+                <form [formGroup]="formulario" (ngSubmit)="consultar()">
+                    <div class="data">
+                        <span class="display-column">
+                            <label for="inicio">Data de inicio</label>
+                            <input type="date" name="inicio" formControlName="inicio" 
+                                   [class.shake]="shakeFields['inicio']" [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+
+                            <div class="caixa-mensagem">
+                                <p class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched">
+                                    Por favor, preencha a data de início
+                                </p>
+                            </div>
+                        </span>
+        
+                        <span class="display-column">
+                            <label for="final">Data de fim</label>
+                            <input type="date"name="final" formControlName="final" 
+                                   [class.shake]="shakeFields['final']" [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+
+                            <div class="caixa-mensagem">
+                                <p class="erro" *ngIf="formulario.get('final')?.errors?.['required'] && formulario.get('final')?.touched">
+                                    Por favor, preencha a data final
+                                </p>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.errors">
+                        <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']"> A data de início deve ser anterior à data final </p> <br>
+                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas devem ser anteriores à data atual </p>
+                    </div>
+
+                    <div class="botoes display-row">
+                        <button class="botao" type="submit">Consultar</button>
+                        <button class="botao exportar"> Exportar </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="caixa-mensagem" *ngIf="registros.length === 0 && error">
+                <p class="erro"> {{ error }}</p>
+            </div>
+
+            <div class="tabela center" *ngIf="registros.length > 0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let registro of registros">
+                            <td>{{ formatarDataRetorno(registro.data) }}</td>
+                            <td>{{ registro.entrada1 }}</td>
+                            <td>{{ registro.saida1 }}</td>
+                            <td>{{ registro.entrada2 }}</td>
+                            <td>{{ registro.saida2 }}</td>
+                            <td>{{ registro.entrada3 }}</td>
+                            <td>{{ registro.saida3 }}</td>
+                            <td>{{ registro.horasTrabalhadas }}</td>
+                            <td class="editar-cel">
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <app-notificacao></app-notificacao>
+</section>
