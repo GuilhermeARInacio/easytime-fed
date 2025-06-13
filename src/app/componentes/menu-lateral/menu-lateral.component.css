@@ -131,7 +131,8 @@ ul {
     height: 10vh;
     display: flex;
 
-    background-color: white;
+    background-color: #1e88e5;
+    color: white;
     position: fixed;
     top: 0;
     left: 0;
@@ -151,6 +152,7 @@ ul {
   .menu-group{
     visibility: hidden;
     margin-bottom: 0.2em;
+    color: white;
   }
 
   .menu-suspenso .menu-botao{
@@ -162,6 +164,14 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .menu-suspenso .menu-botao:hover{
+    background-color: #1460a1;
+  }
+
+  .menu-suspenso .icone-menu{
+    color: white;
   }
 
   .menu-lateral{

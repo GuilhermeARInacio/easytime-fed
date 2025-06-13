@@ -7,10 +7,11 @@ import { RegistroPonto } from '../../interface/registro-ponto';
 import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
 import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
+import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
 
 @Component({
   selector: 'app-consulta',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent, NotificacaoComponent],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
@@ -57,6 +58,7 @@ export class ConsultaComponent {
     this.error = null;
     this.sucesso = null;
     this.shakeFields = {};
+    this.registros = [];
 
     if(this.formulario.valid){
       const consultarRegistro = {
@@ -65,26 +67,33 @@ export class ConsultaComponent {
         dtFinal: this.formatarData(this.formulario.value.final)
       }
 
-      console.log('Consultando registros:', consultarRegistro);
-
       this.usuarioService.consultarPonto(consultarRegistro).subscribe({
         next: (response) => {
           this.registros = response;
-          console.log(this.registros);
+
           this.sucesso = 'Registros consultados com sucesso.';
+
+          this.notificacaoService.abrirNotificacao({
+            titulo: 'Consulta com sucesso',
+            mensagem: this.sucesso,
+            tipo: 'sucesso',
+            icon: ''
+          });
+
           if (this.registros.length === 0) {
             this.error = 'Nenhum registro encontrado para o período informado.';
           }
         },
         error: (error) => {
           if( error.status === 401) {
-            this.error = error.error.message || 'Login expirado. Por favor, faça login novamente.';
+            this.error = error.error || 'Login expirado. Por favor, faça login novamente.';
             
             setInterval(() => {
               this.sair();
             }, 1000);
           }
-          this.error = error.error.message || 'Erro ao consultar registros.';
+          
+          this.error = error.error || 'Erro ao consultar registros.';
         }
       });
     } else {

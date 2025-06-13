@@ -59,6 +59,7 @@ form{
 .tabela{
     width: 100%;
     margin-top: 2em;
+    overflow-x: auto;
 }
 
 .tabela table{
@@ -159,11 +160,27 @@ form{
     }
 }
 
+.tabela table {
+        min-width: 100px; /* ajuste conforme necessário */
+    }
+
 @media (max-width: 480px) {
     .container{
-        width: 90%;
-        height: 90%;
-        margin-top: 4em;
+        width: 100vw;
+        height: 100vh;
+        padding-top: 4em;
+    }
+
+    .texto{
+        font-size: 0.9em;
+    }
+
+    .data label{
+        font-size: 0.em;
+    }
+
+    .data input {
+        font-size: 0.8em;
     }
 
     .botoes{
@@ -177,13 +194,36 @@ form{
         font-size: 0.9em;
     }
 
+    .tabela{
+        width: auto;  
+        display: flex;
+        align-items: flex-start
+    }
+
+    .tabela::-webkit-scrollbar {
+        height: 0.3em;
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .tabela::-webkit-scrollbar-thumb {
+        background: #b0b0b0;
+        border-radius: 4px;
+    }
+
+    .tabela::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    
+
     .tabela th{
         min-width: 4em;
-        font-size: 0.6em;
+        font-size: 0.8em;
     }
 
     .tabela td{
-        font-size: 0.5em;
+        font-size: 0.7em;
     }
 
     .editar-cel span{
