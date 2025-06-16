@@ -26,7 +26,7 @@
                         {{ showPassword ? 'visibility_off' : 'visibility'}} 
                     </span>
                 </div>
-                <div class="caixa-mensagem">
+                <div class="caixa-mensagem display-column">
                     <p class="erro" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">
                         Por favor, preencha a senha
                     </p>
