@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../service/usuario/usuario.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -25,6 +26,7 @@ export class ConsultaComponent {
   shakeFields: { [key: string]: boolean } = {};
   carregando: boolean = false;
   modalExportar: boolean = false;
+  usuario: string = localStorage.getItem('login') || '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -157,5 +159,5 @@ export class ConsultaComponent {
     this.router.navigate(['/login']);
   }
 
-  
+
 }

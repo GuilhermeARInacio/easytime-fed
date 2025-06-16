@@ -1,6 +1,12 @@
 <section class="section ff-inter">
     <div class="section pai-container">
-        <app-modal-relatorio *ngIf="modalExportar" [registros]="registros" (fecharModal)="modalExportar = false"></app-modal-relatorio>
+        <app-modal-relatorio *ngIf="modalExportar" 
+            [registros]="registros" 
+            [dataFinal]="formulario.value.final" 
+            [dataInicio]="formulario.value.inicio" 
+            [usuario]="usuario" 
+            (fecharModal)="modalExportar = false"
+        ></app-modal-relatorio>
         <app-menu-lateral></app-menu-lateral>
 
         <div class="container">
