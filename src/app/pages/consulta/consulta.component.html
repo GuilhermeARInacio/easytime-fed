@@ -35,7 +35,7 @@
 
                     <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.errors || true">
                         <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']"> A data final não pode ser anterior à data inicial.</p>
-                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas devem ser anteriores à data atual. </p>
+                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas não podem ser futuras. Selecione datas até o dia de hoje. </p>
                         <p *ngIf="carregando" class="spinner"></p>
                     </div>
 
