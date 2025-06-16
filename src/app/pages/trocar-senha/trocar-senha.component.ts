@@ -126,7 +126,7 @@ export class TrocarSenhaComponent {
           if (err.status === 401) {
             this.error = 'Código inválido. Solicite um novo código de recuperação.';
           } else {
-            this.error = err.error.message || 'Código inválido. Solicite um novo código de recuperação.';
+            this.error = err.error || 'Código inválido. Solicite um novo código de recuperação.';
           }
           
           this.abrirNotificacao({
