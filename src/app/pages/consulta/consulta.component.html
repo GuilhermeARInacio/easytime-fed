@@ -1,7 +1,8 @@
 <section class="section ff-inter">
-    <div class="center section">
+    <div class="section pai-container">
+        <app-modal-relatorio *ngIf="modalExportar" [registros]="registros" (fecharModal)="modalExportar = false"></app-modal-relatorio>
         <app-menu-lateral></app-menu-lateral>
-    
+
         <div class="container">
             <div class="display-column">
                 <p class="texto">Consultar ponto</p>
@@ -41,7 +42,7 @@
 
                     <div class="botoes display-row">
                         <button class="botao" type="submit"> Consultar </button>
-                        <button class="botao exportar"> Exportar </button>
+                        <button class="botao exportar" type="button" (click)="modalExportar = true" [disabled]="registros.length === 0"> Exportar </button>
                     </div>
                 </form>
             </div>

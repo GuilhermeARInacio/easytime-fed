@@ -2,6 +2,17 @@
     width: 70%;
 }
 
+.pai-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100vw;
+    min-height: 100vh;
+    height: fit-content;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
 form{
     display: contents;
 }
@@ -47,13 +58,25 @@ form{
 }
 
 .exportar{
-    background-color: #69b46c; /* Green */
+    background-color: #69b46c;
     color: white;
     border: none;
+    transition: background-color ease-in-out 0.5s;
+}
+
+.exportar:disabled{
+    background-color: #828582;
+    cursor: default;
+    transition: background-color ease-in-out 0.5s;
+}
+
+.exportar:disabled:hover{
+    background-color: #828582;
 }
 
 .exportar:hover{
-    background-color: #5a9b5f; /* Darker green */
+    background-color: #447548;
+    transition: background-color ease-in-out 0.5s;
 }
 
 .tabela{
@@ -73,7 +96,7 @@ form{
 }
 
 .tabela th, .tabela td{
-    padding: 1em;
+    padding: 0.5em;
     text-align: center;
 }
 
