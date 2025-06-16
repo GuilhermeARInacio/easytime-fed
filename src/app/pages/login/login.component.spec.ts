@@ -118,4 +118,20 @@ describe('LoginComponent', () => {
     component.togglePasswordVisibility();
     expect(component.showPassword).toBeFalse();
   });
+
+  it('deve criar o formulário no ngOnInit e limpar error ao alterar login ou senha', () => {
+    component.error = 'Erro qualquer';
+    component.ngOnInit();
+
+    expect(component.formulario).toBeTruthy();
+    expect(component.formulario.get('login')).toBeTruthy();
+    expect(component.formulario.get('senha')).toBeTruthy();
+
+    component.formulario.get('login')?.setValue('novoLogin');
+    expect(component.error).toBeNull();
+
+    component.error = 'Outro erro';
+    component.formulario.get('senha')?.setValue('novaSenha123');
+    expect(component.error).toBeNull();
+  });
 });

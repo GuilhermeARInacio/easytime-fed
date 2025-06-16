@@ -129,4 +129,31 @@ describe('BaterPontoComponent', () => {
     expect(localStorage.clear).toHaveBeenCalled();
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
+
+  it('deve chamar atualizarHorario a cada 1 segundo pelo setInterval do ngOnInit', fakeAsync(() => {
+    spyOn(component, 'atualizarHorario');
+    spyOn(localStorage, 'getItem').and.returnValue('tokenValido');
+    component.ngOnInit();
+
+    expect(component.atualizarHorario).toHaveBeenCalledTimes(1); // chamada inicial
+
+    tick(1000);
+    expect(component.atualizarHorario).toHaveBeenCalledTimes(2);
+
+    tick(2000);
+    expect(component.atualizarHorario).toHaveBeenCalledTimes(4);
+  }));
+
+  it('deve exibir mensagem padrão se err.error estiver vazio ao bater ponto', () => {
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: undefined })));
+
+    component.baterPonto();
+
+    expect(component.error).toBe('Erro ao bater ponto. Tente novamente mais tarde.');
+    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+      titulo: 'Erro',
+      mensagem: 'Erro ao bater ponto. Tente novamente mais tarde.',
+      tipo: 'erro'
+    }));
+  });
 });

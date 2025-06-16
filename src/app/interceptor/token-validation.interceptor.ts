@@ -1,4 +1,6 @@
 import { HttpContext, HttpContextToken, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 function isTokenExpired(token: string): boolean {
   try {
@@ -12,12 +14,13 @@ function isTokenExpired(token: string): boolean {
 export const IGNORAR_INTERCPTOR = new HttpContextToken(() => false);
 
 export const tokenValidationInterceptor: HttpInterceptorFn = (req, next) => {
+  const router = inject(Router);
   if(req.context.get(IGNORAR_INTERCPTOR)) {
     const token = req.headers.get('Authorization')?.replace('Bearer ', '');
     if (token && isTokenExpired(token)) {
       localStorage.removeItem('token');
       console.warn('Token expirado, redirecionando para login');
-      window.location.href = '/login';
+      router.navigate(['/login']);
     }
   }
   return next(req);

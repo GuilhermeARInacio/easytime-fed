@@ -91,8 +91,4 @@ export class BaterPontoComponent {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
-
-  consultar(){
-    this.router.navigate(['/consulta']);
-  }
 }
