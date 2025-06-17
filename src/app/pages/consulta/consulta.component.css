@@ -7,6 +7,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 100vw;
+    min-width: 90vw;
     min-height: 100vh;
     height: fit-content;
     padding-top: 2em;
@@ -117,6 +118,10 @@ form{
     cursor: pointer;
 }
 
+.tabela table {
+    min-width: 100px;
+}
+
 .editar-cel{
     width: 1em;
     padding: 0.3em;
@@ -202,11 +207,12 @@ form{
     }
 }
 
-.tabela table {
-        min-width: 100px; /* ajuste conforme necessário */
+@media (max-width: 480px) {
+    .pai-container{
+        padding-top: 0em;
+        padding-bottom: 2em;
     }
 
-@media (max-width: 480px) {
     .container{
         width: 100vw;
         height: 100vh;
@@ -257,8 +263,6 @@ form{
         background: #888;
     }
 
-    
-
     .tabela th{
         min-width: 4em;
         font-size: 0.8em;
@@ -271,10 +275,6 @@ form{
     .editar-cel span{
         font-size: 2em;
     }
-}
-
-@media (max-width: 320px) {
-  
 }
 
 @media (min-width: 1701px) {
