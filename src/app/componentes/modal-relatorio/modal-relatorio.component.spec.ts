@@ -41,7 +41,6 @@ describe('ModalRelatorioComponent', () => {
       saida2: '17:00',
       entrada3: '',
       saida3: '',
-      status: 'PENDENTE',
       horasTrabalhadas: '8:00'
     } as RegistroPonto];
 
@@ -63,7 +62,6 @@ describe('ModalRelatorioComponent', () => {
       saida2: '17:00',
       entrada3: '',
       saida3: '',
-      status: 'PENDENTE',
       horasTrabalhadas: '8:00'
     } as RegistroPonto];
 
