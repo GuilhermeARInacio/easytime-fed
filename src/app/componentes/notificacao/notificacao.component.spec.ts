@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificacaoComponent } from './notificacao.component';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { Subject } from 'rxjs';
 
 describe('NotificacaoComponent', () => {
   let component: NotificacaoComponent;
   let fixture: ComponentFixture<NotificacaoComponent>;
-  let notificacaoServiceSpy: jasmine.SpyObj<NotificacaoService>;
+  let popUpServiceSpy: jasmine.SpyObj<PopUpService>;
   let notificacaoSubject: Subject<any>;
 
   beforeEach(async () => {
     notificacaoSubject = new Subject();
-    notificacaoServiceSpy = jasmine.createSpyObj(
-      'NotificacaoService',
+    popUpServiceSpy = jasmine.createSpyObj(
+      'PopUpService',
       ['abrirNotificacao'],
       {
         notificacao$: notificacaoSubject.asObservable(),
@@ -23,7 +23,7 @@ describe('NotificacaoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NotificacaoComponent],
       providers: [
-        { provide: NotificacaoService, useValue: notificacaoServiceSpy },
+        { provide: PopUpService, useValue: popUpServiceSpy },
       ],
     })
       .overrideComponent(NotificacaoComponent, {

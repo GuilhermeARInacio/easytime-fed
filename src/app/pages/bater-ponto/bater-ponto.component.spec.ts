@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 
 import { BaterPontoComponent } from './bater-ponto.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { PontoService } from '../../service/ponto/ponto.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
@@ -13,7 +13,7 @@ describe('BaterPontoComponent', () => {
   let fixture: ComponentFixture<BaterPontoComponent>;
   let routerSpy: jasmine.SpyObj<Router>;
   let pontoServiceSpy: jasmine.SpyObj<PontoService>;
-  let notificacaoServiceSpy: jasmine.SpyObj<NotificacaoService>;
+  let popUpServiceSpy: jasmine.SpyObj<PopUpService>;
 
   beforeEach(async () => {
     pontoServiceSpy = jasmine.createSpyObj('PontoService', ['baterPonto']);
@@ -23,7 +23,7 @@ describe('BaterPontoComponent', () => {
       horarioBatida: '08:00',
       status: 'PENDENTE'
     }));
-    notificacaoServiceSpy = jasmine.createSpyObj('NotificacaoService', ['abrirNotificacao']);
+    popUpServiceSpy = jasmine.createSpyObj('PopUpService', ['abrirNotificacao']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
@@ -36,7 +36,7 @@ describe('BaterPontoComponent', () => {
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: routerSpy },
         { provide: PontoService, useValue: pontoServiceSpy },
-        { provide: NotificacaoService, useValue: notificacaoServiceSpy }
+        { provide: PopUpService, useValue: popUpServiceSpy }
       ]
     })
     .overrideComponent(BaterPontoComponent, {
@@ -86,7 +86,7 @@ describe('BaterPontoComponent', () => {
     });
     
     expect(component.error).toBeNull();
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Registro de Ponto',
       mensagem: jasmine.stringMatching('Ponto registrado com sucesso às'),
       tipo: 'sucesso'
@@ -100,7 +100,7 @@ describe('BaterPontoComponent', () => {
 
     component.baterPonto();
     expect(component.error).toBe('Login expirado. Por favor, faça login novamente.');
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
       tipo: 'erro'
     }));
@@ -116,7 +116,7 @@ describe('BaterPontoComponent', () => {
     component.baterPonto();
 
     expect(component.error).toBe('Erro inesperado');
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
       mensagem: 'Erro inesperado',
       tipo: 'erro'
@@ -150,7 +150,7 @@ describe('BaterPontoComponent', () => {
     component.baterPonto();
 
     expect(component.error).toBe('Erro ao bater ponto. Tente novamente mais tarde.');
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
       mensagem: 'Erro ao bater ponto. Tente novamente mais tarde.',
       tipo: 'erro'

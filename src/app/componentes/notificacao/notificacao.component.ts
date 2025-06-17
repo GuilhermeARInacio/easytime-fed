@@ -1,7 +1,7 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { Notificacao } from '../../interface/notificacao';
 
 @Component({
@@ -25,11 +25,11 @@ export class NotificacaoComponent {
   notificacao: Notificacao | null = null;
   visivel: boolean = false;
 
-  constructor(private notificaoService: NotificacaoService) {
+  constructor(private popUpService: PopUpService) {
   }
 
   ngOnInit() {
-    this.notificaoService.notificacao$.subscribe((notificacao) => {
+    this.popUpService.notificacao$.subscribe((notificacao) => {
       this.abrirNotificacao(notificacao);
     });
   }

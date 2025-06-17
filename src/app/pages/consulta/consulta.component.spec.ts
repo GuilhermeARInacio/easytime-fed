@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 
 import { ConsultaComponent } from './consulta.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { PontoService } from '../../service/ponto/ponto.service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -13,7 +13,7 @@ describe('ConsultaComponent', () => {
   let fixture: ComponentFixture<ConsultaComponent>;
   let routerSpy: jasmine.SpyObj<Router>;
   let pontoServiceSpy: jasmine.SpyObj<PontoService>;
-  let notificacaoServiceSpy: jasmine.SpyObj<NotificacaoService>;
+  let popUpServiceSpy: jasmine.SpyObj<PopUpService>;
 
   beforeEach(async () => {
     pontoServiceSpy = jasmine.createSpyObj('PontoService', ['consultarPonto']);
@@ -30,7 +30,7 @@ describe('ConsultaComponent', () => {
       saida3: '',
       status: 'PENDENTE'
     }]))
-    notificacaoServiceSpy = jasmine.createSpyObj('NotificacaoService', ['abrirNotificacao']);
+    popUpServiceSpy = jasmine.createSpyObj('PopUpService', ['abrirNotificacao']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
@@ -43,7 +43,7 @@ describe('ConsultaComponent', () => {
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: routerSpy },
         { provide: PontoService, useValue: pontoServiceSpy },
-        { provide: NotificacaoService, useValue: notificacaoServiceSpy }
+        { provide: PopUpService, useValue: popUpServiceSpy }
       ]
     })
     .overrideComponent(ConsultaComponent, {
@@ -98,7 +98,7 @@ describe('ConsultaComponent', () => {
     
     tick(1000);
     expect(component.error).toBeNull();
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Consulta bem sucedida',
       mensagem: 'Registros consultados com sucesso.',
       tipo: 'sucesso',
@@ -136,7 +136,7 @@ describe('ConsultaComponent', () => {
 
     component.consultar();
     expect(component.error).toBe('Login expirado. Por favor, faça login novamente.');
-    expect(notificacaoServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
       mensagem: 'Login expirado. Por favor, faça login novamente.',
       tipo: 'erro',

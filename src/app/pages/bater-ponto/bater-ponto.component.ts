@@ -1,4 +1,4 @@
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class BaterPontoComponent {
   constructor(
     private router : Router,
     private pontoService: PontoService,
-    private notificacaoService: NotificacaoService,
+    private popUpService: PopUpService,
     private usuarioService: UsuarioService
   ){}
 
@@ -47,7 +47,7 @@ export class BaterPontoComponent {
           console.log('Ponto registrado com sucesso:', response);
           this.error = null;
          
-          this.notificacaoService.abrirNotificacao({
+          this.popUpService.abrirNotificacao({
             titulo: 'Registro de Ponto',
             mensagem: 'Ponto registrado com sucesso às ' + response.horarioBatida + '.',
             tipo: 'sucesso',
@@ -68,7 +68,7 @@ export class BaterPontoComponent {
             this.error = err.error || 'Erro ao bater ponto. Tente novamente mais tarde.';
           }
 
-          this.notificacaoService.abrirNotificacao({
+          this.popUpService.abrirNotificacao({
             titulo: 'Erro',
             mensagem: this.error ?? 'Erro ao bater ponto. Tente novamente mais tarde.',
             tipo: 'erro',

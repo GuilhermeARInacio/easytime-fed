@@ -1,17 +1,19 @@
+import { UsuarioService } from './../../service/usuario/usuario.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { RegistroPonto } from '../../interface/registro-ponto';
 import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
 import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
-import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
 import { PontoService } from '../../service/ponto/ponto.service';
+import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
+import { ModalRelatorioComponent } from "../../componentes/modal-relatorio/modal-relatorio.component";
 
 @Component({
   selector: 'app-consulta',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent, NotificacaoComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent, NotificacaoComponent, ModalRelatorioComponent],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
@@ -23,11 +25,13 @@ export class ConsultaComponent {
   sucesso: string | null = null;
   shakeFields: { [key: string]: boolean } = {};
   carregando: boolean = false;
+  modalExportar: boolean = false;
+  usuario: string = localStorage.getItem('login') || '';
 
   constructor(
     private formBuilder: FormBuilder,
     private pontoService: PontoService,
-    private notificacaoService: NotificacaoService,
+    private popUpService: PopUpService,
     private router: Router
   ){}
 
@@ -76,7 +80,7 @@ export class ConsultaComponent {
             this.registros = response;
 
             this.sucesso = 'Registros consultados com sucesso.';
-            this.notificacaoService.abrirNotificacao({
+            this.popUpService.abrirNotificacao({
               titulo: 'Consulta bem sucedida',
               mensagem: this.sucesso,
               tipo: 'sucesso',
@@ -87,6 +91,7 @@ export class ConsultaComponent {
 
             if (this.registros.length === 0) {
               this.error = 'Nenhum registro encontrado para o período informado.';
+              this.carregando = false;
             }
           }, 1000)
         },
@@ -94,7 +99,7 @@ export class ConsultaComponent {
           if( error.status === 401) {
             this.error = 'Login expirado. Por favor, faça login novamente.';
 
-            this.notificacaoService.abrirNotificacao({
+            this.popUpService.abrirNotificacao({
               titulo: 'Erro',
               mensagem: 'Login expirado. Por favor, faça login novamente.',
               tipo: 'erro',
@@ -105,12 +110,16 @@ export class ConsultaComponent {
               this.sair();
             }, 1000);
           }
+          setTimeout(() => {
           if(error.error.includes('Nenhum ponto')){
-            this.error = 'Não existem registros de ponto para o período informado.';
-            return;
-          }
-          
-          this.error = error.error || 'Erro ao consultar registros.';
+              this.error = 'Não existem registros de ponto para o período informado.';
+              this.carregando = false;
+              return;
+            }
+            
+            this.carregando = false;
+            this.error = error.error || 'Erro ao consultar registros.';
+          }, 500)
         }
       });
     } else {
@@ -149,4 +158,6 @@ export class ConsultaComponent {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+
 }

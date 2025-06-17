@@ -1,11 +1,11 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../service/usuario/usuario.service';
 import { temLetraValidacao, temEspecialValidacao, senhasIguaisValidacao, temNumeroValidacao } from '../../validators/custom-validators';
 import { NotificacaoComponent } from '../../componentes/notificacao/notificacao.component';
-import { NotificacaoService } from '../../service/notificacao/notificacao.service';
+import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { Notificacao } from '../../interface/notificacao';
 
 @Component({
@@ -25,7 +25,7 @@ export class TrocarSenhaComponent {
 
   constructor(
     private usuarioService: UsuarioService,
-    private notificacaoService: NotificacaoService, 
+    private popUpService: PopUpService,
     private router : Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -83,7 +83,7 @@ export class TrocarSenhaComponent {
 
   abrirNotificacao(notificacao: Notificacao) {
     setTimeout(() => {
-      this.notificacaoService.abrirNotificacao(notificacao);
+      this.popUpService.abrirNotificacao(notificacao);
     }, 0);
   }
 
