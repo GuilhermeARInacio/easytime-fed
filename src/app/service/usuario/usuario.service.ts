@@ -1,13 +1,13 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Login } from '../../interface/login';
-import { TrocarSenha } from '../../interface/trocar-senha';
-import { LoginResponse } from '../../interface/login-response';
+import { Login } from '../../interface/usuario/login';
+import { TrocarSenha } from '../../interface/usuario/trocar-senha';
+import { LoginResponse } from '../../interface/usuario/login-response';
 import { IGNORAR_INTERCPTOR } from '../../interceptor/token-validation.interceptor';
 import { environment } from '../../../environments/environment';
-import { RegistroPonto } from '../../interface/registro-ponto';
-import { ConsultaRegistros } from '../../interface/consulta-registros';
+import { RegistroPonto } from '../../interface/ponto/registro-ponto';
+import { ConsultaRegistros } from '../../interface/ponto/consulta-registros';
 import { Router } from '@angular/router';
 
 @Injectable({

@@ -1,4 +1,4 @@
-import { TrocarSenha } from '../../interface/trocar-senha';
+import { TrocarSenha } from '../../interface/usuario/trocar-senha';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 

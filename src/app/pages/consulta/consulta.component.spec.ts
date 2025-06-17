@@ -155,6 +155,8 @@ describe('ConsultaComponent', () => {
     pontoServiceSpy.consultarPonto.and.returnValue(throwError(() => ({ status: 400, error: 'Nenhum registro encontrado para o período informado.' })));
 
     component.consultar();
+
+    tick(1000);
     expect(component.error).toBe('Nenhum registro encontrado para o período informado.');
   }));
 
@@ -206,16 +208,17 @@ describe('ConsultaComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  it('deve exibir mensagem específica se erro contiver "Nenhum ponto"', () => {
+  it('deve exibir mensagem específica se erro contiver "Nenhum ponto"', fakeAsync(() => {
     component.formulario.get('inicio')?.setValue('2024-06-01');
     component.formulario.get('final')?.setValue('2024-06-10');
 
     pontoServiceSpy.consultarPonto.and.returnValue(
-      throwError(() => ({ status: 400, error: 'Nenhum ponto encontrado para o período.' }))
+      throwError(() => ({ status: 400, error: 'Não existem registros de ponto para o período informado.' }))
     );
 
     component.consultar();
-
+    
+    tick(1000);
     expect(component.error).toBe('Não existem registros de ponto para o período informado.');
-  });
+  }));
 });

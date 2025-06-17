@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalRelatorioComponent } from './modal-relatorio.component';
+import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 
 describe('ModalRelatorioComponent', () => {
   let component: ModalRelatorioComponent;
@@ -19,5 +20,54 @@ describe('ModalRelatorioComponent', () => {
 
   it('deve criar o componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('deve emitir evento ao fechar modal', () => {
+    spyOn(component.fecharModal, 'emit');
+    component.fechar();
+    expect(component.fecharModal.emit).toHaveBeenCalled();
+  });
+
+  it('deve chamar exportarPDF sem erros', () => {
+    component.usuario = 'user';
+    component.dataInicio = '2024-01-01';
+    component.dataFinal = '2024-01-31';
+    component.registros = [{
+      login: 'user',
+      data: '2024-01-01',
+      entrada1: '08:00',
+      saida1: '12:00',
+      entrada2: '13:00',
+      saida2: '17:00',
+      entrada3: '',
+      saida3: '',
+      status: 'PENDENTE',
+      horasTrabalhadas: '8:00'
+    } as RegistroPonto];
+
+    const saveSpy = jasmine.createSpy();
+    spyOn<any>(component, 'exportarPDF').and.callThrough();
+    expect(() => component.exportarPDF()).not.toThrow();
+  });
+
+  it('deve chamar exportarExcel sem erros', () => {
+    component.usuario = 'user';
+    component.dataInicio = '2024-01-01';
+    component.dataFinal = '2024-01-31';
+    component.registros = [{
+      login: 'user',
+      data: '2024-01-01',
+      entrada1: '08:00',
+      saida1: '12:00',
+      entrada2: '13:00',
+      saida2: '17:00',
+      entrada3: '',
+      saida3: '',
+      status: 'PENDENTE',
+      horasTrabalhadas: '8:00'
+    } as RegistroPonto];
+
+    spyOn<any>(component, 'exportarExcel').and.callThrough();
+    expect(() => component.exportarExcel()).not.toThrow();
   });
 });

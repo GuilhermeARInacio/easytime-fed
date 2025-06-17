@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RegistroPonto } from '../../interface/registro-ponto';
+import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
@@ -46,14 +46,11 @@ export class ModalRelatorioComponent {
 
     const doc = new jsPDF();
 
-    // Adiciona um título (opcional)
     doc.text('Relatório de ' + this.usuario, 10, 10);
 
-    // Configura a tabela
     const tableColumn = headers;
     const tableRows: any[] = [];
 
-    // Adiciona os dados do array à tabela
     array.forEach(item => {
       const rowData: any[] = [
         item.login,
@@ -70,14 +67,12 @@ export class ModalRelatorioComponent {
       tableRows.push(rowData);
     });
 
-    // Cria a tabela usando o plugin jspdf-autotable
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20
     });
 
-    // Salva o PDF
     doc.save(filename);
   }
 
@@ -114,7 +109,6 @@ export class ModalRelatorioComponent {
 
     const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-    // Salva o arquivo
     const filename = `relatorio_${this.usuario}_${this.dataInicio}_${this.dataFinal}.xlsx`;
     saveAs(data, filename);
   }
