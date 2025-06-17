@@ -19,14 +19,14 @@ form{
 }
 
 .data{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 2em;
+    gap: 1em;
 }
 
 .data span{
-    width: 50%;
+    width: 100%;
 }
 
 .data input{
