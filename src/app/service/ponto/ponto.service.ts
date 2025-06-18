@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaterPonto } from '../../interface/bater-ponto';
+import { BaterPonto } from '../../interface/ponto/bater-ponto';
 import { Observable } from 'rxjs';
-import { BaterPontoResponse } from '../../interface/bater-ponto-response';
+import { BaterPontoResponse } from '../../interface/ponto/bater-ponto-response';
 import { environment } from '../../../environments/environment';
-import { ConsultaRegistros } from '../../interface/consulta-registros';
-import { RegistroPonto } from '../../interface/registro-ponto';
+import { ConsultaRegistros } from '../../interface/ponto/consulta-registros';
+import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PopUpService } from '../../service/notificacao/pop-up.service';
-import { RegistroPonto } from '../../interface/registro-ponto';
+import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { Router } from '@angular/router';
 import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-lateral.component";
@@ -111,7 +111,7 @@ export class ConsultaComponent {
             }, 1000);
           }
           setTimeout(() => {
-          if(error.error.includes('Nenhum ponto')){
+            if(error.error.includes('Nenhum ponto')){
               this.error = 'Não existem registros de ponto para o período informado.';
               this.carregando = false;
               return;

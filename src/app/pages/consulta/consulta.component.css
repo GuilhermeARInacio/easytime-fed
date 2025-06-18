@@ -3,11 +3,11 @@
 }
 
 .pai-container{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 100vw;
-    min-width: 90vw;
     min-height: 100vh;
     height: fit-content;
     padding-top: 2em;
@@ -19,35 +19,22 @@ form{
 }
 
 .data{
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 1em;
-}
-
-.data span{
-    width: 100%;
-}
-
-.data input{
-    width: 100%;
-    height: 2.5em;
-    margin-top: 1em;
-}
-
-.texto{
-    font-weight: 600;
-    font-size: 1.2em;
-    margin-bottom: 1.5em;
-    margin-left: 0;
+    justify-content: space-between;
 }
 
 .botoes{
     width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1em;
     align-items: center;
-    margin-top: 1em;
     align-self: flex-end;
+    margin-top: 1em;
 }
 
 .botao{
@@ -56,6 +43,23 @@ form{
     font-weight: 600;
     font-size: 1em;
     margin: 0;
+}
+
+.data input{
+    width: 100%;
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.data span{
+    width: 100%;
+}
+
+.texto{
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    margin-left: 0;
 }
 
 .exportar{
