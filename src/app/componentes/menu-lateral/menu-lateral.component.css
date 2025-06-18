@@ -128,7 +128,7 @@ ul {
 @media (max-width: 480px) {
   .menu-suspenso{
     width: 100vw;
-    height: 7vh;
+    height: 5%;
     display: flex;
 
     background-color: #1e88e5;
@@ -151,7 +151,8 @@ ul {
 
   .menu-group{
     visibility: hidden;
-    margin-bottom: 0.2em;
+    height: 5%;
+    margin-bottom: 0;
     color: white;
   }
 
@@ -190,6 +191,10 @@ ul {
   .menu-legenda{
     font-size: 1em;
   }
+}
+
+@media (min-height: 900px) {
+  
 }
 
 @media (min-width: 1701px) {
