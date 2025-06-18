@@ -20,11 +20,18 @@ form{
 
 .data{
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
     gap: 1em;
     justify-content: space-between;
+}
+
+.data input{
+    width: 100%;
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.data span{
+    width: 100%;
 }
 
 .botoes{
@@ -43,16 +50,6 @@ form{
     font-weight: 600;
     font-size: 1em;
     margin: 0;
-}
-
-.data input{
-    width: 100%;
-    height: 2.5em;
-    margin-top: 1em;
-}
-
-.data span{
-    width: 100%;
 }
 
 .texto{
