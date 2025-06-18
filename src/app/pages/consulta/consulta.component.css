@@ -285,6 +285,7 @@ form{
 @media screen and (max-width: 800px) and (-webkit-min-device-pixel-ratio: 2){
     .data {
         gap: 2em;
+        padding-right: 3%;
     }
 }
 
