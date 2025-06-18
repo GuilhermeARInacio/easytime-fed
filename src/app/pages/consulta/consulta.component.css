@@ -21,7 +21,6 @@ form{
 .data{
     width: 100%;
     gap: 1em;
-    justify-content: space-between;
 }
 
 .data input{
@@ -276,15 +275,6 @@ form{
 
     .editar-cel span{
         font-size: 2em;
-    }
-}
-
-@media screen and (max-width: 800px) and (-webkit-min-device-pixel-ratio: 2){
-    .data {
-        /* gap: 2em;
-        padding-right: 3%; */
-        appearance: none;
-        -webkit-appearance: none;
     }
 }
 
