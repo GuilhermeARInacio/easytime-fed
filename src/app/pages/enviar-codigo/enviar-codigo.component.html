@@ -1,31 +1,41 @@
-<section class="section ff-inter">
+<section class="section ff-inter" role="main" aria-label="Pagina de envio de código para troca de senha">
     <div class="center section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
-        <p class="subtitulo">Sistema de ponto eletrônico</p>
+        <p class="subtitulo" role="heading" aria-level="1">Sistema de ponto eletrônico</p>
 
-        <div class="center container-form">
-            <p class="texto text-center">Digite um email válido para receber o código para troca de senha</p>
-            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarEmail()">
+        <div class="center container-form" role="region" aria-label="Formulário de envio de código para troca de senha">
+            <p class="texto text-center" role="heading" aria-level="2">Digite um email válido para receber o código para troca de senha</p>
+            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarEmail()" role="form" aria-label="Formulário de envio de código">
                 <label for="email">E-mail</label>
-                <input name="email" type="email" placeholder="E-mail" formControlName="email"
+                <input 
+                    name="email" 
+                    type="email" 
+                    placeholder="E-mail" 
+                    formControlName="email"
+                    role="textbox"
+                    aria-label="Campo para digitar o e-mail"
+                    aria-required="true"
+                    aria-describedby="email-required email-invalid"
+                    [attr.aria-invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched ? 'true' : 'false'"
                     [class.shake]="shakeFields['email']"
-                    [class.invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched" />
+                    [class.invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched" 
+                />
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('email')?.errors?.['required'] && formulario.get('email')?.touched">
+                    <p id="email-required" class="erro" *ngIf="formulario.get('email')?.errors?.['required'] && formulario.get('email')?.touched" role="alert">
                         Por favor, preencha o e-mail
                     </p>
-                    <p class="erro" *ngIf="formulario.get('email')?.errors?.['email'] && formulario.get('email')?.touched">
+                    <p id="email-invalid" class="erro" *ngIf="formulario.get('email')?.errors?.['email'] && formulario.get('email')?.touched" role="alert">
                         Formato de e-mail inválido
                     </p>
 
-                    <p *ngIf="carregando" class="spinner"></p>
-                    <p class="erro" *ngIf="error != null">{{ error }}</p>
+                    <p *ngIf="carregando" class="spinner" role="status" aria-label="Enviando o email"></p>
+                    <p class="erro" *ngIf="error != null" role="alert">{{ error }}</p>
                 </div>
 
-                <button type="submit" class="botao" [disabled]="carregando"> 
+                <button type="submit" class="botao" [disabled]="carregando" role="button"> 
                     {{ carregando ? 'Enviando...' : 'Enviar' }}
                 </button>
-                <a routerLink="/login" routerLinkActive="router-link-active" class="link">Voltar</a>
+                <a [routerLink]="['/login']" class="link" role="link" aria-label="Voltar para página de login">Voltar</a>
             </form>
         </div>
     </div>

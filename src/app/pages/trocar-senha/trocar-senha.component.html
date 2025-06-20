@@ -1,33 +1,71 @@
-<section class="section ff-inter">
+<section class="section ff-inter" role="main" aria-label="Página de troca de senha">
     <div class="center section">
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
-        <p class="subtitulo">Sistema de ponto eletrônico</p>
+        <p class="subtitulo" role="heading" aria-level="1">Sistema de ponto eletrônico</p>
 
         <div class="center container-form">
-            <p class="texto text-center">Digite o código e a nova senha</p>
+            <p class="texto text-center" role="heading" aria-level="2">Digite o código e a nova senha</p>
 
-            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()">
+            <form class="center" [formGroup]="formulario" (ngSubmit)="enviarTrocaSenha()" role="form" aria-label="Formulário de troca de senha">
                 
                 <label for="codigo">Código</label>
-                <input style="text-transform: uppercase;" class="input-codigo" name="codigo" maxlength="8" type="text" placeholder="Código" formControlName="codigo" [class.shake]="shakeFields['codigo']" [class.invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"/>
+                <input 
+                    style="text-transform: uppercase;" 
+                    class="input-codigo" 
+                    name="codigo" 
+                    maxlength="8" 
+                    type="text" 
+                    placeholder="Código" 
+                    formControlName="codigo" 
+                    role="textbox"
+                    aria-label="Campo para digitar o código"
+                    aria-required="true"
+                    aria-describedby="codigo-required codigo-minlength codigo-maxlength"
+                    [attr.aria-invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"
+                    [class.shake]="shakeFields['codigo']" 
+                    [class.invalid]="formulario.get('codigo')?.invalid && formulario.get('codigo')?.touched"
+                />
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['required'] && formulario.get('codigo')?.touched">Por favor, preencha o código</p>
-                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['minlength'] && formulario.get('codigo')?.touched">O código deve ter 8 caractéres</p>
-                    <p class="erro" *ngIf="formulario.get('codigo')?.errors?.['maxlength'] && formulario.get('codigo')?.touched">O código só pode ter 8 caracteres</p>
+                    <p id="codigo-required" class="erro" role="alert" *ngIf="formulario.get('codigo')?.errors?.['required'] && formulario.get('codigo')?.touched">Por favor, preencha o código</p>
+                    <p id="codigo-minlength" class="erro" role="alert" *ngIf="formulario.get('codigo')?.errors?.['minlength'] && formulario.get('codigo')?.touched">O código deve ter 8 caractéres</p>
+                    <p id="codigo-maxlength" class="erro" role="alert" *ngIf="formulario.get('codigo')?.errors?.['maxlength'] && formulario.get('codigo')?.touched">O código só pode ter 8 caracteres</p>
                 </div>
 
 
                 <label for="novaSenha">Nova senha</label>
-                <input name="novaSenha" type="{{ showPassword ? 'text' : 'password' }}" placeholder="Nova senha" formControlName="novaSenha" [class.shake]="shakeFields['novaSenha']" [class.invalid]="formulario.get('novaSenha')?.invalid && formulario.get('novaSenha')?.touched"/>
+                <input 
+                    name="novaSenha" 
+                    type="{{ showPassword ? 'text' : 'password' }}" 
+                    placeholder="Nova senha" 
+                    formControlName="novaSenha" 
+                    role="textbox"
+                    aria-label="Campo para digitar a nova senha"
+                    aria-required="true"
+                    aria-describedby="novaSenha-required"
+                    [attr.aria-invalid]="formulario.get('novaSenha')?.invalid && formulario.get('novaSenha')?.touched"
+                    [class.shake]="shakeFields['novaSenha']" 
+                    [class.invalid]="formulario.get('novaSenha')?.invalid && formulario.get('novaSenha')?.touched"
+                />
                 <div class="caixa-mensagem">
-                    <p class="erro" *ngIf="formulario.get('novaSenha')?.errors?.['required'] && formulario.get('novaSenha')?.touched">Por favor, preencha a senha</p>
+                    <p id="novaSenha-required" class="erro" role="alert" *ngIf="formulario.get('novaSenha')?.errors?.['required'] && formulario.get('novaSenha')?.touched">Por favor, preencha a senha</p>
                 </div>
 
 
                 <label for="repetirSenha">Confirmar nova senha</label>
                 <div class="senha-input">
-                    <input name="repetirSenha" type="{{ showPassword ? 'text' : 'password' }}" placeholder="Confirmar nova senha" formControlName="repetirSenha" [class.shake]="shakeFields['repetirSenha']" [class.invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"/>
-                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
+                    <input 
+                        name="repetirSenha" 
+                        type="{{ showPassword ? 'text' : 'password' }}" 
+                        placeholder="Confirmar nova senha" 
+                        formControlName="repetirSenha" 
+                        role="textbox"
+                        aria-label="Campo para digitar a confirmação da nova senha"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"
+                        [class.shake]="shakeFields['repetirSenha']" 
+                        [class.invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"
+                    />
+                    <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()" role="button" tabindex="0" aria-label="Alternar visibilidade da senha"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
                 </div>
 
                 <div class="caixa-mensagem" [style.height]="formulario.get('novaSenha')?.touched ? '3.5em' : '1em'">
@@ -44,8 +82,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="botao">Redefinir senha</button>
-                <a routerLink="/enviar-codigo" routerLinkActive="router-link-active" class="link">Não recebi o e-mail</a>
+                <button type="submit" class="botao" role="button">Redefinir senha</button>
+                <a [routerLink]="['/enviar-codigo']" class="link" role="link">Não recebi o e-mail</a>
             </form>
         </div>
     </div>

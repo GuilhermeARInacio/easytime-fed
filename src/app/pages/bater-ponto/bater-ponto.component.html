@@ -1,15 +1,15 @@
-<section class="section ff-inter">
+<section class="section ff-inter" role="main" aria-label="Página de registro de ponto">
     <div class="center section">
         <app-menu-lateral></app-menu-lateral>
         
         <img src="../../../assets/imagens/logo.png" alt="Logo easytime" class="logo">
-        <p class="subtitulo">Sistema de ponto eletrônico</p>
+        <p class="subtitulo" role="heading" aria-level="1">Sistema de ponto eletrônico</p>
 
         <div class="center container-form">
-            <p class="texto text-center">Registre seu ponto</p>
-            <p class="horario-atual"> {{ horarioAtual }} </p>
+            <p class="texto text-center" role="heading" aria-level="2">Registre seu ponto</p>
+            <p class="horario-atual" aria-live="polite" aria-label="Horário atual"> {{ horarioAtual }} </p>
 
-            <button (click)="baterPonto()" class="botao">Registrar</button>
+            <button (click)="baterPonto()" class="botao" role="button">Registrar</button>
         </div>
     </div>
 

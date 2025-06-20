@@ -1,21 +1,21 @@
-<div class="overlay center">
-    <div class="modal-relatorio display-column">
-        <h2 class="subtitulo">Exportar Relatório</h2>
+<div class="overlay center" role="presentation">
+    <div class="modal-relatorio display-column" role="dialog" aria-modal="true" aria-label="Exportar Relatório">
+        <h2 class="subtitulo" role="heading" aria-level="1">Exportar Relatório</h2>
         <p class="texto">Selecione o formato desejado:</p>
 
-        <div class="botoes display-row">
-            <span (click)="exportarPDF()" class="botao-exportar display-column">
+        <div class="botoes display-row" role="group" aria-label="Escolha de formato de exportação">
+            <span (click)="exportarPDF()" class="botao-exportar display-column" role="button" tabindex="0" aria-label="Exportar como PDF">
                 <img src="../../assets/imagens/pdf.png" alt="PDF">
                 Exportar como PDF
             </span>
-            <span (click)="exportarExcel()" class="botao-exportar display-column">
+            <span (click)="exportarExcel()" class="botao-exportar display-column" role="button" tabindex="0" aria-label="Exportar como .XLSX">
                 <img src="../../assets/imagens/xls.png" alt="Excel">
                 Exportar como .xlsx
             </span>
         </div>
 
-        <button (click)="fechar()" class="botao">Cancelar</button>
-    
-        <a href="https://www.flaticon.com/free-icons/xls" class="link" target="_blank" title="icons">icons created by Roman Káčerek - Flaticon</a>
+        <button (click)="fechar()" class="botao" role="button" aria-label="Cancelar exportação">Cancelar</button>
+
+        <a href="https://www.flaticon.com/free-icons/xls" class="link" target="_blank" title="icons" role="link" aria-label="Créditos dos ícones">icons created by Roman Káčerek - Flaticon</a>
     </div>
 </div>

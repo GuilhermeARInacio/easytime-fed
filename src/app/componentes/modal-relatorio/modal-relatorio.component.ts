@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -19,10 +19,19 @@ export class ModalRelatorioComponent {
   @Input() dataInicio: string = '';
   @Input() dataFinal: string = '';
   
-  constructor() {}
+  constructor(
+    private renderer: Renderer2,
+    private element: ElementRef,
+  ) {}
+
+  @HostListener("document:keydown.escape") fecharModalComEsc(){
+    this.fecharModal.emit();
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
+  }
   
   fechar() {
     this.fecharModal.emit();
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
   }
 
   exportarPDF(){

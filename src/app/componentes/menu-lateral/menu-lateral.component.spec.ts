@@ -37,27 +37,11 @@ describe('MenuLateralComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('deve atualizar a rotaAtual ao navegar para consulta', () => {
-    component.navegarParaConsulta();
-    routerEvents$.next(new NavigationEnd(1, '/consulta', '/consulta'));
-    expect(component.rotaAtual).toBe('/consulta');
-  });
-
   it('deve limpar localStorage e navegar para login ao sair', () => {
     spyOn(localStorage, 'clear');
     component.sair();
     expect(localStorage.clear).toHaveBeenCalled();
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
-  });
-
-  it('deve navegar para consulta', () => {
-    component.navegarParaConsulta();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/consulta']);
-  });
-
-  it('deve navegar para bater-ponto', () => {
-    component.navegarParaBaterPonto();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/bater-ponto']);
   });
 
   it('deve alternar as classes do menu', () => {

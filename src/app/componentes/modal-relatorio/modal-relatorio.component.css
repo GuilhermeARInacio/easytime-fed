@@ -1,4 +1,10 @@
+.center{
+  
+}
+
 .modal-relatorio {
+  align-self: center;
+  justify-self: center;
   width: fit-content;
   height: fit-content;
   padding: 1em 3em;

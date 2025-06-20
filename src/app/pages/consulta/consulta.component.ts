@@ -1,6 +1,5 @@
-import { UsuarioService } from './../../service/usuario/usuario.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
@@ -32,7 +31,9 @@ export class ConsultaComponent {
     private formBuilder: FormBuilder,
     private pontoService: PontoService,
     private popUpService: PopUpService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2,
+    private element: ElementRef
   ){}
 
   ngOnInit() {
@@ -159,5 +160,9 @@ export class ConsultaComponent {
     this.router.navigate(['/login']);
   }
 
+  abrirModalExportar() {
+    this.modalExportar = true;
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  }
 
 }

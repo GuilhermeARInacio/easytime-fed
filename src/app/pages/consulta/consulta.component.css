@@ -65,19 +65,19 @@ form{
     transition: background-color ease-in-out 0.5s;
 }
 
-.exportar:disabled{
-    background-color: #828582;
-    cursor: default;
-    transition: background-color ease-in-out 0.5s;
-}
-
-.exportar:disabled:hover{
-    background-color: #828582;
-}
-
 .exportar:hover{
     background-color: #447548;
     transition: background-color ease-in-out 0.5s;
+}
+
+.exportar[aria-disabled = true]{
+    background-color: #828582;
+    cursor: not-allowed;
+    transition: background-color ease-in-out 0.5s;
+}
+
+.exportar[aria-disabled = true]:hover{
+    background-color: #828582;
 }
 
 .tabela{

@@ -1,39 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, Host, HostListener, Renderer2 } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-lateral',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './menu-lateral.component.html',
   styleUrl: './menu-lateral.component.css'
 })
 export class MenuLateralComponent {
   menuColapsado: boolean = true;
-  rotaAtual: string = '';
 
   constructor(
-    private router: Router
-  ){
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationEnd){
-        this.rotaAtual = e.urlAfterRedirects;
-      }
-    })
+    private router: Router,
+    private renderer: Renderer2,
+    private element: ElementRef,
+  ){}
+
+  @HostListener("document:keydown.escape") fecharMenuComEsc() {
+    if (!this.menuColapsado) {
+      this.toggleMenu();
+    }
   }
 
   sair(){
     localStorage.clear();
 
     this.router.navigate(['/login']);
-  }
-  
-  navegarParaConsulta() {
-    this.router.navigate(['/consulta']);
-  }
-
-  navegarParaBaterPonto() {
-    this.router.navigate(['/bater-ponto']);
   }
 
   toggleMenu() {
@@ -46,5 +39,7 @@ export class MenuLateralComponent {
       
       this.menuColapsado = !this.menuColapsado;
     }
+
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', this.menuColapsado ? 'auto' : 'hidden');
   }
 }

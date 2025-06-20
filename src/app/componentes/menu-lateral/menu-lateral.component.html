@@ -1,40 +1,52 @@
-<div class="overlay" *ngIf="!menuColapsado" (click)="toggleMenu()"></div>
+<div class="overlay" *ngIf="!menuColapsado" (click)="toggleMenu()" role="presentation"></div>
 <div class="menu-suspenso">
-    <div (click)="toggleMenu()" class="menu-botao">
+    <div (click)="toggleMenu()" class="menu-botao" role="button" aria-label="Alternar menu lateral" tabindex="0">
         <span class="material-symbols-outlined icone-menu">
             menu
         </span>
     </div>
 </div>
-<div class="menu-lateral menu-lateral--collapsed">
-    <div (click)="toggleMenu()" class="menu-group display-row menu-botao">
+<div class="menu-lateral menu-lateral--collapsed" role="navigation" aria-label="Menu lateral de navegação" [ngClass]="{'menu-lateral--collapsed': menuColapsado}">
+    <div (click)="toggleMenu()" class="menu-group display-row menu-botao" role="button" tabindex="0" aria-label="Alternar menu lateral">
         <span class="material-symbols-outlined icone-menu">
             menu
         </span>
         <p class="menu-legenda" *ngIf="!menuColapsado">Menu</p>
     </div>
 
-    <div class="menu-list">
-        <ul>
-            <li class="display-row menu-botao" (click)="navegarParaBaterPonto()" [ngClass]="{'ativo': rotaAtual === '/bater-ponto'}">
-                <span class="material-symbols-outlined icone-menu">
-                    schedule
-                </span>
-                <p class="menu-legenda" *ngIf="!menuColapsado">Bater Ponto</p>
-            </li>
-            <li (click)="navegarParaConsulta()" class="display-row menu-botao" [ngClass]="{'ativo': rotaAtual === '/consulta'}">
-                <span class="material-symbols-outlined icone-menu">
-                    receipt_long
-                </span>
-                <p class="menu-legenda" *ngIf="!menuColapsado">Consultar registros</p>
-            </li>
-            <li (click)="sair()" class="display-row menu-botao">
-                <span  class="material-symbols-outlined icone-menu icone-sair">
-                    logout
-                </span>
-                <p class="menu-legenda" *ngIf="!menuColapsado">Sair</p>
-            </li>
-        </ul>
+    <div class="menu-list" role="list">
+        <a 
+            class="display-row menu-botao" 
+            [routerLink]="['/bater-ponto']" 
+            routerLinkActive="ativo" 
+            ariaCurrentWhenActive="page" 
+            aria-label="Bater Ponto"
+            role="listitem"
+        >
+            <span class="material-symbols-outlined icone-menu">
+                schedule
+            </span>
+            <p class="menu-legenda" *ngIf="!menuColapsado">Bater Ponto</p>
+        </a>
+        <a 
+            class="display-row menu-botao" 
+            [routerLink]="['/consulta']" 
+            routerLinkActive="ativo" 
+            ariaCurrentWhenActive="page" 
+            aria-label="Consultar Registros"
+            role="listitem"
+        >
+            <span class="material-symbols-outlined icone-menu">
+                receipt_long
+            </span>
+            <p class="menu-legenda" *ngIf="!menuColapsado">Consultar registros</p>
+        </a>
+        <a (click)="sair()" class="display-row menu-botao" role="listitem" aria-label="Sair do sistema" tabindex="0">
+            <span  class="material-symbols-outlined icone-menu icone-sair">
+                logout
+            </span>
+            <p class="menu-legenda" *ngIf="!menuColapsado">Sair</p>
+        </a>
     </div>
 </div>
 

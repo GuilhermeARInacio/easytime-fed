@@ -1,4 +1,4 @@
-<section class="section ff-inter">
+<section class="section ff-inter" role="main">
     <div class="section pai-container">
         <app-modal-relatorio *ngIf="modalExportar" 
             [registros]="registros" 
@@ -9,19 +9,26 @@
         ></app-modal-relatorio>
         <app-menu-lateral></app-menu-lateral>
 
-        <div class="container">
+        <div class="container" role="region" aria-label="Consultar ponto">
             <div class="display-column">
-                <p class="texto">Consultar ponto</p>
+                <p class="texto" role="heading" aria-level="1">Consultar ponto</p>
 
-                <form [formGroup]="formulario" (ngSubmit)="consultar()">
-                    <div class="data display-row">
+                <form [formGroup]="formulario" (ngSubmit)="consultar()" role="form" aria-label="Formulário de consulta de ponto">
+                    <div class="data display-row" role="group" aria-label="Seleção de datas">
                         <span class="display-column">
                             <label for="inicio">Data de inicio</label>
-                            <input type="date" name="inicio" formControlName="inicio" 
-                                   [class.shake]="shakeFields['inicio']" [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+                            <input 
+                                type="date" 
+                                name="inicio" 
+                                formControlName="inicio" 
+                                role="textbox" 
+                                aria-label="Data de início" 
+                                aria-describedby="inicio-required"
+                                [class.shake]="shakeFields['inicio']" 
+                                [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
 
                             <div class="caixa-mensagem">
-                                <p class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched">
+                                <p id="inicio-required" class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched" role="alert">
                                     Por favor, preencha a data de início.
                                 </p>
                             </div>
@@ -29,11 +36,18 @@
         
                         <span class="display-column">
                             <label for="final">Data de fim</label>
-                            <input type="date"name="final" formControlName="final" 
-                                   [class.shake]="shakeFields['final']" [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+                            <input 
+                                type="date"
+                                name="final" 
+                                formControlName="final" 
+                                role="textbox" 
+                                aria-label="Data final"
+                                aria-describedby="final-required"
+                                [class.shake]="shakeFields['final']" 
+                                [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
 
                             <div class="caixa-mensagem">
-                                <p class="erro" *ngIf="formulario.get('final')?.errors?.['required'] && formulario.get('final')?.touched">
+                                <p id="final-required" class="erro" *ngIf="formulario.get('final')?.errors?.['required'] && formulario.get('final')?.touched" role="alert">
                                     Por favor, preencha a data final.
                                 </p>
                             </div>
@@ -41,47 +55,54 @@
                     </div>
 
                     <div class="caixa-mensagem display-column" style="text-align: left; margin-top: 0;" *ngIf="formulario.errors || true">
-                        <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']"> A data final não pode ser anterior à data inicial.</p>
-                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']"> As datas não podem ser futuras. Selecione datas até o dia de hoje. </p>
-                        <p *ngIf="carregando" class="spinner"></p>
+                        <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']" role="alert"> A data final não pode ser anterior à data inicial.</p>
+                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']" role="alert"> As datas não podem ser futuras. Selecione datas até o dia de hoje. </p>
+                        <p *ngIf="carregando" class="spinner" role="status"></p>
                     </div>
 
-                    <div class="botoes">
-                        <button class="botao" type="submit"> Consultar </button>
-                        <button class="botao exportar" type="button" (click)="modalExportar = true" [disabled]="registros.length === 0"> Exportar </button>
+                    <div class="botoes" role="group">
+                        <button class="botao" type="submit" role="button"> Consultar </button>
+                        <button 
+                            class="botao exportar" 
+                            type="button" 
+                            role="button" 
+                            aria-label="Exportar registros"
+                            (click)="registros.length === 0 ? null : abrirModalExportar()" 
+                            [attr.aria-disabled]="registros.length === 0"
+                        > Exportar </button>
                     </div>
                 </form>
             </div>
 
-            <div class="caixa-mensagem" *ngIf="registros.length === 0 && error">
+            <div class="caixa-mensagem" *ngIf="registros.length === 0 && error" aria-label="Mensagem de erro" role="alert">
                 <p class="erro"> {{ error }}</p>
             </div>
 
-            <div class="tabela center" *ngIf="registros.length > 0">
+            <div class="tabela center" role="region" *ngIf="registros.length > 0">
                 <table>
                     <thead>
                         <tr>
-                            <th>Data</th>
-                            <th>Entrada</th>
-                            <th>Saída</th>
-                            <th>Entrada</th>
-                            <th>Saída</th>
-                            <th>Entrada</th>
-                            <th>Saída</th>
-                            <th>Total</th>
+                            <th role="columnheader">Data</th>
+                            <th role="columnheader">Entrada</th>
+                            <th role="columnheader">Saída</th>
+                            <th role="columnheader">Entrada</th>
+                            <th role="columnheader">Saída</th>
+                            <th role="columnheader">Entrada</th>
+                            <th role="columnheader">Saída</th>
+                            <th role="columnheader">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let registro of registros">
-                            <td>{{ formatarDataRetorno(registro.data) }}</td>
-                            <td>{{ registro.entrada1 }}</td>
-                            <td>{{ registro.saida1 }}</td>
-                            <td>{{ registro.entrada2 }}</td>
-                            <td>{{ registro.saida2 }}</td>
-                            <td>{{ registro.entrada3 }}</td>
-                            <td>{{ registro.saida3 }}</td>
-                            <td>{{ registro.horasTrabalhadas }}</td>
-                            <td class="editar-cel">
+                        <tr *ngFor="let registro of registros" role="row">
+                            <td role="cell">{{ formatarDataRetorno(registro.data) }}</td>
+                            <td role="cell">{{ registro.entrada1 }}</td>
+                            <td role="cell">{{ registro.saida1 }}</td>
+                            <td role="cell">{{ registro.entrada2 }}</td>
+                            <td role="cell">{{ registro.saida2 }}</td>
+                            <td role="cell">{{ registro.entrada3 }}</td>
+                            <td role="cell">{{ registro.saida3 }}</td>
+                            <td role="cell">{{ registro.horasTrabalhadas }}</td>
+                            <td role="cell" class="editar-cel">
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>
