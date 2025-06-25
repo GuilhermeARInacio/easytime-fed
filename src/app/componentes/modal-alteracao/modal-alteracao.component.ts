@@ -4,7 +4,7 @@ import { CapitalizePipe } from "../../shared/capitalize.pipe";
 
 @Component({
   selector: 'app-modal-alteracao',
-  imports: [CapitalizePipe],
+  imports: [],
   templateUrl: './modal-alteracao.component.html',
   styleUrl: './modal-alteracao.component.css'
 })

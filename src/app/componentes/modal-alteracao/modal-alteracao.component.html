@@ -1,21 +1,42 @@
 <div class="overlay center" role="presentation">
     <div class="modal-relatorio display-column" role="dialog" aria-modal="true" aria-label="Exportar Relatório">
-        <h2 class="subtitulo" role="heading" aria-level="1">Alterar ponto</h2>
+        <h2 class="subtitulo" role="heading" aria-level="1">Alterar registro de ponto</h2>
 
-        <div>
-            <p><b>Id registro: </b> {{ registro?.id }}</p>
-            <p><b>Login usuario: </b> {{ usuario }}</p>
-            <p><b>Data: </b> {{ registro?.data}}</p>
-            <p><b>Entrada 1: </b> {{ registro?.entrada1}}</p>
-            <p><b>Saída 1: </b> {{ registro?.saida1 }}</p>
-            <p><b>Entrada 2: </b> {{ registro?.entrada2 }}</p>
-            <p><b>Saída 2: </b> {{ registro?.saida2 }}</p>
-            <p><b>Entrada 3: </b> {{ registro?.entrada3 }}</p>
-            <p><b>Saída 3: </b> {{ registro?.saida3 }}</p>
-            <p><b>Horas Trabalhadas: </b> {{ registro?.horasTrabalhadas }}</p>
-            <p><b>Status: </b> {{ (registro?.status || '') | capitalize }}</p>
+        <p>Data: {{ registro?.data }}</p>
+        <div class="display-column">
+            <div class="display-row">
+                <label for="">Entrada 1: </label>
+                <input type="time" placeholder="Entrada" value="{{ registro?.entrada1 }}" aria-label="Entrada 1" />
+            </div>
+            <div class="display-row">
+                <label for="">Saída 1: </label>
+                <input type="time" placeholder="Saída" value="{{ registro?.saida1 }}" aria-label="Saída 1" />
+            </div>
+            <div class="display-row">
+                <label for="">Entrada 2: </label>
+                <input type="time" placeholder="Entrada" value="{{ registro?.entrada2 }}" aria-label="Entrada 2" />
+            </div>
+            <div class="display-row">
+                <label for="">Saída 2: </label>
+                <input type="time" placeholder="Saída" value="{{ registro?.saida2 }}" aria-label="Saída 2" />
+            </div>
+            <div class="display-row">
+                <label for="">Entrada 3: </label>
+                <input type="time" placeholder="Entrada" value="{{ registro?.entrada3 }}" aria-label="Entrada 3" />
+            </div>
+            <div class="display-row">
+                <label for="">Saída 3: </label>
+                <input type="time" placeholder="Saída" value="{{ registro?.saida3 }}" aria-label="Saída 3" />
+            </div>
+            <div class="display-column">
+                <label for="">Justificativa</label>
+                <textarea placeholder="Justificativa" aria-label="Justificativa"></textarea>    
+            </div>
         </div>
 
-        <button (click)="fechar()" class="botao" role="button" aria-label="Cancelar exportação">Cancelar</button>
+        <div class="botoes">
+            <button (click)="fechar()" class="botao" role="button" aria-label="Cancelar pedido de alteração">Cancelar</button>
+            <button class="botao" role="button" aria-label="Enviar pedido de alteração">Salvar</button>
+        </div>
     </div>
 </div>
