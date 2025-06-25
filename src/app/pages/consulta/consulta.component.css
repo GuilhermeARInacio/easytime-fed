@@ -122,6 +122,10 @@ form{
     min-width: 100px;
 }
 
+.tabela td.status-aprovado b{ color: green; }
+.tabela td.status-reprovado b{ color: red; }
+.tabela td.status-pendente b{ color: orange; }
+
 .editar-cel{
     width: 1em;
     padding: 0.3em;

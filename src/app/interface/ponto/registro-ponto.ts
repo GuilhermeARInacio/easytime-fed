@@ -9,4 +9,5 @@ export interface RegistroPonto {
     saida2: string;
     entrada3: string;
     saida3: string;
+    status: string;
 }
