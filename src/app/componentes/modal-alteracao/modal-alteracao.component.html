@@ -1,42 +1,138 @@
-<div class="overlay center" role="presentation">
-    <div class="modal-relatorio display-column" role="dialog" aria-modal="true" aria-label="Exportar Relatório">
+<div class="overlay center ff-inter" role="presentation">
+    <div class="modal-alteracao display-column" role="dialog" aria-modal="true" aria-label="Exportar Relatório">
         <h2 class="subtitulo" role="heading" aria-level="1">Alterar registro de ponto</h2>
 
-        <p>Data: {{ registro?.data }}</p>
-        <div class="display-column">
-            <div class="display-row">
-                <label for="">Entrada 1: </label>
-                <input type="time" placeholder="Entrada" value="{{ registro?.entrada1 }}" aria-label="Entrada 1" />
+        <p class="texto">Data: {{ registro?.data }}</p>
+        <form [formGroup]="formulario" (ngSubmit)="enviarAlteracao()" class="display-column" role="form">
+            <div class="display-column area-input">
+                <div class="display-row input-time">
+                    <label for="entrada1">Entrada 1: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada" 
+                        [value]="registro?.entrada1" 
+                        aria-label="Entrada 1"
+                        name="entrada1"
+                        formControlName="entrada1"
+                        role="textbox"
+                        aria-label="Campo para digitar a entrada 1"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('entrada1')?.invalid && formulario.get('entrada1')?.touched"
+                        [class.shake]="shakeFields['entrada1']"
+                        [class.invalid]="formulario.get('entrada1')?.invalid && formulario.get('entrada1')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida1">Saída 1: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída" 
+                        [value]="registro?.saida1" 
+                        aria-label="Saída 1" 
+                        name="saida1"
+                        formControlName="saida1"
+                        role="textbox"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('saida1')?.invalid && formulario.get('saida1')?.touched"
+                        [class.shake]="shakeFields['saida1']"
+                        [class.invalid]="formulario.get('saida1')?.invalid && formulario.get('saida1')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="entrada2">Entrada 2: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada" 
+                        [value]="registro?.entrada2" 
+                        aria-label="Entrada 2" 
+                        name="entrada2"
+                        formControlName="entrada2"
+                        role="textbox"
+                        [attr.aria-invalid]="formulario.get('entrada2')?.invalid && formulario.get('entrada2')?.touched"
+                        [class.shake]="shakeFields['entrada2']"
+                        [class.invalid]="formulario.get('entrada2')?.invalid && formulario.get('entrada2')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida2">Saída 2: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída" 
+                        [value]="registro?.saida2" 
+                        aria-label="Saída 2" 
+                        name="saida2"
+                        formControlName="saida2"
+                        role="textbox"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('saida2')?.invalid && formulario.get('saida2')?.touched"
+                        [class.shake]="shakeFields['saida2']"
+                        [class.invalid]="formulario.get('saida2')?.invalid && formulario.get('saida2')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="entrada3">Entrada 3: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada" 
+                        [value]="registro?.entrada3" 
+                        aria-label="Entrada 3" 
+                        name="entrada3"
+                        formControlName="entrada3"
+                        role="textbox"
+                        [attr.aria-invalid]="formulario.get('entrada3')?.invalid && formulario.get('entrada3')?.touched"
+                        [class.shake]="shakeFields['entrada3']"
+                        [class.invalid]="formulario.get('entrada3')?.invalid && formulario.get('entrada3')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida3">Saída 3: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída" 
+                        [value]="registro?.saida3" 
+                        aria-label="Saída 3" 
+                        name="saida3"
+                        formControlName="saida3"
+                        role="textbox"
+                        [attr.aria-invalid]="formulario.get('saida3')?.invalid && formulario.get('saida3')?.touched"
+                        [class.shake]="shakeFields['saida3']"
+                        [class.invalid]="formulario.get('saida3')?.invalid && formulario.get('saida3')?.touched"
+                    />
+                </div>
+                <div class="display-column input-textarea">
+                    <label for="justificativa">Justificativa</label>
+                    <textarea 
+                        class="ff-inter" 
+                        placeholder="Justificativa" 
+                        aria-label="Justificativa"
+                        formControlName="justificativa"
+                        name="justificativa"
+                        role="textbox"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('justificativa')?.invalid && formulario.get('justificativa')?.touched"
+                        [class.shake]="shakeFields['justificativa']"
+                        [class.invalid]="formulario.get('justificativa')?.invalid && formulario.get('justificativa')?.touched"
+                    ></textarea>
+                </div>
+                <div class="caixa-mensagem display-column">
+                    <p class="erro" id="horarioComercial" *ngIf="
+                        (this.formulario.get('entrada1')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada1')?.touched) ||
+                        (this.formulario.get('saida1')?.errors?.['horarioForaComercial'] && this.formulario.get('saida1')?.touched) ||
+                        (this.formulario.get('entrada2')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada2')?.touched) ||
+                        (this.formulario.get('saida2')?.errors?.['horarioForaComercial'] && this.formulario.get('saida2')?.touched) ||
+                        (this.formulario.get('entrada3')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada3')?.touched) ||
+                        (this.formulario.get('saida3')?.errors?.['horarioForaComercial'] && this.formulario.get('saida3')?.touched);" 
+                    role="alert">Os horários devem ser entre 06:00 e 23:00.</p>
+                    <p class="erro" id="entradaSaidaEntrada1" *ngIf="formulario.get('entrada1')?.errors?.['required'] && formulario.get('entrada1')?.touched || formulario.get('saida1')?.errors?.['required'] && formulario.get('saida1')?.touched" role="alert">Por favor, preencha a entrada e saída 1.</p>
+                    <p class="erro" id="justificativa" *ngIf="formulario.get('justificativa')?.errors?.['required'] && formulario.get('justificativa')?.touched" role="alert">Por favor, preencha a justificativa.</p>
+                    <p class="erro" id="horarioSaidaAnteriorEntrada" *ngIf="formulario.errors?.['horarioSaidaAnteriorEntrada']" role="alert">O horário de saída deve ser posterior à entrada.</p>
+                </div>
             </div>
-            <div class="display-row">
-                <label for="">Saída 1: </label>
-                <input type="time" placeholder="Saída" value="{{ registro?.saida1 }}" aria-label="Saída 1" />
+            <div class="botoes">
+                <button (click)="fechar()" type="button" class="botao botao-cancelar" role="button" aria-label="Cancelar pedido de alteração">Cancelar</button>
+                <button type="submit" class="botao" role="button" aria-label="Enviar pedido de alteração">Salvar</button>
             </div>
-            <div class="display-row">
-                <label for="">Entrada 2: </label>
-                <input type="time" placeholder="Entrada" value="{{ registro?.entrada2 }}" aria-label="Entrada 2" />
-            </div>
-            <div class="display-row">
-                <label for="">Saída 2: </label>
-                <input type="time" placeholder="Saída" value="{{ registro?.saida2 }}" aria-label="Saída 2" />
-            </div>
-            <div class="display-row">
-                <label for="">Entrada 3: </label>
-                <input type="time" placeholder="Entrada" value="{{ registro?.entrada3 }}" aria-label="Entrada 3" />
-            </div>
-            <div class="display-row">
-                <label for="">Saída 3: </label>
-                <input type="time" placeholder="Saída" value="{{ registro?.saida3 }}" aria-label="Saída 3" />
-            </div>
-            <div class="display-column">
-                <label for="">Justificativa</label>
-                <textarea placeholder="Justificativa" aria-label="Justificativa"></textarea>    
-            </div>
-        </div>
+        </form>
 
-        <div class="botoes">
-            <button (click)="fechar()" class="botao" role="button" aria-label="Cancelar pedido de alteração">Cancelar</button>
-            <button class="botao" role="button" aria-label="Enviar pedido de alteração">Salvar</button>
-        </div>
     </div>
 </div>

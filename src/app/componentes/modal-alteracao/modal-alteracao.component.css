@@ -1,15 +1,9 @@
-.center{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-relatorio {
+.modal-alteracao {
   align-self: center;
   justify-self: center;
   width: fit-content;
   height: fit-content;
-  padding: 1em 3em;
+  padding: 1em 2em;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
@@ -19,59 +13,76 @@
   border-radius: 0.5em;
 }
 
-.modal-relatorio img {
-  width: 5em;
-}
-
 .botoes {
-  gap: 1em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  justify-items: center;
+  gap: 0.5em;
+  margin: 1em 0;
 }
 
-.botao-exportar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  padding: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
+.botao-cancelar {
+  height: 2em;
+  background-color: #ffffff;
+  color: #333;
+  border: #d4d4d4 solid 1px;
+}
 
-  border: 1px solid #dcdcdc;
-  border-radius: 0.5em;
+.botao-cancelar:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: #c4c4c4 solid 1px;
+}
 
-  font-size: 0.9em;
-
-  box-shadow: 10px 10px 5px -9px rgba(214, 212, 212, 0.75);
-  -webkit-box-shadow: 10px 10px 5px -9px rgba(214, 212, 212, 0.75);
-  -moz-box-shadow: 10px 10px 5px -9px rgba(214, 212, 212, 0.75);
+.botao {
+  width: 95%;
+  height: 2em;
+  margin: 0;
 }
 
 .subtitulo {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 700;
   margin: 0.5em;
 }
 
 .texto {
-  margin: 0.2em;
-}
-
-.botao {
+  margin-bottom: 0.7em;
   width: 100%;
-  height: 2em;
-  margin-bottom: 0.5em;
+  text-align: center;
+  border-bottom: #d4d4d4 solid 1px;
+  padding-bottom: 0.4em;
 }
 
-.link {
-  font-size: 0.7em;
+.area-input {
+  width: 20em;
+  gap: 0.8em;
 }
 
-.botao-exportar:hover {
-  cursor: pointer;
+.input-time {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  align-items: center;
+}
 
-  box-shadow: 10px 10px 5px -9px rgba(217, 217, 217, 0.75) inset;
-  -webkit-box-shadow: 10px 10px 5px -9px rgba(217, 217, 217, 0.75) inset;
-  -moz-box-shadow: 10px 10px 5px -9px rgba(217, 217, 217, 0.75) inset;
+.input-time input {
+  width: 100%;
+  height: 2.5em;
+  padding: 0.5em;
+  border: 1px solid #d4d4d4;
+  border-radius: 0.5em;
+}
+
+.input-textarea textarea{
+  margin-top: 0.5em;
+  resize: none;
+  width: 100%;
+  height: 4em;
+  border: 1px solid #d4d4d4;
+  border-radius: 0.5em;
+  padding: 0.5em;
 }
 
 .overlay {

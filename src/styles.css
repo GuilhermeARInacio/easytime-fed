@@ -188,11 +188,11 @@ input {
   padding-left: 10px;
 }
 
-input.invalid {
-  border: #ff2121 2px solid;
+input.invalid, textarea.invalid {
+  border: #ff2121 2px solid !important;
 }
 
-input.shake {
+input.shake, textarea.shake {
   animation: shake 0.3s;
 }
 
