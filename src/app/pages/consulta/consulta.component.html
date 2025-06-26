@@ -111,7 +111,7 @@
                             <td role="cell">{{ registro.horasTrabalhadas }}</td>
                             <td role="cell" [ngClass]="statusClass(registro.status)" ><b>{{ registro.status | capitalize }}</b></td>
                             <td role="cell" class="editar-cel">
-                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status !== 'PENDENTE'" (click)="registro.status === 'PENDENTE' ? abrirModalAlteracao(registro) : null">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO'" (click)="registro.status !== 'APROVADO' ? abrirModalAlteracao(registro) : null">
                                     edit
                                 </span>
                             </td>

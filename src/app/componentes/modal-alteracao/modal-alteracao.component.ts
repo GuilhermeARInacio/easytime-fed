@@ -120,7 +120,7 @@ export class ModalAlteracaoComponent {
         next: (response) => {
           this.notificacaoService.abrirNotificacao({
             titulo: 'Registro alterado com sucesso',
-            mensagem: 'O registro de ponto foi alterado com sucesso, aguarde a validação do gestor.',
+            mensagem: 'O pedido de alteração foi enviado com sucesso, aguarde a validação do gestor.',
             tipo: 'sucesso',
             icon: 'check_circle'
           });
@@ -133,34 +133,22 @@ export class ModalAlteracaoComponent {
           }, 1000);
       },
       error: (err) => {
-        this.error = 'Erro ao alterar registro. Tente novamente mais tarde.';
         console.error('Erro ao alterar registro:', err);
         
         if (err.status === 401 || err.status === 403) {
-          this.notificacaoService.abrirNotificacao({
-            titulo: 'Erro de Autenticação',
-            mensagem: 'Você não tem permissão para alterar este registro. Verifique suas credenciais.',
-            tipo: 'erro',
-            icon: 'error'
-          });
-          return;
+          this.error = 'Você não tem permissão para alterar este registro. Verifique suas credenciais.';
         } else if (err.status === 500) {
-          this.notificacaoService.abrirNotificacao({
-            titulo: 'Erro',
-            mensagem: 'Desculpe, ocorreu um erro interno ao tentar alterar o registro. Tente novamente mais tarde.',
-            tipo: 'erro',
-            icon: 'error'
-          });
-          return;
+          this.error = 'Desculpe, ocorreu um erro interno ao tentar alterar o registro. Tente novamente mais tarde.';
         } else {
-          this.notificacaoService.abrirNotificacao({
-            titulo: 'Erro',
-            mensagem: err.error || 'Erro ao alterar registro. Tente novamente mais tarde.',
-            tipo: 'erro',
-            icon: 'error'
-          });
-          return;
+          this.error = err.error || 'Erro ao alterar registro. Tente novamente mais tarde.';
         }
+
+        this.notificacaoService.abrirNotificacao({
+          titulo: 'Erro',
+          mensagem: this.error || 'Erro ao alterar registro. Tente novamente mais tarde.',
+          tipo: 'erro',
+          icon: 'error'
+        });
       }});
     } else {
       console.log("Formulario invalido")

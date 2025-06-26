@@ -29,7 +29,7 @@ export class ConsultaComponent {
   carregando: boolean = false;
   modalExportar: boolean = false;
 
-  modalAlteracao: boolean = true;
+  modalAlteracao: boolean = false;
   registroAlteracao: RegistroPonto | undefined;
 
   constructor(
