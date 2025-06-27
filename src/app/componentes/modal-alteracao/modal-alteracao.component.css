@@ -97,7 +97,7 @@
 }
 
 @media (max-width: 992px) {
-  .modal-relatorio {
+  .modal-alteracao {
     height: fit-content;
     padding: 1em 2em;
   }
@@ -112,7 +112,7 @@
 }
 
 @media (max-width: 480px) {
-  .modal-relatorio img{
+  .modal-alteracao img{
     width: 3em;
   }
 
@@ -120,10 +120,12 @@
     font-size: 0.9em;
   }
 
-  .botao-exportar {
-    margin: 0.2em 0em;
-    font-size: 0.8em;
-    flex-direction: row;
+  .area-input{
+    width: 18em;
+  }
+
+  .input-time input{
+    height: 2em;
   }
 
   .botao {
@@ -134,5 +136,11 @@
     margin: 0.5em 0em;
     flex-direction: column;
     gap: 0.5em;
+  }
+}
+
+@media (max-width: 400px){
+  .area-input{
+    width: 17em;
   }
 }
