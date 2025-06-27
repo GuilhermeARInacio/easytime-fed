@@ -76,19 +76,27 @@ describe('LoginComponent', () => {
   });
 
   it('deve mostrar mensagem de erro do backend se houver', () => {
-    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: { message: 'Erro backend' } })));
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: { message: 'Erro interno do servidor. Tente novamente mais tarde.' } })));
 
     component.enviarLogin();
 
-    expect(component.error).toBe('Erro backend');
+    expect(component.error).toBe('Erro interno do servidor. Tente novamente mais tarde.');
   });
 
-  it('deve mostrar mensagem padrão se não houver mensagem do backend', () => {
-    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: {} })));
+  it('deve mostrar mensagem do backend caso o erro seja diferente de 401 ou 500', () => {
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 400, error: 'Erro ao realizar login. Tente novamente mais tarde.' })));
 
     component.enviarLogin();
 
     expect(component.error).toBe('Erro ao realizar login. Tente novamente mais tarde.');
+  });
+
+  it('deve mostrar mensagem padrão se err.erro for nulo', () => {
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: {} })));
+
+    component.enviarLogin();
+
+    expect(component.error).toBe('Erro interno do servidor. Tente novamente mais tarde.');
   });
 
   it('deve marcar controles como touched e setar shakeFields se formulário inválido', () => {

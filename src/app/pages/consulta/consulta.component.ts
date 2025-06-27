@@ -9,10 +9,12 @@ import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-latera
 import { PontoService } from '../../service/ponto/ponto.service';
 import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.component";
 import { ModalRelatorioComponent } from "../../componentes/modal-relatorio/modal-relatorio.component";
+import { CapitalizePipe } from "../../shared/capitalize.pipe";
+import { ModalAlteracaoComponent } from "../../componentes/modal-alteracao/modal-alteracao.component";
 
 @Component({
   selector: 'app-consulta',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent, NotificacaoComponent, ModalRelatorioComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateralComponent, NotificacaoComponent, ModalRelatorioComponent, CapitalizePipe, ModalAlteracaoComponent],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
@@ -20,12 +22,15 @@ export class ConsultaComponent {
 
   formulario!: FormGroup;
   registros: RegistroPonto[] = [];
+  usuario: string = localStorage.getItem('login') || '';
   error: string | null = null;
   sucesso: string | null = null;
   shakeFields: { [key: string]: boolean } = {};
   carregando: boolean = false;
   modalExportar: boolean = false;
-  usuario: string = localStorage.getItem('login') || '';
+
+  modalAlteracao: boolean = false;
+  registroAlteracao: RegistroPonto | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -163,6 +168,25 @@ export class ConsultaComponent {
   abrirModalExportar() {
     this.modalExportar = true;
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  }
+
+  abrirModalAlteracao(registro: RegistroPonto) {
+    this.registroAlteracao = registro;
+    this.modalAlteracao = true;
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  }
+
+  statusClass(status: string): string {
+    switch (status.toUpperCase()) {
+      case 'PENDENTE':
+        return 'status-pendente';
+      case 'APROVADO':
+        return 'status-aprovado';
+      case 'REJEITADO':
+        return 'status-rejeitado';
+      default:
+        return '';
+    }
   }
 
 }

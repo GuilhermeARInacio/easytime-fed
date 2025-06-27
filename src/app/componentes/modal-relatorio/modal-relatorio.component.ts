@@ -45,6 +45,7 @@ export class ModalRelatorioComponent {
       'Saída',
       'Entrada',
       'Saída',
+      'Status',
       'Horas Trabalhadas'
     ];
     const filename = 'relatorio_' + this.usuario + '_' + this.dataInicio + '_' + this.dataFinal + '.pdf';
@@ -69,6 +70,7 @@ export class ModalRelatorioComponent {
         item.saida2,  
         item.entrada3,
         item.saida3,
+        item.status,
         item.horasTrabalhadas
       ];
       tableRows.push(rowData);
@@ -106,6 +108,7 @@ export class ModalRelatorioComponent {
       'Saída_2': item.saida2,
       'Entrada_3': item.entrada3,
       'Saída_3': item.saida3,
+      'Status': item.status,
       'Horas Trabalhadas': item.horasTrabalhadas
     }));
 

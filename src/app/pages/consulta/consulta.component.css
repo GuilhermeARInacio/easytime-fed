@@ -122,6 +122,10 @@ form{
     min-width: 100px;
 }
 
+.tabela td.status-aprovado b{ color: green; }
+.tabela td.status-rejeitado b{ color: red; }
+.tabela td.status-pendente b{ color: orange; }
+
 .editar-cel{
     width: 1em;
     padding: 0.3em;
@@ -129,6 +133,15 @@ form{
 
 .editar-cel span{
     font-size: 1.5em;
+}
+
+.editar-cel span.material-symbols-outlined[aria-disabled = true]{
+    color: #969696;
+}
+
+.editar-cel span.material-symbols-outlined[aria-disabled = true]:hover{
+    color: #969696;
+    cursor: not-allowed;
 }
 
 .spinner {

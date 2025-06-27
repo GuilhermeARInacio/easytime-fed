@@ -111,14 +111,14 @@ describe('BaterPontoComponent', () => {
 
   it('deve tratar outros erros ao bater ponto', () => {
     spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
-    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: 'Erro inesperado' })));
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: 'Erro interno do servidor. Por favor, tente novamente mais tarde.' })));
 
     component.baterPonto();
 
-    expect(component.error).toBe('Erro inesperado');
+    expect(component.error).toBe('Erro interno do servidor. Por favor, tente novamente mais tarde.');
     expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
-      mensagem: 'Erro inesperado',
+      mensagem: 'Erro interno do servidor. Por favor, tente novamente mais tarde.',
       tipo: 'erro'
     }));
   });
@@ -144,8 +144,21 @@ describe('BaterPontoComponent', () => {
     expect(component.atualizarHorario).toHaveBeenCalledTimes(4);
   }));
 
+  it('deve exibir mensagem padrão se for erro 500', () => {
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: "Erro interno do servidor. Por favor, tente novamente mais tarde." })));
+
+    component.baterPonto();
+
+    expect(component.error).toBe('Erro interno do servidor. Por favor, tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+      titulo: 'Erro',
+      mensagem: 'Erro interno do servidor. Por favor, tente novamente mais tarde.',
+      tipo: 'erro'
+    }));
+  });
+
   it('deve exibir mensagem padrão se err.error estiver vazio ao bater ponto', () => {
-    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: undefined })));
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 400, error: null })));
 
     component.baterPonto();
 

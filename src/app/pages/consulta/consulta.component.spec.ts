@@ -152,12 +152,12 @@ describe('ConsultaComponent', () => {
     component.formulario.get('inicio')?.setValue('2025-06-01');
     component.formulario.get('final')?.setValue('2025-06-10');
     
-    pontoServiceSpy.consultarPonto.and.returnValue(throwError(() => ({ status: 400, error: 'Nenhum registro encontrado para o período informado.' })));
+    pontoServiceSpy.consultarPonto.and.returnValue(throwError(() => ({ status: 400, error: 'Nenhum ponto encontrado para o período informado.' })));
 
     component.consultar();
 
     tick(1000);
-    expect(component.error).toBe('Nenhum registro encontrado para o período informado.');
+    expect(component.error).toBe('Não existem registros de ponto para o período informado.');
   }));
 
   it('deve marcar controles como touched e setar shakeFields se formulário inválido', () => {
@@ -182,21 +182,21 @@ describe('ConsultaComponent', () => {
 
   it('deve retornar string vazia ao chamar formatarData com data vazia', () => {
     const component = new ConsultaComponent(
-      {} as any, {} as any, {} as any, {} as any
+      {} as any, {} as any, {} as any, {} as any, {} as any, {} as any
     );
     expect(component.formatarData('')).toBe('');
   });
 
   it('deve retornar string vazia ao chamar formatarDataRetorno com data vazia', () => {
     const component = new ConsultaComponent(
-      {} as any, {} as any, {} as any, {} as any
+      {} as any, {} as any, {} as any, {} as any, {} as any, {} as any
     );
     expect(component.formatarDataRetorno('')).toBe('');
   });
 
   it('deve formatar data para dd/mm/aa ao chamar formatarDataRetorno', () => {
     const component = new ConsultaComponent(
-      {} as any, {} as any, {} as any, {} as any
+      {} as any, {} as any, {} as any, {} as any, {} as any, {} as any
     );
     expect(component.formatarDataRetorno('12/06/2025')).toBe('12/06/25');
   });
@@ -208,17 +208,63 @@ describe('ConsultaComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  it('deve exibir mensagem específica se erro contiver "Nenhum ponto"', fakeAsync(() => {
-    component.formulario.get('inicio')?.setValue('2024-06-01');
-    component.formulario.get('final')?.setValue('2024-06-10');
-
-    pontoServiceSpy.consultarPonto.and.returnValue(
-      throwError(() => ({ status: 400, error: 'Não existem registros de ponto para o período informado.' }))
+  it('deve abrir o modal de exportação e definir overflow hidden no body', () => {
+    const rendererSpy = jasmine.createSpyObj('Renderer2', ['setStyle']);
+    const elementMock = { nativeElement: { ownerDocument: { body: {} } } };
+    const component = new ConsultaComponent(
+      {} as any, {} as any, {} as any, {} as any, rendererSpy, elementMock as any
     );
+    component.modalExportar = false;
 
-    component.consultar();
-    
-    tick(1000);
-    expect(component.error).toBe('Não existem registros de ponto para o período informado.');
-  }));
+    component.abrirModalExportar();
+
+    expect(component.modalExportar).toBeTrue();
+    expect(rendererSpy.setStyle).toHaveBeenCalledWith(elementMock.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  });
+
+  it('deve abrir o modal de alteração e definir overflow hidden no body', () => {
+    const rendererSpy = jasmine.createSpyObj('Renderer2', ['setStyle']);
+    const elementMock = { nativeElement: { ownerDocument: { body: {} } } };
+    const component = new ConsultaComponent(
+      {} as any, {} as any, {} as any, {} as any, rendererSpy, elementMock as any
+    );
+    component.modalAlteracao = false;
+
+    const registro = {
+      id: 1,
+      login: 'login',
+      data: '08/06/2025',
+      horasTrabalhadas: '08:00:00',
+      entrada1: '08:00:00',
+      saida1: '12:00:00',
+      entrada2: '13:00:00',
+      saida2: '17:00:00',
+      entrada3: '',
+      saida3: '',
+      status: 'PENDENTE'
+    }
+
+    component.abrirModalAlteracao(registro);
+
+    expect(component.modalAlteracao).toBeTrue();
+    expect(rendererSpy.setStyle).toHaveBeenCalledWith(elementMock.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  });
+
+  it('deve retornar "status-pendente" para status "PENDENTE"', () => {
+    expect(component.statusClass('PENDENTE')).toBe('status-pendente');
+  });
+
+  it('deve retornar "status-aprovado" para status "APROVADO"', () => {
+    expect(component.statusClass('APROVADO')).toBe('status-aprovado');
+  });
+
+  it('deve retornar "status-rejeitado" para status "REJEITADO"', () => {
+    expect(component.statusClass('REJEITADO')).toBe('status-rejeitado');
+  });
+
+  it('deve retornar string vazia para status desconhecido', () => {
+    expect(component.statusClass('INDEFINIDO')).toBe('');
+    expect(component.statusClass('')).toBe('');
+    expect(component.statusClass('qualquercoisa')).toBe('');
+  });  
 });

@@ -7,6 +7,12 @@
             [usuario]="usuario" 
             (fecharModal)="modalExportar = false"
         ></app-modal-relatorio>
+
+        <app-modal-alteracao *ngIf="modalAlteracao" 
+            [registro]="registroAlteracao"
+            [usuario]="usuario" 
+            (fecharModal)="modalAlteracao = false"
+        ></app-modal-alteracao>
         <app-menu-lateral></app-menu-lateral>
 
         <div class="container" role="region" aria-label="Consultar ponto">
@@ -90,6 +96,7 @@
                             <th role="columnheader">Entrada</th>
                             <th role="columnheader">Saída</th>
                             <th role="columnheader">Total</th>
+                            <th role="columnheader">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,8 +109,9 @@
                             <td role="cell">{{ registro.entrada3 }}</td>
                             <td role="cell">{{ registro.saida3 }}</td>
                             <td role="cell">{{ registro.horasTrabalhadas }}</td>
+                            <td role="cell" [ngClass]="statusClass(registro.status)" ><b>{{ registro.status | capitalize }}</b></td>
                             <td role="cell" class="editar-cel">
-                                <span class="material-symbols-outlined">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO'" (click)="registro.status !== 'APROVADO' ? abrirModalAlteracao(registro) : null">
                                     edit
                                 </span>
                             </td>

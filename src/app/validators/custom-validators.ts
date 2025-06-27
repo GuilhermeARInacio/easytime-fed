@@ -97,3 +97,40 @@ export function datasDepoisDeDataAtual(inicio: string, final: string): Validator
     return null;
   };
 }
+
+export function horarioSaidaAnteriorEntrada(){
+  return (formulario: AbstractControl): ValidationErrors | null => {
+    const entrada1 = formulario.get('entrada1')?.value;
+    const saida1 = formulario.get('saida1')?.value;
+    const entrada2 = formulario.get('entrada2')?.value;
+    const saida2 = formulario.get('saida2')?.value;
+    const entrada3 = formulario.get('entrada3')?.value;
+    const saida3 = formulario.get('saida3')?.value;
+
+    if (entrada1 && saida1 && entrada1 >= saida1) {
+      return { horarioSaidaAnteriorEntrada: true };
+    }
+
+    if (entrada2 && saida2 && entrada2 >= saida2) {
+      return { horarioSaidaAnteriorEntrada: true };
+    }
+
+    if (entrada3 && saida3 && entrada3 >= saida3) {
+      return { horarioSaidaAnteriorEntrada: true };
+    }
+
+    return null;
+  };
+}
+
+export function horarioForaComercial(control: AbstractControl): ValidationErrors | null {
+    const campo = control.value;
+    if (!campo) {
+      return null;
+    }
+    if (campo < '06:00' || campo > '23:00') {
+      return { horarioForaComercial: true };
+    }
+
+    return null;
+}

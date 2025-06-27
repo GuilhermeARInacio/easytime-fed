@@ -60,8 +60,10 @@ export class LoginComponent {
 
           if (err.status === 401) {
             this.error = 'Login ou senha inválidos. Verifique suas credenciais.';
+          } else if (err.status === 500) {
+            this.error = 'Erro interno do servidor. Tente novamente mais tarde.';
           } else {
-            this.error = err.error.message || 'Erro ao realizar login. Tente novamente mais tarde.';
+            this.error = err.error || 'Erro ao realizar login. Tente novamente mais tarde.';
           }
         }
       })
@@ -73,7 +75,6 @@ export class LoginComponent {
         if (control?.invalid) {
           this.shakeFields[controlName] = true;
 
-          // Remove a classe após a animação (300ms)
           setTimeout(() => {
             this.shakeFields[controlName] = false;
           }, 300);
