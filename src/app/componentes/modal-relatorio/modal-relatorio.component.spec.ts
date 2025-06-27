@@ -2,12 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalRelatorioComponent } from './modal-relatorio.component';
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
+import * as FileSaver from 'file-saver';
+import jsPDF from 'jspdf';
 
 describe('ModalRelatorioComponent', () => {
   let component: ModalRelatorioComponent;
   let fixture: ComponentFixture<ModalRelatorioComponent>;
 
   beforeEach(async () => {
+    spyOn(FileSaver, 'saveAs').and.stub();
+    const jsPDFInstance = new jsPDF();
+    spyOn(jsPDFInstance, 'save').and.stub();
+
     await TestBed.configureTestingModule({
       imports: [ModalRelatorioComponent]
     })

@@ -185,7 +185,7 @@ export class ConsultaComponent {
       case 'REJEITADO':
         return 'status-rejeitado';
       default:
-        return ''; // Cor padrão para status desconhecido
+        return '';
     }
   }
 

@@ -64,4 +64,26 @@ describe('PontoService', () => {
     expect(req.request.body).toEqual(consulta);
     req.flush(respostaMock);
   });
+
+  it('deve alterar ponto (PUT)', () => {
+    const registro = { 
+      id: 1,
+      data: '27/06/2025',
+      entrada1: '08:00',
+      saida1: '12:00',
+      entrada2: '13:00',
+      saida2: '18:00',
+      entrada3: '',
+      saida3: '',
+      justificativa: ''
+    };
+    
+    service.alterarRegistro(registro as any).subscribe(res => expect(res)
+      .toEqual("Pedido enviado com sucesso!"));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/alterar`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(registro);
+    req.flush("Pedido enviado com sucesso!");
+  });
 });

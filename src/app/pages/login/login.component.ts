@@ -63,7 +63,7 @@ export class LoginComponent {
           } else if (err.status === 500) {
             this.error = 'Erro interno do servidor. Tente novamente mais tarde.';
           } else {
-            this.error = err.error.message || 'Erro ao realizar login. Tente novamente mais tarde.';
+            this.error = err.error || 'Erro ao realizar login. Tente novamente mais tarde.';
           }
         }
       })

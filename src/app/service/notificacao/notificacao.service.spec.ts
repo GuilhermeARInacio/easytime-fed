@@ -10,7 +10,7 @@ describe('PopUpService', () => {
     service = TestBed.inject(PopUpService);
   });
 
-  it('should be created', () => {
+  it('deve ser criar', () => {
     expect(service).toBeTruthy();
   });
 });
