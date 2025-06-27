@@ -123,7 +123,7 @@ form{
 }
 
 .tabela td.status-aprovado b{ color: green; }
-.tabela td.status-reprovado b{ color: red; }
+.tabela td.status-rejeitado b{ color: red; }
 .tabela td.status-pendente b{ color: orange; }
 
 .editar-cel{

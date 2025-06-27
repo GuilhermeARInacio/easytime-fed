@@ -119,7 +119,7 @@ export class ModalAlteracaoComponent {
       this.pontoService.alterarRegistro(dadosAlteracao).subscribe({
         next: (response) => {
           this.notificacaoService.abrirNotificacao({
-            titulo: 'Registro alterado com sucesso',
+            titulo: 'Pedido enviado com sucesso',
             mensagem: 'O pedido de alteração foi enviado com sucesso, aguarde a validação do gestor.',
             tipo: 'sucesso',
             icon: 'check_circle'
