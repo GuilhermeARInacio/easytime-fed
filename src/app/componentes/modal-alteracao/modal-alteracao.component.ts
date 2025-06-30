@@ -138,7 +138,7 @@ export class ModalAlteracaoComponent {
         
         if (err.status === 401 || err.status === 403) {
           this.error = 'Você não tem permissão para alterar este registro. Verifique suas credenciais.';
-        } else if (err.status === 500 || err.status === 502) {
+        } else if (err.status === 500 || err.status === 502 || err.status === 0) {
           this.error = 'Desculpe, ocorreu um erro interno ao tentar alterar o registro. Tente novamente mais tarde.';
         } else {
           this.error = err.error || 'Erro ao alterar registro. Tente novamente mais tarde.';
