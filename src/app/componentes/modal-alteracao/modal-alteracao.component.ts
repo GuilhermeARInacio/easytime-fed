@@ -106,6 +106,7 @@ export class ModalAlteracaoComponent {
         return;
       }
       const dadosAlteracao: AlterarPonto = {
+        login: localStorage.getItem('login') || '',
         idPonto: this.registro.id,
         data: this.registro?.data || '',
         entrada1: this.formulario.get('entrada1')?.value,
@@ -137,7 +138,7 @@ export class ModalAlteracaoComponent {
         
         if (err.status === 401 || err.status === 403) {
           this.error = 'Você não tem permissão para alterar este registro. Verifique suas credenciais.';
-        } else if (err.status === 500) {
+        } else if (err.status === 500 || err.status === 502) {
           this.error = 'Desculpe, ocorreu um erro interno ao tentar alterar o registro. Tente novamente mais tarde.';
         } else {
           this.error = err.error || 'Erro ao alterar registro. Tente novamente mais tarde.';
