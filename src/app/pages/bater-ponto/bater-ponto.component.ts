@@ -64,8 +64,8 @@ export class BaterPontoComponent {
             setInterval(() => {
               this.sair();
             }, 1000);
-          } else if (err.status === 500) {
-            this.error = 'Erro interno do servidor. Por favor, tente novamente mais tarde.';
+          } else if (err.status === 500 || err.status === 502 || err.status === 0) {
+            this.error = 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.';
           } else {
             this.error = err.error || 'Erro ao bater ponto. Tente novamente mais tarde.';
           }

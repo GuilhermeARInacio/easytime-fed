@@ -1,4 +1,5 @@
 export interface AlterarPonto {
+    login: string,
     idPonto: number;
     data: string;
     entrada1: string;
