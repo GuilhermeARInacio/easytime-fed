@@ -50,11 +50,9 @@ export class ModalRelatorioComponent {
     ];
     const filename = 'relatorio_' + this.usuario + '_' + this.dataInicio + '_' + this.dataFinal + '.pdf';
 
-    console.log('Exportar PDF');
-    console.log(this.registros);
-
     const doc = new jsPDF();
 
+    doc.setFontSize(14);
     doc.text('Relatório de ' + this.usuario, 10, 10);
 
     const tableColumn = headers;
@@ -79,7 +77,16 @@ export class ModalRelatorioComponent {
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
-      startY: 20
+      startY: 20,
+      styles: {
+        fontSize: 9
+      },
+      headStyles: {
+        fillColor: '#2979FF', 
+        textColor: 255,            
+        fontStyle: 'bold',
+        halign: 'center'
+      }
     });
 
     doc.save(filename);

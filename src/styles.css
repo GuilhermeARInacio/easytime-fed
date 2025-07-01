@@ -196,6 +196,14 @@ input.shake, textarea.shake {
   animation: shake 0.3s;
 }
 
+.status-aprovado b{ color: green; }
+.status-rejeitado b{ color: red; }
+.status-pendente b{ color: orange; }
+
+.display-none{
+  display: none;
+}
+
 @media (max-width: 1500px) {
   .logo {
     width: 14vw;

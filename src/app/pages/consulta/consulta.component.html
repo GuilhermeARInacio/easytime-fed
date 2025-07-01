@@ -10,8 +10,9 @@
 
         <app-modal-alteracao *ngIf="modalAlteracao" 
             [registro]="registroAlteracao"
+            [pedidoAlteracao]="pedidoAlteracao"
             [usuario]="usuario" 
-            (fecharModal)="modalAlteracao = false"
+            (fecharModal)="modalAlteracao = false; registroAlteracao = undefined; pedidoAlteracao = undefined"
         ></app-modal-alteracao>
         <app-menu-lateral></app-menu-lateral>
 
@@ -67,7 +68,7 @@
                     </div>
 
                     <div class="botoes" role="group">
-                        <button class="botao" type="submit" role="button"> Consultar </button>
+                        <button class="botao" type="submit" role="button" [attr.aria-disabled]="formulario.invalid"> Consultar </button>
                         <button 
                             class="botao exportar" 
                             type="button" 
@@ -97,6 +98,7 @@
                             <th role="columnheader">Saída</th>
                             <th role="columnheader">Total</th>
                             <th role="columnheader">Status</th>
+                            <th role="columnheader">Alteração</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,8 +112,13 @@
                             <td role="cell">{{ registro.saida3 }}</td>
                             <td role="cell">{{ registro.horasTrabalhadas }}</td>
                             <td role="cell" [ngClass]="statusClass(registro.status)" ><b>{{ registro.status | capitalize }}</b></td>
-                            <td role="cell" class="editar-cel">
-                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO'" (click)="registro.status !== 'APROVADO' ? abrirModalAlteracao(registro) : null">
+                            <td role="cell" class="icone-cel">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="!registro.temAlteracao" (click)="registro.temAlteracao ? exibirAlteracao(registro) : null">
+                                    contract_edit
+                                </span>
+                            </td>
+                            <td role="cell" class="icone-cel">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO' || registro.temAlteracao" (click)="registro.status !== 'APROVADO' && !registro.temAlteracao ? abrirModalAlteracao(registro) : null">
                                     edit
                                 </span>
                             </td>

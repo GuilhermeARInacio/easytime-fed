@@ -11,6 +11,7 @@ import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.
 import { ModalRelatorioComponent } from "../../componentes/modal-relatorio/modal-relatorio.component";
 import { CapitalizePipe } from "../../shared/capitalize.pipe";
 import { ModalAlteracaoComponent } from "../../componentes/modal-alteracao/modal-alteracao.component";
+import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
 
 @Component({
   selector: 'app-consulta',
@@ -31,6 +32,7 @@ export class ConsultaComponent {
 
   modalAlteracao: boolean = false;
   registroAlteracao: RegistroPonto | undefined;
+  pedidoAlteracao: AlterarPonto | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,6 +86,8 @@ export class ConsultaComponent {
         next: (response) => {
           setTimeout(() => {
             this.registros = response;
+
+            console.log(response);
 
             this.sucesso = 'Registros consultados com sucesso.';
             this.popUpService.abrirNotificacao({
@@ -181,6 +185,17 @@ export class ConsultaComponent {
 
   abrirModalAlteracao(registro: RegistroPonto) {
     this.registroAlteracao = registro;
+    this.modalAlteracao = true;
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  }
+
+  exibirAlteracao(registro: RegistroPonto) {
+    this.pontoService.consultarAlteracao(registro.id).subscribe({
+      next: (response) => {
+        this.pedidoAlteracao = response;
+        console.log(this.pedidoAlteracao);
+      }
+    })
     this.modalAlteracao = true;
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
   }

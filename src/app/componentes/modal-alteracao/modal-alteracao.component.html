@@ -2,7 +2,9 @@
     <div class="modal-alteracao display-column" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-alteracao">
         <h2 class="subtitulo" role="heading" id="titulo-modal-alteracao" aria-level="1">Alterar registro de ponto</h2>
 
-        <p class="texto" id="data-registro">Data: {{ registro?.data }}</p>
+        <p class="texto" id="data-registro">Data: {{ registro ? registro.data : pedidoAlteracao?.data }}</p>
+        <p class="texto" *ngIf="!registro" [ngClass]="statusClass(pedidoAlteracao?.status || '')"> Status do pedido: <b> {{pedidoAlteracao?.status}} </b></p>
+        <p class="linha"></p>
         <form [formGroup]="formulario" (ngSubmit)="enviarAlteracao()" class="display-column" role="form" aria-labelledby="titulo-modal-alteracao" aria-describedby="data-registro">
             <div class="display-column area-input">
                 <div class="display-row input-time">
@@ -10,7 +12,6 @@
                     <input 
                         type="time" 
                         placeholder="Entrada" 
-                        [value]="registro?.entrada1" 
                         aria-label="Entrada 1"
                         name="entrada1"
                         formControlName="entrada1"
@@ -26,8 +27,7 @@
                     <label for="saida1">Saída 1: </label>
                     <input 
                         type="time" 
-                        placeholder="Saída" 
-                        [value]="registro?.saida1" 
+                        placeholder="Saída"
                         aria-label="Saída 1" 
                         name="saida1"
                         formControlName="saida1"
@@ -43,8 +43,7 @@
                     <label for="entrada2">Entrada 2: </label>
                     <input 
                         type="time" 
-                        placeholder="Entrada" 
-                        [value]="registro?.entrada2" 
+                        placeholder="Entrada"
                         aria-label="Entrada 2" 
                         name="entrada2"
                         formControlName="entrada2"
@@ -59,8 +58,7 @@
                     <label for="saida2">Saída 2: </label>
                     <input 
                         type="time" 
-                        placeholder="Saída" 
-                        [value]="registro?.saida2" 
+                        placeholder="Saída"
                         aria-label="Saída 2" 
                         name="saida2"
                         formControlName="saida2"
@@ -76,8 +74,7 @@
                     <label for="entrada3">Entrada 3: </label>
                     <input 
                         type="time" 
-                        placeholder="Entrada" 
-                        [value]="registro?.entrada3" 
+                        placeholder="Entrada"
                         aria-label="Entrada 3" 
                         name="entrada3"
                         formControlName="entrada3"
@@ -92,8 +89,7 @@
                     <label for="saida3">Saída 3: </label>
                     <input 
                         type="time" 
-                        placeholder="Saída" 
-                        [value]="registro?.saida3" 
+                        placeholder="Saída"
                         aria-label="Saída 3" 
                         name="saida3"
                         formControlName="saida3"
@@ -119,7 +115,7 @@
                         [class.invalid]="formulario.get('justificativa')?.invalid && formulario.get('justificativa')?.touched"
                     ></textarea>
                 </div>
-                <div class="caixa-mensagem display-column" aria-live="assertive">
+                <div class="caixa-mensagem display-column" aria-live="assertive" [style]="!registro ? `height: 0px` : ``">
                     <p class="erro" id="horarioComercial" *ngIf="
                         (this.formulario.get('entrada1')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada1')?.touched) ||
                         (this.formulario.get('saida1')?.errors?.['horarioForaComercial'] && this.formulario.get('saida1')?.touched) ||
@@ -133,9 +129,9 @@
                     <p class="erro" id="horarioSaidaAnteriorEntrada" *ngIf="formulario.errors?.['horarioSaidaAnteriorEntrada']" role="alert">O horário de saída deve ser posterior à entrada.</p>
                 </div>
             </div>
-            <div class="botoes">
-                <button (click)="fechar()" type="button" class="botao botao-cancelar" role="button" aria-label="Cancelar pedido de alteração">Cancelar</button>
-                <button type="submit" class="botao" role="button" aria-label="Enviar pedido de alteração">Salvar</button>
+            <div [ngClass]="registro ? `botoes` : `center`">
+                <button (click)="fechar()" type="button" class="botao botao-cancelar" role="button" aria-label="Cancelar pedido de alteração" [style]="!registro ? `width: 100%` : ``">Cancelar</button>
+                <button type="submit" class="botao" role="button" aria-label="Enviar pedido de alteração" *ngIf="registro">Salvar</button>
             </div>
         </form>
 

@@ -9,4 +9,5 @@ export interface AlterarPonto {
     entrada3: string;
     saida3: string;
     justificativa: string;
+    status: string | null;
 }
