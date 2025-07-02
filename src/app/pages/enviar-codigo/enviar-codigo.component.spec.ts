@@ -78,24 +78,24 @@ describe('EnviarCodigoComponent', () => {
     expect(component.error).toBe('Login ou senha inválidos. Verifique suas credenciais.');
   });
 
-  it('deve dar erro para outros tipos de erro', () => {
+  it('deve tratar outros tipos de erro', () => {
     const component = getComponent();
     component.formulario.setValue({ email: 'test@example.com' });
     usuarioServiceSpy.enviarCodigo.and.returnValue(
-      throwError(() => ({ status: 500, error: { message: 'Server error' } }))
+      throwError(() => ({ status: 400, error: 'Erro ao enviar código.' }))
     );
 
     component.enviarEmail();
 
     expect(component.carregando).toBeFalse();
-    expect(component.error).toBe('Server error');
+    expect(component.error).toBe('Erro ao enviar código.');
   });
 
   it('deve definir mensagem de erro padrão se err.error.message estiver ausente', () => {
     const component = getComponent();
     component.formulario.setValue({ email: 'test@example.com' });
     usuarioServiceSpy.enviarCodigo.and.returnValue(
-      throwError(() => ({ status: 400, error: {} }))
+      throwError(() => ({ status: 400 }))
     );
 
     component.enviarEmail();
@@ -104,7 +104,7 @@ describe('EnviarCodigoComponent', () => {
     expect(component.error).toBe('Erro ao enviar email. Verifique se o email está correto.');
   });
 
-  it('deve definir mensagem de erro padrão se err.error estiver ausente', () => {
+  it('deve tratar erro 500', () => {
     const component = getComponent();
     component.formulario.setValue({ email: 'test@example.com' });
     usuarioServiceSpy.enviarCodigo.and.returnValue(
@@ -114,7 +114,7 @@ describe('EnviarCodigoComponent', () => {
     component.enviarEmail();
 
     expect(component.carregando).toBeFalse();
-    expect(component.error).toBe('Erro ao enviar email. Verifique se o email está correto.');
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno. Tente novamente mais tarde.');
   });
 
   it('deve limpar o erro ao alterar o valor do email', () => {

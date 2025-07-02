@@ -52,7 +52,8 @@ describe('PontoService', () => {
         saida2: '17:00',
         entrada3: '',
         saida3: '',
-        status: 'PENDENTE'
+        status: 'PENDENTE',
+        temAlteracao: false
       }
     ];
     
@@ -85,5 +86,29 @@ describe('PontoService', () => {
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(registro);
     req.flush("Pedido enviado com sucesso!");
+  });
+
+  it('deve consultar pedido de alteração (GET)', () => {
+    const id = 1;
+    const alterarPonto = {
+      login: 'user',
+      idPonto: 1,
+      data: '27/06/2025',
+      entrada1: '',
+      saida1: '',
+      entrada2: '',
+      saida2: '',
+      entrada3: '',
+      saida3: '',
+      justificativa: '',
+      status: '',
+    }
+    
+    service.consultarAlteracao(id as any).subscribe(res => expect(res)
+      .toEqual(alterarPonto));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/pedido/${id}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(alterarPonto);
   });
 });

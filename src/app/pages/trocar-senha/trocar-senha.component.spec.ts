@@ -112,12 +112,12 @@ describe('TrocarSenhaComponent', () => {
     });
 
     usuarioServiceSpy.trocarSenha.and.returnValue(
-      throwError(() => ({ status: 500, error: 'Server error' }))
+      throwError(() => ({ status: 400, error: null }))
     );
     component.enviarTrocaSenha();
 
     expect(usuarioServiceSpy.trocarSenha).toHaveBeenCalledWith(trocarSenha);
-    expect(component.error).toBe('Server error');
+    expect(component.error).toBe('Desculpe, ocorreu um erro ao tentar trocar a senha, tente novamente mais tarde.');
   });
 
   it('deve marcar todos acionar animação caso formulário inválido', (done) => {
@@ -151,7 +151,7 @@ describe('TrocarSenhaComponent', () => {
     expect(component.showPassword).toBeFalse();
   });
 
-  it('deve exibir mensagem padrão se err.error estiver vazio ao trocar senha', () => {
+  it('deve tratar erro 500', () => {
     const trocarSenha = {
       code: '12345678',
       email: 'email@gmail.com',
@@ -164,13 +164,13 @@ describe('TrocarSenhaComponent', () => {
     });
 
     usuarioServiceSpy.trocarSenha.and.returnValue(
-      throwError(() => ({ status: 500, error: undefined }))
+      throwError(() => ({ status: 500, error: null }))
     );
 
     spyOn(component, 'abrirNotificacao');
 
     component.enviarTrocaSenha();
 
-    expect(component.error).toBe('Código inválido. Solicite um novo código de recuperação.');
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno. Tente novamente mais tarde.');
   });
 });
