@@ -34,6 +34,12 @@ describe('ModalRelatorioComponent', () => {
     expect(component.fecharModal.emit).toHaveBeenCalled();
   });
 
+  it('deve emitir fecharModalComEsc ao pressionar ESC', () => {
+    spyOn(component.fecharModal, 'emit');
+    component.fecharModalComEsc();
+    expect(component.fecharModal.emit).toHaveBeenCalled();
+  });
+
   it('deve chamar exportarPDF sem erros', () => {
     component.usuario = 'user';
     component.dataInicio = '2024-01-01';

@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output, Rende
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PontoService } from '../../service/ponto/ponto.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
 import { horarioForaComercial, horarioSaidaAnteriorEntrada } from '../../validators/custom-validators';
@@ -18,6 +18,7 @@ export class ModalAlteracaoComponent {
   @Output() fecharModal = new EventEmitter<void>();
   @Input() usuario = '';
   @Input() registro: RegistroPonto | undefined;
+  @Input() pedidoAlteracao: AlterarPonto | undefined;
   formulario!: FormGroup;
   shakeFields: { [key: string]: boolean } = {};
   error: string | null = null;
@@ -30,65 +31,85 @@ export class ModalAlteracaoComponent {
     private notificacaoService: PopUpService
   ) {}
 
-  ngOnInit(){
-    console.log(this.registro)
-    this.formulario = this.formBuilder.group({
-      entrada1: [this.registro?.entrada1 || '', Validators.compose([
-        Validators.required,
-        horarioForaComercial
-      ])],
-      saida1: [this.registro?.saida1 || '', Validators.compose([
-        Validators.required,
-        horarioForaComercial
-      ])],
-      entrada2: [this.registro?.entrada2 || '', Validators.compose([
-        horarioForaComercial
-      ])],
-      saida2: [this.registro?.saida2 || '', Validators.compose([
-        horarioForaComercial
-      ])],
-      entrada3: [this.registro?.entrada3 || '', Validators.compose([
-        horarioForaComercial
-      ])],
-      saida3: [this.registro?.saida3 || '', Validators.compose([
-        horarioForaComercial
-      ])],
-      justificativa: ['', Validators.required]
-    },
-    {
-      validators: horarioSaidaAnteriorEntrada()
-    }
-  );
+  ngOnChanges(){
+    console.log("Registro: " + this.registro);
+    console.log("Pedido de alteracao: " + this.pedidoAlteracao);
+    if(this.registro){
+      this.formulario = this.formBuilder.group({
+        entrada1: [this.registro?.entrada1 || '', Validators.compose([
+          Validators.required,
+          horarioForaComercial
+        ])],
+        saida1: [this.registro?.saida1 || '', Validators.compose([
+          Validators.required,
+          horarioForaComercial
+        ])],
+        entrada2: [this.registro?.entrada2 || '', Validators.compose([
+          horarioForaComercial
+        ])],
+        saida2: [this.registro?.saida2 || '', Validators.compose([
+          horarioForaComercial
+        ])],
+        entrada3: [this.registro?.entrada3 || '', Validators.compose([
+          horarioForaComercial
+        ])],
+        saida3: [this.registro?.saida3 || '', Validators.compose([
+          horarioForaComercial
+        ])],
+        justificativa: ['', Validators.required]
+      },
+      {
+        validators: horarioSaidaAnteriorEntrada()
+      }
+    );
 
-    this.formulario.get('entrada1')?.valueChanges.subscribe(() => {
-      this.shakeFields['entrada1'] = false;
-    });
-    this.formulario.get('saida1')?.valueChanges.subscribe(() => {
-      this.shakeFields['saida1'] = false;
-    });
-    this.formulario.get('entrada2')?.valueChanges.subscribe(() => {
-      this.shakeFields['entrada2'] = false;
-    });
-    this.formulario.get('saida2')?.valueChanges.subscribe(() => {
-      this.shakeFields['saida2'] = false;
-    });
-    this.formulario.get('entrada3')?.valueChanges.subscribe(() => {
-      this.shakeFields['entrada3'] = false;
-    });
-    this.formulario.get('saida3')?.valueChanges.subscribe(() => {
-      this.shakeFields['saida3'] = false;
-    });
-    this.formulario.get('justificativa')?.valueChanges.subscribe(() => {
-      this.shakeFields['justificativa'] = false;
-    });
+      this.formulario.get('entrada1')?.valueChanges.subscribe(() => {
+        this.shakeFields['entrada1'] = false;
+      });
+      this.formulario.get('saida1')?.valueChanges.subscribe(() => {
+        this.shakeFields['saida1'] = false;
+      });
+      this.formulario.get('entrada2')?.valueChanges.subscribe(() => {
+        this.shakeFields['entrada2'] = false;
+      });
+      this.formulario.get('saida2')?.valueChanges.subscribe(() => {
+        this.shakeFields['saida2'] = false;
+      });
+      this.formulario.get('entrada3')?.valueChanges.subscribe(() => {
+        this.shakeFields['entrada3'] = false;
+      });
+      this.formulario.get('saida3')?.valueChanges.subscribe(() => {
+        this.shakeFields['saida3'] = false;
+      });
+      this.formulario.get('justificativa')?.valueChanges.subscribe(() => {
+        this.shakeFields['justificativa'] = false;
+      });
+    } else {
+      this.formulario = this.formBuilder.group({
+        entrada1: [this.pedidoAlteracao?.entrada1],
+        saida1: [this.pedidoAlteracao?.saida1],
+        entrada2: [this.pedidoAlteracao?.entrada2],
+        saida2: [this.pedidoAlteracao?.saida2],
+        entrada3: [this.pedidoAlteracao?.entrada3],
+        saida3: [this.pedidoAlteracao?.saida3],
+        justificativa: [this.pedidoAlteracao?.justificativa]
+      });
+      this.formulario.disable();
+    }
   }
 
   @HostListener("document:keydown.escape") fecharModalComEsc(){
+    this.registro = undefined;
+    this.pedidoAlteracao = undefined;
+
     this.fecharModal.emit();
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
   }
 
   fechar() {
+    this.registro = undefined;
+    this.pedidoAlteracao = undefined;
+
     this.fecharModal.emit();
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
   }
@@ -115,7 +136,8 @@ export class ModalAlteracaoComponent {
         saida2: this.formulario.get('saida2')?.value,
         entrada3: this.formulario.get('entrada3')?.value,
         saida3: this.formulario.get('saida3')?.value,
-        justificativa: this.formulario.get('justificativa')?.value || ''
+        justificativa: this.formulario.get('justificativa')?.value || '',
+        status: null
       };
       this.pontoService.alterarRegistro(dadosAlteracao).subscribe({
         next: (response) => {
@@ -167,4 +189,16 @@ export class ModalAlteracaoComponent {
     }
   }
 
+  statusClass(status: string): string {
+    switch (status.toUpperCase()) {
+      case 'PENDENTE':
+        return 'status-pendente';
+      case 'APROVADO':
+        return 'status-aprovado';
+      case 'REJEITADO':
+        return 'status-rejeitado';
+      default:
+        return '';
+    }
+  }
 }

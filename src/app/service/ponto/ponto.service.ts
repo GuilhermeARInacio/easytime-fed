@@ -27,4 +27,8 @@ export class PontoService {
   alterarRegistro(registro: AlterarPonto): Observable<string> {
     return this.http.put<string>(`${this.API_URL}ponto/alterar`, registro, { responseType: 'text' as 'json' });
   }
+
+  consultarAlteracao(idPonto: number): Observable<AlterarPonto> {
+    return this.http.get<AlterarPonto>(`${this.API_URL}ponto/pedido/${idPonto}`);
+  }
 }

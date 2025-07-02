@@ -72,7 +72,7 @@ export class BaterPontoComponent {
 
           this.popUpService.abrirNotificacao({
             titulo: 'Erro',
-            mensagem: this.error ?? 'Erro ao bater ponto. Tente novamente mais tarde.',
+            mensagem: this.error || 'Erro ao bater ponto. Tente novamente mais tarde.',
             tipo: 'erro',
             icon: ''
           });

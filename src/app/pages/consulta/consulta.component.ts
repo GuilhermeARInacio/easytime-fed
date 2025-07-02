@@ -11,6 +11,7 @@ import { NotificacaoComponent } from "../../componentes/notificacao/notificacao.
 import { ModalRelatorioComponent } from "../../componentes/modal-relatorio/modal-relatorio.component";
 import { CapitalizePipe } from "../../shared/capitalize.pipe";
 import { ModalAlteracaoComponent } from "../../componentes/modal-alteracao/modal-alteracao.component";
+import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
 
 @Component({
   selector: 'app-consulta',
@@ -31,6 +32,7 @@ export class ConsultaComponent {
 
   modalAlteracao: boolean = false;
   registroAlteracao: RegistroPonto | undefined;
+  pedidoAlteracao: AlterarPonto | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,6 +86,8 @@ export class ConsultaComponent {
         next: (response) => {
           setTimeout(() => {
             this.registros = response;
+
+            console.log(response);
 
             this.sucesso = 'Registros consultados com sucesso.';
             this.popUpService.abrirNotificacao({
@@ -181,6 +185,49 @@ export class ConsultaComponent {
 
   abrirModalAlteracao(registro: RegistroPonto) {
     this.registroAlteracao = registro;
+    this.modalAlteracao = true;
+    this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
+  }
+
+  exibirAlteracao(registro: RegistroPonto) {
+    this.pontoService.consultarAlteracao(registro.id).subscribe({
+      next: (response) => {
+        this.pedidoAlteracao = response;
+        console.log(this.pedidoAlteracao);
+      }, 
+      error: (error) => {
+          if(error.status === 401) {
+            this.error = 'Login expirado. Por favor, faça login novamente.';
+
+            this.popUpService.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: this.error,
+              tipo: 'erro',
+              icon: ''
+            });
+
+            setTimeout(() => {
+              this.sair();
+            }, 1000);
+          } else if (error.status === 500 || error.status === 502 || error.status === 0){
+            this.error = 'Desculpe, ocorreu um erro interno ao tentar consultar o registros. Tente novamente mais tarde.';
+
+            this.popUpService.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: this.error,
+              tipo: 'erro',
+              icon: ''
+            });
+          }            
+          this.error = error.error;
+          this.popUpService.abrirNotificacao({
+            titulo: 'Erro',
+            mensagem: this.error || 'Erro ao consultar pedido de alteração.',
+            tipo: 'erro',
+            icon: ''
+          });
+        }
+    })
     this.modalAlteracao = true;
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'hidden');
   }

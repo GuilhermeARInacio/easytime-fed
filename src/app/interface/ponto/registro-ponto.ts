@@ -10,4 +10,5 @@ export interface RegistroPonto {
     entrada3: string;
     saida3: string;
     status: string;
+    temAlteracao: boolean;
 }

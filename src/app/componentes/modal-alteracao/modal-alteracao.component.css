@@ -48,11 +48,16 @@
 }
 
 .texto {
-  margin-bottom: 0.7em;
+  margin-bottom: 0em;
   width: 100%;
   text-align: center;
-  border-bottom: #d4d4d4 solid 1px;
   padding-bottom: 0.4em;
+}
+
+.linha{
+  width: 100%;
+  border-bottom: #d4d4d4 solid 1px;
+  margin: 0.5em 0em;
 }
 
 .area-input {

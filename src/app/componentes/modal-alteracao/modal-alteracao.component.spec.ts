@@ -52,11 +52,56 @@ describe('ModalAlteracaoComponent', () => {
   });
 
   it('deve inicializar o formulário com valores do registro', () => {
-    component.ngOnInit();
+    component.ngOnChanges();
     expect(component.formulario.value.entrada1).toBe('08:00');
     expect(component.formulario.value.saida1).toBe('12:00');
     expect(component.formulario.value.entrada2).toBe('13:00');
     expect(component.formulario.value.saida2).toBe('18:00');
+  });
+
+  it('deve inicializar o formulário sem valores do registro', () => {
+    component.registro = {
+      id: 1,
+      login: 'user',
+      data: '27/06/2025',
+      horasTrabalhadas: '',
+      entrada1: '',
+      saida1: '',
+      entrada2: '',
+      saida2: '',
+      entrada3: '',
+      saida3: '',
+      status: 'PENDENTE',
+      temAlteracao: false
+    };
+    component.ngOnChanges();
+    expect(component.formulario.value.entrada1).toBe('');
+    expect(component.formulario.value.saida1).toBe('');
+    expect(component.formulario.value.entrada2).toBe('');
+    expect(component.formulario.value.saida2).toBe('');
+  });
+
+  it('deve inicializar o formulário com pedido alteração se registro estiver undefined', () => {
+    component.registro = undefined;
+    component.pedidoAlteracao = {
+      login: 'user',
+      idPonto: 1,
+      data: '27/06/2025',
+      entrada1: '08:00',
+      saida1: '12:00',
+      entrada2: '13:00',
+      saida2: '17:00',
+      entrada3: '',
+      saida3: '',
+      justificativa: 'justificativa',
+      status: 'PENDENTE',
+    };
+    component.ngOnChanges();
+    expect(component.formulario.value.entrada1).toBe('08:00');
+    expect(component.formulario.value.saida1).toBe('12:00');
+    expect(component.formulario.value.entrada2).toBe('13:00');
+    expect(component.formulario.value.saida2).toBe('17:00');
+    expect(component.formulario.value.justificativa).toBe('justificativa');
   });
   
   it('deve emitir fecharModal ao chamar fechar()', () => {
@@ -72,7 +117,7 @@ describe('ModalAlteracaoComponent', () => {
   });
 
   it('deve chamar pontoService.alterarRegistro e abrir notificação de sucesso ao enviar alteração válida', fakeAsync(() => {
-    component.ngOnInit();
+    component.ngOnChanges();
     component.formulario.patchValue({
       entrada1: '08:00',
       saida1: '12:00',
@@ -96,7 +141,7 @@ describe('ModalAlteracaoComponent', () => {
   }));
 
   it('deve abrir notificação de erro se registro.id for undefined', () => {
-    component.ngOnInit();
+    component.ngOnChanges();
     component.registro = { ...registro, id: undefined } as any;
     component.formulario.patchValue({ justificativa: 'Teste' });
     component.enviarAlteracao();
@@ -105,8 +150,8 @@ describe('ModalAlteracaoComponent', () => {
     }));
   });
 
-  it('deve abrir notificação de erro ao falhar no alterarRegistro', () => {
-    component.ngOnInit();
+  it('deve tratar erro 500', () => {
+    component.ngOnChanges();
     component.formulario.patchValue({
       entrada1: '08:00',
       saida1: '12:00',
@@ -116,7 +161,7 @@ describe('ModalAlteracaoComponent', () => {
       saida3: '',
       justificativa: 'Teste'
     });
-    pontoServiceSpy.alterarRegistro.and.returnValue(throwError({ status: 500, error: 'Erro interno' }));
+    pontoServiceSpy.alterarRegistro.and.returnValue(throwError({ status: 500, error: null }));
 
     component.enviarAlteracao();
 
@@ -127,7 +172,7 @@ describe('ModalAlteracaoComponent', () => {
   });
 
   it('deve definir mensagem de erro especifica se erro 401 ou 403', () => {
-    component.ngOnInit();
+    component.ngOnChanges();
     component.formulario.patchValue({
       entrada1: '08:00',
       saida1: '12:00',
@@ -148,7 +193,7 @@ describe('ModalAlteracaoComponent', () => {
   });
 
   it('deve definir mensagem de erro especifica se erro for diferente de 500, 401 ou 403 e err.error nulo', () => {
-    component.ngOnInit();
+    component.ngOnChanges();
     component.formulario.patchValue({
       entrada1: '08:00',
       saida1: '12:00',
@@ -169,7 +214,7 @@ describe('ModalAlteracaoComponent', () => {
   });
 
   it('deve marcar campos como touched e ativar shakeFields se formulário for inválido, e desativar após 300ms', fakeAsync(() => {
-    component.ngOnInit();
+    component.ngOnChanges();
     component.formulario.patchValue({
       entrada1: '',
       saida1: '',
@@ -192,5 +237,23 @@ describe('ModalAlteracaoComponent', () => {
     expect(component.shakeFields['saida1']).toBeFalse();
     expect(component.shakeFields['justificativa']).toBeFalse();
   }));
+
+  it('deve retornar "status-pendente" para status "PENDENTE"', () => {
+    expect(component.statusClass('PENDENTE')).toBe('status-pendente');
+  });
+
+  it('deve retornar "status-aprovado" para status "APROVADO"', () => {
+    expect(component.statusClass('APROVADO')).toBe('status-aprovado');
+  });
+
+  it('deve retornar "status-rejeitado" para status "REJEITADO"', () => {
+    expect(component.statusClass('REJEITADO')).toBe('status-rejeitado');
+  });
+
+  it('deve retornar string vazia para status desconhecido', () => {
+    expect(component.statusClass('INDEFINIDO')).toBe('');
+    expect(component.statusClass('')).toBe('');
+    expect(component.statusClass('qualquercoisa')).toBe('');
+  });  
 
 });
