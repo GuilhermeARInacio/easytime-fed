@@ -1,26 +1,15 @@
 <section class="section ff-inter" role="main">
     <div class="section pai-container">
-        <app-modal-relatorio *ngIf="modalExportar" 
-            [registros]="registros" 
-            [dataFinal]="formulario.value.final" 
-            [dataInicio]="formulario.value.inicio" 
-            [usuario]="usuario" 
-            (fecharModal)="modalExportar = false"
-        ></app-modal-relatorio>
+        <app-modal-relatorio *ngIf="modalExportar"></app-modal-relatorio>
 
-        <app-modal-alteracao *ngIf="modalAlteracao" 
-            [registro]="registroAlteracao"
-            [pedidoAlteracao]="pedidoAlteracao"
-            [usuario]="usuario" 
-            (fecharModal)="modalAlteracao = false; registroAlteracao = undefined; pedidoAlteracao = undefined"
-        ></app-modal-alteracao>
+        <app-modal-alteracao *ngIf="modalAlteracao"></app-modal-alteracao>
         <app-menu-lateral></app-menu-lateral>
 
         <div class="container" role="region" aria-label="Consultar ponto">
             <div class="display-column">
                 <p class="texto" role="heading" aria-level="1">Consultar ponto</p>
 
-                <form [formGroup]="formulario" (ngSubmit)="consultar()" role="form" aria-label="Formulário de consulta de ponto">
+                <form  role="form" [formGroup]="formulario" aria-label="Formulário de consulta de ponto">
                     <div class="data display-row" role="group" aria-label="Seleção de datas">
                         <span class="display-column">
                             <label for="inicio">Data de início</label>
@@ -31,8 +20,9 @@
                                 role="textbox" 
                                 aria-label="Data de início" 
                                 aria-describedby="inicio-required"
-                                [class.shake]="shakeFields['inicio']" 
-                                [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+                                >
+                                <!--                                 [class.shake]="shakeFields['inicio']" 
+                                [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']" -->
 
                             <div class="caixa-mensagem">
                                 <p id="inicio-required" class="erro" *ngIf="formulario.get('inicio')?.errors?.['required'] && formulario.get('inicio')?.touched" role="alert">
@@ -50,8 +40,9 @@
                                 role="textbox" 
                                 aria-label="Data final"
                                 aria-describedby="final-required"
-                                [class.shake]="shakeFields['final']" 
-                                [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']">
+                                >
+                                <!-- [class.shake]="shakeFields['final']" 
+                                [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']" -->
 
                             <div class="caixa-mensagem">
                                 <p id="final-required" class="erro" *ngIf="formulario.get('final')?.errors?.['required'] && formulario.get('final')?.touched" role="alert">
@@ -68,21 +59,19 @@
                     </div>
 
                     <div class="botoes" role="group">
-                        <button class="botao" type="submit" role="button" [attr.aria-disabled]="formulario.invalid"> Consultar </button>
+                        <button class="botao" type="submit" role="button"> Consultar </button>
                         <button 
                             class="botao exportar" 
                             type="button" 
                             role="button" 
                             aria-label="Exportar registros"
-                            (click)="registros.length === 0 ? null : abrirModalExportar()" 
-                            [attr.aria-disabled]="registros.length === 0"
                         > Exportar </button>
                     </div>
                 </form>
             </div>
 
             <div class="caixa-mensagem" *ngIf="registros.length === 0 && error" aria-label="Mensagem de erro" role="alert">
-                <p class="erro"> {{ error }}</p>
+                <p class="erro"> </p>
             </div>
 
             <div class="tabela center" role="region" *ngIf="registros.length > 0">
@@ -103,7 +92,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let registro of registros" role="row">
-                            <td role="cell">{{ formatarDataRetorno(registro.data) }}</td>
+                            <td role="cell"></td>
                             <td role="cell">{{ registro.entrada1 }}</td>
                             <td role="cell">{{ registro.saida1 }}</td>
                             <td role="cell">{{ registro.entrada2 }}</td>
@@ -111,14 +100,16 @@
                             <td role="cell">{{ registro.entrada3 }}</td>
                             <td role="cell">{{ registro.saida3 }}</td>
                             <td role="cell">{{ registro.horasTrabalhadas }}</td>
-                            <td role="cell" [ngClass]="statusClass(registro.status)" ><b>{{ registro.status | capitalize }}</b></td>
+                            <td role="cell" ><b>{{ registro.status | capitalize }}</b></td>
                             <td role="cell" class="icone-cel">
-                                <span class="material-symbols-outlined" [attr.aria-disabled]="!registro.temAlteracao" (click)="registro.temAlteracao ? exibirAlteracao(registro) : null">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="!registro.temAlteracao">
+                                    <!-- (click)="registro.temAlteracao ? exibirAlteracao(registro) : null" -->
                                     info
                                 </span>
                             </td>
                             <td role="cell" class="icone-cel">
-                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO' || registro.temAlteracao" (click)="registro.status !== 'APROVADO' && !registro.temAlteracao ? abrirModalAlteracao(registro) : null">
+                                <span class="material-symbols-outlined" [attr.aria-disabled]="registro.status === 'APROVADO' || registro.temAlteracao">
+                                    <!-- (click)="registro.status !== 'APROVADO' && !registro.temAlteracao ? abrirModalAlteracao(registro) : null" -->
                                     edit
                                 </span>
                             </td>

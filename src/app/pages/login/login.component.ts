@@ -51,6 +51,7 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('login', this.formulario.get('login')?.value || '');
+          localStorage.setItem('role', response.role);
           
           this.error = null;
           this.router.navigate(['/bater-ponto']);
