@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 import { ConsultaRegistros } from '../../interface/ponto/consulta-registros';
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
+import { FiltroPedidos } from '../../interface/ponto/filtro-pedidos';
+import { PedidoPonto } from '../../interface/ponto/pedido-ponto';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +32,17 @@ export class PontoService {
 
   consultarAlteracao(idPonto: number): Observable<AlterarPonto> {
     return this.http.get<AlterarPonto>(`${this.API_URL}ponto/pedido/${idPonto}`);
+  }
+
+  consultarPedidos(filtro: FiltroPedidos): Observable<PedidoPonto[]> {
+    return this.http.put<PedidoPonto[]>(`${this.API_URL}ponto/pedidos/filtrar`, filtro );
+  }
+
+  recusarPedido(id: number): Observable<string> {
+    return this.http.post<string>(`${this.API_URL}ponto/reprovar/${id}`, {}, { responseType: 'text' as 'json' });
+  }
+
+  aceitarPedido(id: number): Observable<string> {
+    return this.http.post<string>(`${this.API_URL}ponto/aprovar/${id}`, {}, { responseType: 'text' as 'json' });
   }
 }

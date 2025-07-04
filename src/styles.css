@@ -182,17 +182,17 @@ router-outlet {
   color: #4caf50;
 }
 
-input {
+input, select {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding-left: 10px;
 }
 
-input.invalid, textarea.invalid {
+input.invalid, textarea.invalid, select.invalid {
   border: #ff2121 2px solid !important;
 }
 
-input.shake, textarea.shake {
+input.shake, textarea.shake, select.invalid {
   animation: shake 0.3s;
 }
 

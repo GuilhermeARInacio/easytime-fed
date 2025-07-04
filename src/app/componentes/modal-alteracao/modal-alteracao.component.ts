@@ -6,6 +6,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
 import { horarioForaComercial, horarioSaidaAnteriorEntrada } from '../../validators/custom-validators';
+import { PedidoPonto } from '../../interface/ponto/pedido-ponto';
 
 @Component({
   selector: 'app-modal-alteracao',
@@ -16,9 +17,11 @@ import { horarioForaComercial, horarioSaidaAnteriorEntrada } from '../../validat
 export class ModalAlteracaoComponent {
 
   @Output() fecharModal = new EventEmitter<void>();
+  @Output() pedidoAtualizado = new EventEmitter<{ id: number, status: string }>();
   @Input() usuario = '';
   @Input() registro: RegistroPonto | undefined;
   @Input() pedidoAlteracao: AlterarPonto | undefined;
+  @Input() pedido: PedidoPonto | undefined;
   formulario!: FormGroup;
   shakeFields: { [key: string]: boolean } = {};
   error: string | null = null;
@@ -34,6 +37,8 @@ export class ModalAlteracaoComponent {
   ngOnChanges(){
     console.log("Registro: " + this.registro);
     console.log("Pedido de alteracao: " + this.pedidoAlteracao);
+    console.log("Informações do pedido: " + this.pedido);
+
     if(this.registro){
       this.formulario = this.formBuilder.group({
         entrada1: [this.registro?.entrada1 || '', Validators.compose([
@@ -84,6 +89,32 @@ export class ModalAlteracaoComponent {
       this.formulario.get('justificativa')?.valueChanges.subscribe(() => {
         this.shakeFields['justificativa'] = false;
       });
+    } else if (this.pedido){
+      if(this.pedido.alteracaoPonto){
+        this.formulario = this.formBuilder.group({
+          entrada1: [this.pedido?.alteracaoPonto.entrada1],
+          saida1: [this.pedido?.alteracaoPonto.saida1],
+          entrada2: [this.pedido?.alteracaoPonto.entrada2],
+          saida2: [this.pedido?.alteracaoPonto.saida2],
+          entrada3: [this.pedido?.alteracaoPonto.entrada3],
+          saida3: [this.pedido?.alteracaoPonto.saida3],
+          justificativa: [this.pedido?.alteracaoPonto.justificativa]
+        });
+
+        this.formulario.disable();
+      } else {
+        this.formulario = this.formBuilder.group({
+          entrada1: [this.pedido?.registroPonto.entrada1],
+          saida1: [this.pedido?.registroPonto.saida1],
+          entrada2: [this.pedido?.registroPonto.entrada2],
+          saida2: [this.pedido?.registroPonto.saida2],
+          entrada3: [this.pedido?.registroPonto.entrada3],
+          saida3: [this.pedido?.registroPonto.saida3],
+          justificativa: ['']
+        });
+
+        this.formulario.disable();
+      }
     } else {
       this.formulario = this.formBuilder.group({
         entrada1: [this.pedidoAlteracao?.entrada1],
@@ -101,6 +132,7 @@ export class ModalAlteracaoComponent {
   @HostListener("document:keydown.escape") fecharModalComEsc(){
     this.registro = undefined;
     this.pedidoAlteracao = undefined;
+    this.pedido = undefined
 
     this.fecharModal.emit();
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
@@ -109,6 +141,7 @@ export class ModalAlteracaoComponent {
   fechar() {
     this.registro = undefined;
     this.pedidoAlteracao = undefined;
+    this.pedido = undefined
 
     this.fecharModal.emit();
     this.renderer.setStyle(this.element.nativeElement.ownerDocument.body, 'overflow', 'auto');
@@ -200,5 +233,101 @@ export class ModalAlteracaoComponent {
       default:
         return '';
     }
+  }
+
+  recusarPedido(){
+      if (this.pedido?.id === undefined) {
+        this.notificacaoService.abrirNotificacao({
+          titulo: 'Erro',
+          mensagem: 'ID do pedido não encontrado. Tente novamente.',
+          tipo: 'erro',
+          icon: 'error'
+        });
+        return;
+      }
+
+      this.pontoService.recusarPedido(this.pedido.id).subscribe({
+        next: (response) => {
+          this.notificacaoService.abrirNotificacao({
+            titulo: 'Pedido recusado com sucesso',
+            mensagem: 'O pedido de alteração foi recusado com sucesso.',
+            tipo: 'sucesso',
+            icon: 'check_circle'
+          });
+        
+          this.error = null;
+          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'REJEITADO' });
+
+          setTimeout(() => {
+            this.formulario.reset();
+            this.fechar();
+          }, 1000);
+      },
+      error: (err) => {
+        console.error('Erro ao recusar pedido:', err);
+        
+        if (err.status === 401 || err.status === 403) {
+          this.error = 'Você não tem permissão para recusar este pedido. Verifique suas credenciais.';
+        } else if (err.status === 500 || err.status === 502 || err.status === 0) {
+          this.error = 'Desculpe, ocorreu um erro interno ao tentar recusar o pedido. Tente novamente mais tarde.';
+        } else {
+          this.error = err.error || 'Erro ao recusar pedido. Tente novamente mais tarde.';
+        }
+
+        this.notificacaoService.abrirNotificacao({
+          titulo: 'Erro',
+          mensagem: this.error || 'Erro ao recusar pedido. Tente novamente mais tarde.',
+          tipo: 'erro',
+          icon: 'error'
+        });
+      }});
+  }
+
+  aceitarPedido(){
+    if (this.pedido?.id === undefined) {
+        this.notificacaoService.abrirNotificacao({
+          titulo: 'Erro',
+          mensagem: 'ID do pedido não encontrado. Tente novamente.',
+          tipo: 'erro',
+          icon: 'error'
+        });
+        return;
+      }
+
+      this.pontoService.aceitarPedido(this.pedido.id).subscribe({
+        next: (response) => {
+          this.notificacaoService.abrirNotificacao({
+            titulo: 'Pedido aprovado com sucesso',
+            mensagem: 'O pedido de alteração foi aprovado com sucesso.',
+            tipo: 'sucesso',
+            icon: 'check_circle'
+          });
+        
+          this.error = null;
+          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'APROVADO' });
+
+          setTimeout(() => {
+            this.formulario.reset();
+            this.fechar();
+          }, 1000);
+      },
+      error: (err) => {
+        console.error('Erro ao aprovar pedido:', err);
+        
+        if (err.status === 401 || err.status === 403) {
+          this.error = 'Você não tem permissão para aprovar este pedido. Verifique suas credenciais.';
+        } else if (err.status === 500 || err.status === 502 || err.status === 0) {
+          this.error = 'Desculpe, ocorreu um erro interno ao tentar aprovar o pedido. Tente novamente mais tarde.';
+        } else {
+          this.error = err.error || 'Erro ao aprovar pedido. Tente novamente mais tarde.';
+        }
+
+        this.notificacaoService.abrirNotificacao({
+          titulo: 'Erro',
+          mensagem: this.error || 'Erro ao aprovar pedido. Tente novamente mais tarde.',
+          tipo: 'erro',
+          icon: 'error'
+        });
+      }});
   }
 }

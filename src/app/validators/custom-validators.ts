@@ -98,6 +98,19 @@ export function datasDepoisDeDataAtual(inicio: string, final: string): Validator
   };
 }
 
+export function dataFinalRequired(inicio: string, final: string): ValidatorFn {
+  return (formulario: AbstractControl): ValidationErrors | null => {
+    const dtFinal = new Date(formulario.get('final')?.value);
+    const dtInicio = new Date(formulario.get('inicio')?.value);
+
+    if (!dtFinal && dtInicio) {
+      return { dataFinalRequired: true };
+    }
+
+    return null;
+  };
+}
+
 export function horarioSaidaAnteriorEntrada(){
   return (formulario: AbstractControl): ValidationErrors | null => {
     const entrada1 = formulario.get('entrada1')?.value;

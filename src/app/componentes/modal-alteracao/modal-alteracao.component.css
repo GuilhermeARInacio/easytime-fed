@@ -35,6 +35,58 @@
   border: #c4c4c4 solid 1px;
 }
 
+.status-pedido {
+  width: 100%;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.status-pedido .botao span{
+  color: white;
+}
+
+.recusar[aria-disabled = true]{
+  background-color: #838485;
+  transition: background-color ease-in-out 0.5s;
+}
+
+.recusar[aria-disabled = true]:hover{
+  background-color: #838485;
+  cursor: not-allowed;
+}
+
+.aceitar[aria-disabled = true]{
+  background-color: #a5a5a7;
+  transition: background-color ease-in-out 0.5s;
+}
+
+.aceitar[aria-disabled = true]:hover{
+  background-color: #a5a5a7;
+  cursor: not-allowed;
+}
+
+.recusar {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recusar:hover {
+  background-color: rgb(199, 12, 12);
+}
+
+.aceitar {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aceitar:hover {
+  background-color: rgb(7, 105, 7);
+}
+
 .botao {
   width: 95%;
   height: 2em;
