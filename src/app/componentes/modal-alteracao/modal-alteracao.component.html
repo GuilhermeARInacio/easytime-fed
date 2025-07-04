@@ -2,7 +2,7 @@
     <div class="modal-alteracao display-column" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-alteracao">
         <h2 class="subtitulo" role="heading" id="titulo-modal-alteracao" aria-level="1">{{ !pedido ? "Alterar registro de ponto" : "Informações do pedido" }}</h2>
 
-        <p class="texto" id="data-registro" *ngIf="!pedido">Data: {{ registro ? registro.data : pedidoAlteracao?.data }}</p>
+        <p class="texto" id="data-registro" *ngIf="!pedido && !pedidoAlteracao"> Data: {{ registro?.data }}</p>
         <p class="texto" *ngIf="!registro" [ngClass]="!pedido ? statusClass(pedidoAlteracao?.status || '') : statusClass(pedido.statusPedido || '')"> Status do pedido: <b> {{ !pedido ? pedidoAlteracao?.status : pedido.statusPedido}} </b></p>
         <p class="linha"></p>
         <form [formGroup]="formulario" (ngSubmit)="enviarAlteracao()" class="display-column" role="form" aria-labelledby="titulo-modal-alteracao" aria-describedby="data-registro">

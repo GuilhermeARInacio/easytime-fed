@@ -35,9 +35,12 @@ export class ModalAlteracaoComponent {
   ) {}
 
   ngOnChanges(){
-    console.log("Registro: " + this.registro);
-    console.log("Pedido de alteracao: " + this.pedidoAlteracao);
-    console.log("Informações do pedido: " + this.pedido);
+    console.log("Registro: ");
+    console.log(this.registro)
+    console.log("Pedido de alteracao: ");
+    console.log(this.pedidoAlteracao)
+    console.log("Informações do pedido: ");
+    console.log(this.pedido)
 
     if(this.registro){
       this.formulario = this.formBuilder.group({
