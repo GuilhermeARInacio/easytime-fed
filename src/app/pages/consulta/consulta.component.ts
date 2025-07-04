@@ -120,7 +120,7 @@ export class ConsultaComponent {
               this.sair();
             }, 1000);
           } else if (error.status === 500 || error.status === 502 || error.status === 0){
-            this.error = 'Desculpe, ocorreu um erro interno ao tentar consultar o registros. Tente novamente mais tarde.';
+            this.error = 'Desculpe, ocorreu um erro interno ao tentar consultar os registros. Tente novamente mais tarde.';
 
             this.popUpService.abrirNotificacao({
               titulo: 'Erro',

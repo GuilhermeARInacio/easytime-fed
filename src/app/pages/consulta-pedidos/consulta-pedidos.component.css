@@ -18,29 +18,24 @@ form{
     display: contents;
 }
 
-.data{
+.data, .selects {
     width: 100%;
     gap: 1em;
 }
 
-.data input{
+.data input, select {
     width: 100%;
     height: 2.5em;
     margin-top: 1em;
 }
 
-.data span{
+.data span, .selects span {
     width: 100%;
 }
 
-.botoes{
-    width: fit-content;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1em;
-    align-items: center;
-    align-self: flex-end;
-    margin-top: 1em;
+select {
+  -webkit-appearance: auto;
+  appearance: auto;
 }
 
 .botao{
@@ -49,6 +44,7 @@ form{
     font-weight: 600;
     font-size: 1em;
     margin: 0;
+    align-self: flex-end;
     transition: background-color ease-in-out 0.5s;
 }
 
@@ -71,25 +67,6 @@ form{
     font-size: 1.2em;
     margin-bottom: 1.5em;
     margin-left: 0;
-}
-
-.exportar{
-    background-color: #69b46c;
-    color: white;
-    border: none;
-}
-
-.exportar:hover{
-    background-color: #447548;
-}
-
-.exportar[aria-disabled = true]{
-    background-color: #828582;
-    cursor: not-allowed;
-}
-
-.exportar[aria-disabled = true]:hover{
-    background-color: #828582;
 }
 
 .tabela{
@@ -166,6 +143,16 @@ form{
     height: 2em;
 }
 
+.div-inputs{
+    align-self: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 45%;
+    gap: 2em;
+    justify-items: center;
+    align-items: center;
+}
+
 @keyframes spin {
   0%   { transform: rotate(0deg);   }
   100% { transform: rotate(360deg); }
@@ -199,13 +186,21 @@ form{
         font-size: 1em;
     }
 
-    .data label{
+    .data label, .selects label{
         font-size: 0.8em;
     }
 
-    .data input{
+    .data input, select{
         height: 2em;
         font-size: 1em;
+    }
+
+    .div-inputs {
+        grid-template-columns: 40% 55%;
+    }
+    
+    select {
+        font-size: 0.8em;
     }
 
     .tabela th{
@@ -245,12 +240,21 @@ form{
         font-size: 0.9em;
     }
 
-    .data label{
-        font-size: 0.em;
+    .div-inputs {
+        display: flex;
+        flex-direction: column;
     }
 
-    .data input {
-        font-size: 0.8em;
+    .data label, .selects label{
+        font-size: 0.7em;
+    }
+
+    .data input, .selects select {
+        font-size: 0.9em;
+    }
+
+    select {
+        font-size: 0.5em;
     }
 
     .botoes{
@@ -287,7 +291,7 @@ form{
 
     .tabela th{
         min-width: 4em;
-        font-size: 0.8em;
+        font-size: 0.6em;
     }
 
     .tabela td{

@@ -1,9 +1,9 @@
 <div class="overlay center ff-inter" role="presentation" aria-hidden="false">
     <div class="modal-alteracao display-column" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-alteracao">
-        <h2 class="subtitulo" role="heading" id="titulo-modal-alteracao" aria-level="1">Alterar registro de ponto</h2>
+        <h2 class="subtitulo" role="heading" id="titulo-modal-alteracao" aria-level="1">{{ !pedido ? "Alterar registro de ponto" : "Informações do pedido" }}</h2>
 
-        <p class="texto" id="data-registro">Data: {{ registro ? registro.data : pedidoAlteracao?.data }}</p>
-        <p class="texto" *ngIf="!registro" [ngClass]="statusClass(pedidoAlteracao?.status || '')"> Status do pedido: <b> {{pedidoAlteracao?.status}} </b></p>
+        <p class="texto" id="data-registro" *ngIf="!pedido">Data: {{ registro ? registro.data : pedidoAlteracao?.data }}</p>
+        <p class="texto" *ngIf="!registro" [ngClass]="!pedido ? statusClass(pedidoAlteracao?.status || '') : statusClass(pedido.statusPedido || '')"> Status do pedido: <b> {{ !pedido ? pedidoAlteracao?.status : pedido.statusPedido}} </b></p>
         <p class="linha"></p>
         <form [formGroup]="formulario" (ngSubmit)="enviarAlteracao()" class="display-column" role="form" aria-labelledby="titulo-modal-alteracao" aria-describedby="data-registro">
             <div class="display-column area-input">
@@ -100,7 +100,7 @@
                         [class.invalid]="formulario.get('saida3')?.invalid && formulario.get('saida3')?.touched"
                     />
                 </div>
-                <div class="display-column input-textarea">
+                <div class="display-column input-textarea" *ngIf="pedido?.alteracaoPonto || registro || pedidoAlteracao">
                     <label for="justificativa">Justificativa</label>
                     <textarea 
                         class="ff-inter" 
@@ -129,6 +129,20 @@
                     <p class="erro" id="horarioSaidaAnteriorEntrada" *ngIf="formulario.errors?.['horarioSaidaAnteriorEntrada']" role="alert">O horário de saída deve ser posterior à entrada.</p>
                 </div>
             </div>
+
+            <div class="status-pedido display-row" *ngIf="pedido">
+                <button type="button" class="botao recusar" (click)="recusarPedido()" role="button" aria-label="Recusar pedido" [attr.aria-disabled]="pedido.statusPedido != `PENDENTE`">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </button>
+                <button type="button" class="botao aceitar" (click)="aceitarPedido()" role="button" aria-label="Aceitar pedido" [attr.aria-disabled]="pedido.statusPedido != `PENDENTE`">
+                    <span class="material-symbols-outlined">
+                        check
+                    </span>
+                </button>
+            </div>
+
             <div [ngClass]="registro ? `botoes` : `center`">
                 <button (click)="fechar()" type="button" class="botao botao-cancelar" role="button" aria-label="Cancelar pedido de alteração" [style]="!registro ? `width: 100%` : ``">Cancelar</button>
                 <button type="submit" class="botao" role="button" aria-label="Enviar pedido de alteração" *ngIf="registro">Salvar</button>
