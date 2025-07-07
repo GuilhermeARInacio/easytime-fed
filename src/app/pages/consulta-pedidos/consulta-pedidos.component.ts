@@ -5,12 +5,10 @@ import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-latera
 import { CapitalizePipe } from "../../shared/capitalize.pipe";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AlterarPonto } from '../../interface/ponto/alterar-ponto';
-import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import { Router } from '@angular/router';
 import { PopUpService } from '../../service/notificacao/pop-up.service';
 import { PontoService } from '../../service/ponto/ponto.service';
-import { dataFinalAntesDeInicio, dataFinalRequired, datasDepoisDeDataAtual } from '../../validators/custom-validators';
+import { dataFinalAntesDeInicio, datasDepoisDeDataAtual } from '../../validators/custom-validators';
 import { PedidoPonto } from '../../interface/ponto/pedido-ponto';
 
 @Component({
@@ -55,8 +53,7 @@ export class ConsultaPedidosComponent {
     {    
       validators: Validators.compose([
         dataFinalAntesDeInicio('inicio', 'final'),
-        datasDepoisDeDataAtual('inicio', 'final'),
-        // dataFinalRequired('inicio', 'final')
+        datasDepoisDeDataAtual('inicio', 'final')
       ])
     });
 
