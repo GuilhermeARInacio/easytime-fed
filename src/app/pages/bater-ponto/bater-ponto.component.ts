@@ -16,6 +16,7 @@ import { MenuLateralComponent } from "../../componentes/menu-lateral/menu-latera
 export class BaterPontoComponent {
   horarioAtual: string = '';
   intervalo: any;
+  usuario: string = localStorage.getItem('login') || '';
 
   error: string | null = null;
   sucesso: string | null = null;
@@ -40,6 +41,7 @@ export class BaterPontoComponent {
 
   baterPonto(){
     const ponto = {
+      usuario: this.usuario,
       horarioAtual: this.horarioAtual
     }
     this.pontoService.baterPonto(ponto).subscribe({

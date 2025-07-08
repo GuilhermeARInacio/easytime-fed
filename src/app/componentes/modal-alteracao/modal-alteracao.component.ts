@@ -173,7 +173,8 @@ export class ModalAlteracaoComponent {
         entrada3: this.formulario.get('entrada3')?.value,
         saida3: this.formulario.get('saida3')?.value,
         justificativa: this.formulario.get('justificativa')?.value || '',
-        status: null
+        status: null,
+        horarioAtual: new Date()
       };
       this.pontoService.alterarRegistro(dadosAlteracao).subscribe({
         next: (response) => {
