@@ -26,7 +26,7 @@ describe('ModalAlteracaoComponent', () => {
   }
 
   beforeEach(async () => {
-    pontoServiceSpy = jasmine.createSpyObj('PontoService', ['alterarRegistro']);
+    pontoServiceSpy = jasmine.createSpyObj('PontoService', ['alterarRegistro', 'recusarPedido', 'aceitarPedido']);
     popUpServiceSpy = jasmine.createSpyObj('PopUpService', ['abrirNotificacao']);   
 
     await TestBed.configureTestingModule({
@@ -83,6 +83,7 @@ describe('ModalAlteracaoComponent', () => {
 
   it('deve inicializar o formulário com pedido alteração se registro estiver undefined', () => {
     component.registro = undefined;
+    component.pedido = undefined;
     component.pedidoAlteracao = {
       login: 'user',
       idPonto: 1,
@@ -102,6 +103,302 @@ describe('ModalAlteracaoComponent', () => {
     expect(component.formulario.value.entrada2).toBe('13:00');
     expect(component.formulario.value.saida2).toBe('17:00');
     expect(component.formulario.value.justificativa).toBe('justificativa');
+  });
+
+  it('deve inicializar o formulário com alterção se tiver pedido', () => {
+    component.registro = undefined;
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'ALTERACAO',
+      dataPedido: '02/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: {
+        entrada1: '08:00',
+        saida1: '12:00',
+        entrada2: '13:00',
+        saida2: '17:00',
+        entrada3: '',
+        saida3: '',
+        justificativa: 'Tive uma reunião inesperada'
+      },
+      registroPonto: {
+        id: 1,
+        login: 'user',
+        data: '01/02/2025',
+        horasTrabalhadas: '8h',
+        entrada1: '08:00',
+        saida1: '12:00',
+        entrada2: '13:00',
+        saida2: '18:00',
+        entrada3: '',
+        saida3: '',
+        status: 'PENDENTE',
+        temAlteracao: true
+      }
+    };
+    component.pedidoAlteracao = undefined;
+    component.ngOnChanges();
+    expect(component.formulario.value.entrada1).toBe('08:00');
+    expect(component.formulario.value.saida1).toBe('12:00');
+    expect(component.formulario.value.entrada2).toBe('13:00');
+    expect(component.formulario.value.saida2).toBe('17:00');
+    expect(component.formulario.value.justificativa).toBe('Tive uma reunião inesperada');
+  });
+
+  it('deve inicializar o formulário com registro se tiver pedido e não tiver alteração', () => {
+    component.registro = undefined;
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: {
+        id: 1,
+        login: 'user',
+        data: '01/02/2025',
+        horasTrabalhadas: '8h',
+        entrada1: '08:00',
+        saida1: '12:00',
+        entrada2: '13:00',
+        saida2: '18:00',
+        entrada3: '',
+        saida3: '',
+        status: 'PENDENTE',
+        temAlteracao: true
+      }
+    };
+    component.pedidoAlteracao = undefined;
+    component.ngOnChanges();
+    expect(component.formulario.value.entrada1).toBe('08:00');
+    expect(component.formulario.value.saida1).toBe('12:00');
+    expect(component.formulario.value.entrada2).toBe('13:00');
+    expect(component.formulario.value.saida2).toBe('18:00');
+    expect(component.formulario.value.justificativa).toBe('');
+  });
+
+  it('deve chamar pontoService.recusarPedido e abrir notificação de sucesso ao recusar pedido válido', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: {
+        id: 1,
+        login: 'user',
+        data: '01/02/2025',
+        horasTrabalhadas: '8h',
+        entrada1: '08:00',
+        saida1: '12:00',
+        entrada2: '13:00',
+        saida2: '18:00',
+        entrada3: '',
+        saida3: '',
+        status: 'PENDENTE',
+        temAlteracao: true
+      }
+    };
+    const response = 'Pedido recusado com sucesso.';
+
+    pontoServiceSpy.recusarPedido.and.returnValue(of(response));
+
+    component.recusarPedido();
+
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('deve abrir notificação de erro se id estiver undefined', () => {
+    component.recusarPedido();
+
+    expect(pontoServiceSpy.recusarPedido).not.toHaveBeenCalled();
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('recusarPedido deve tratar erro 401', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.recusarPedido.and.returnValue(throwError(() => ({ status: 401, error: 'Usuário não autorizado' })));
+
+    component.recusarPedido();
+
+    expect(component.error).toBe('Você não tem permissão para recusar este pedido. Verifique suas credenciais.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('recusarPedido deve tratar erro 500', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.recusarPedido.and.returnValue(throwError(() => ({ status: 500, error: 'Serve error' })));
+
+    component.recusarPedido();
+
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno ao tentar recusar o pedido. Tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('recusarPedido deve tratar erro 400', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.recusarPedido.and.returnValue(throwError(() => ({ status: 400, error: null })));
+
+    component.recusarPedido();
+
+    expect(component.error).toBe('Erro ao recusar pedido. Tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('deve chamar pontoService.aceitarPedido e abrir notificação de sucesso ao aprovar pedido válido', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: {
+        id: 1,
+        login: 'user',
+        data: '01/02/2025',
+        horasTrabalhadas: '8h',
+        entrada1: '08:00',
+        saida1: '12:00',
+        entrada2: '13:00',
+        saida2: '18:00',
+        entrada3: '',
+        saida3: '',
+        status: 'PENDENTE',
+        temAlteracao: true
+      }
+    };
+    const response = 'Pedido recusado com sucesso.';
+
+    pontoServiceSpy.aceitarPedido.and.returnValue(of(response));
+
+    component.aceitarPedido();
+
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('deve abrir notificação de erro se id estiver undefined', () => {
+    component.aceitarPedido();
+
+    expect(pontoServiceSpy.aceitarPedido).not.toHaveBeenCalled();
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('aceitarPedido deve tratar erro 401', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.aceitarPedido.and.returnValue(throwError(() => ({ status: 401, error: 'Usuário não autorizado' })));
+
+    component.aceitarPedido();
+
+    expect(component.error).toBe('Você não tem permissão para aprovar este pedido. Verifique suas credenciais.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('aceitarPedido deve tratar erro 500', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.aceitarPedido.and.returnValue(throwError(() => ({ status: 500, error: 'Serve error' })));
+
+    component.aceitarPedido();
+
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno ao tentar aprovar o pedido. Tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
+  });
+
+  it('aceitarPedido deve tratar erro 400', () => {
+    component.pedido = {
+      id: 1,
+      login: 'user',
+      idPonto: 1,
+      dataRegistro: '01/02/2025',
+      tipoPedido: 'REGISTRO',
+      dataPedido: '01/02/2025',
+      statusRegistro: 'PENDENTE',
+      statusPedido: 'PENDENTE',
+      alteracaoPonto: null,
+      registroPonto: null
+    };
+
+    pontoServiceSpy.aceitarPedido.and.returnValue(throwError(() => ({ status: 400, error: null })));
+
+    component.aceitarPedido();
+
+    expect(component.error).toBe('Erro ao aprovar pedido. Tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalled();
   });
   
   it('deve emitir fecharModal ao chamar fechar()', () => {
