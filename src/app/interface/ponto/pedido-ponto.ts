@@ -11,6 +11,6 @@ export interface PedidoPonto {
     dataPedido: string,
     statusRegistro: string,
     statusPedido: string,
-    alteracaoPonto: PontoAlteracao,
-    registroPonto: RegistroPonto
+    alteracaoPonto: PontoAlteracao | null,
+    registroPonto: RegistroPonto | null
 }

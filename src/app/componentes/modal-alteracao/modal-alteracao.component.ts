@@ -107,12 +107,12 @@ export class ModalAlteracaoComponent {
         this.formulario.disable();
       } else {
         this.formulario = this.formBuilder.group({
-          entrada1: [this.pedido?.registroPonto.entrada1],
-          saida1: [this.pedido?.registroPonto.saida1],
-          entrada2: [this.pedido?.registroPonto.entrada2],
-          saida2: [this.pedido?.registroPonto.saida2],
-          entrada3: [this.pedido?.registroPonto.entrada3],
-          saida3: [this.pedido?.registroPonto.saida3],
+          entrada1: [this.pedido?.registroPonto?.entrada1],
+          saida1: [this.pedido?.registroPonto?.saida1],
+          entrada2: [this.pedido?.registroPonto?.entrada2],
+          saida2: [this.pedido?.registroPonto?.saida2],
+          entrada3: [this.pedido?.registroPonto?.entrada3],
+          saida3: [this.pedido?.registroPonto?.saida3],
           justificativa: ['']
         });
 

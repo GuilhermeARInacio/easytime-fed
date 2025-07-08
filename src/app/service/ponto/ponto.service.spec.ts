@@ -111,4 +111,78 @@ describe('PontoService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(alterarPonto);
   });
+
+  it('deve consultar pedidos (PUT)', () => {
+    const filtro = {
+      dtInicio: null, 
+      dtFinal: null,
+      status: null, 
+      tipo: null
+    };
+
+    const pedidos = [{
+      id: 1,
+      login: '',
+      idPonto: 1,
+      dataRegistro: '',
+      tipoPedido: '',
+      dataPedido: '',
+      statusRegistro: '',
+      statusPedido: '',
+      alteracaoPonto: {
+        entrada1: '',
+        saida1: '',
+        entrada2: '',
+        saida2: '',
+        entrada3: '',
+        saida3: '',
+        justificativa: ''
+      },
+      registroPonto: {
+        id: 1,
+        login: '',
+        data: '',
+        horasTrabalhadas: '',
+        entrada1: '',
+        saida1: '',
+        entrada2: '',
+        saida2: '',
+        entrada3: '',
+        saida3: '',
+        status: '',
+        temAlteracao: true
+      }
+    }]
+    
+    service.consultarPedidos(filtro).subscribe(res => expect(res)
+      .toEqual(pedidos));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/pedidos/filtrar`);
+    expect(req.request.method).toBe('PUT');
+    req.flush(pedidos);
+  });
+
+  it('deve recusar pedido (POST)', () => {
+    const id = 1;
+    const resposta = "Pedido recusado com sucesso";
+    
+    service.recusarPedido(id as any).subscribe(res => expect(res)
+      .toEqual(resposta));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/reprovar/${id}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(resposta);
+  });
+
+  it('deve recusar pedido (POST)', () => {
+    const id = 1;
+    const resposta = "Pedido aprovado com sucesso";
+    
+    service.aceitarPedido(id as any).subscribe(res => expect(res)
+      .toEqual(resposta));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/aprovar/${id}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(resposta);
+  });
 });
