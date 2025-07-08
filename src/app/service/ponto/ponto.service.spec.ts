@@ -52,7 +52,8 @@ describe('PontoService', () => {
         saida2: '17:00',
         entrada3: '',
         saida3: '',
-        status: 'PENDENTE'
+        status: 'PENDENTE',
+        temAlteracao: false
       }
     ];
     
@@ -63,5 +64,125 @@ describe('PontoService', () => {
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(consulta);
     req.flush(respostaMock);
+  });
+
+  it('deve alterar ponto (PUT)', () => {
+    const registro = { 
+      id: 1,
+      data: '27/06/2025',
+      entrada1: '08:00',
+      saida1: '12:00',
+      entrada2: '13:00',
+      saida2: '18:00',
+      entrada3: '',
+      saida3: '',
+      justificativa: ''
+    };
+    
+    service.alterarRegistro(registro as any).subscribe(res => expect(res)
+      .toEqual("Pedido enviado com sucesso!"));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/alterar`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(registro);
+    req.flush("Pedido enviado com sucesso!");
+  });
+
+  it('deve consultar pedido de alteração (GET)', () => {
+    const id = 1;
+    const alterarPonto = {
+      login: 'user',
+      idPonto: 1,
+      data: '27/06/2025',
+      entrada1: '',
+      saida1: '',
+      entrada2: '',
+      saida2: '',
+      entrada3: '',
+      saida3: '',
+      justificativa: '',
+      status: '',
+    }
+    
+    service.consultarAlteracao(id as any).subscribe(res => expect(res)
+      .toEqual(alterarPonto));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/pedido/${id}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(alterarPonto);
+  });
+
+  it('deve consultar pedidos (PUT)', () => {
+    const filtro = {
+      dtInicio: null, 
+      dtFinal: null,
+      status: null, 
+      tipo: null
+    };
+
+    const pedidos = [{
+      id: 1,
+      login: '',
+      idPonto: 1,
+      dataRegistro: '',
+      tipoPedido: '',
+      dataPedido: '',
+      statusRegistro: '',
+      statusPedido: '',
+      alteracaoPonto: {
+        entrada1: '',
+        saida1: '',
+        entrada2: '',
+        saida2: '',
+        entrada3: '',
+        saida3: '',
+        justificativa: ''
+      },
+      registroPonto: {
+        id: 1,
+        login: '',
+        data: '',
+        horasTrabalhadas: '',
+        entrada1: '',
+        saida1: '',
+        entrada2: '',
+        saida2: '',
+        entrada3: '',
+        saida3: '',
+        status: '',
+        temAlteracao: true
+      }
+    }]
+    
+    service.consultarPedidos(filtro).subscribe(res => expect(res)
+      .toEqual(pedidos));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/pedidos/filtrar`);
+    expect(req.request.method).toBe('PUT');
+    req.flush(pedidos);
+  });
+
+  it('deve recusar pedido (POST)', () => {
+    const id = 1;
+    const resposta = "Pedido recusado com sucesso";
+    
+    service.recusarPedido(id as any).subscribe(res => expect(res)
+      .toEqual(resposta));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/reprovar/${id}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(resposta);
+  });
+
+  it('deve recusar pedido (POST)', () => {
+    const id = 1;
+    const resposta = "Pedido aprovado com sucesso";
+    
+    service.aceitarPedido(id as any).subscribe(res => expect(res)
+      .toEqual(resposta));
+
+    const req = httpMock.expectOne(`${environment.apiUrl}ponto/aprovar/${id}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(resposta);
   });
 });

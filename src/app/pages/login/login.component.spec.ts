@@ -75,16 +75,24 @@ describe('LoginComponent', () => {
     expect(component.error).toBe('Login ou senha inválidos. Verifique suas credenciais.');
   });
 
-  it('deve mostrar mensagem de erro do backend se houver', () => {
-    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: { message: 'Erro backend' } })));
+  it('deve tratar erro 500', () => {
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: { message: 'Serve error' } })));
 
     component.enviarLogin();
 
-    expect(component.error).toBe('Erro backend');
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno. Tente novamente mais tarde.');
   });
 
-  it('deve mostrar mensagem padrão se não houver mensagem do backend', () => {
-    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 500, error: {} })));
+  it('deve mostrar mensagem do backend caso o erro seja diferente de 401 ou 500', () => {
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 400, error: 'Desculpe, ocorreu um erro ao fazer login.' })));
+
+    component.enviarLogin();
+
+    expect(component.error).toBe('Desculpe, ocorreu um erro ao fazer login.');
+  });
+
+  it('deve mostrar mensagem padrão se err.erro for nulo', () => {
+    usuarioServiceSpy.login.and.returnValue(throwError(() => ({ status: 400, error: null })));
 
     component.enviarLogin();
 

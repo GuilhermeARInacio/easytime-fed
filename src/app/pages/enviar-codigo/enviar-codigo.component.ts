@@ -56,11 +56,10 @@ export class EnviarCodigoComponent {
 
           if (err.status === 401) {
             this.error = 'Login ou senha inválidos. Verifique suas credenciais.';
+          } else if (err.status === 500 || err.status === 502 || err.status === 0){
+            this.error = 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.'
           } else {
-            this.error =
-              (err.error && err.error.message)
-                ? err.error.message
-                : 'Erro ao enviar email. Verifique se o email está correto.';
+            this.error = (err.error) ? err.error : 'Erro ao enviar email. Verifique se o email está correto.';
           }
         }
       });

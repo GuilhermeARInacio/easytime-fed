@@ -10,6 +10,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 })
 export class MenuLateralComponent {
   menuColapsado: boolean = true;
+  role: string = localStorage.getItem('role') || '';
 
   constructor(
     private router: Router,

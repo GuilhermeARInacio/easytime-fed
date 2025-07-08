@@ -12,14 +12,9 @@ export class PopUpService {
   constructor() { }
 
   private notificacaoSubject = new Subject<Notificacao>();
-  private relatorioSubject = new Subject<any>();
   notificacao$ = this.notificacaoSubject.asObservable();
 
   abrirNotificacao(notificacao: Notificacao) {
     this.notificacaoSubject.next(notificacao);
-  }
-
-  abrirModalRelatorio() {
-    this.relatorioSubject.next({});
   }
 }

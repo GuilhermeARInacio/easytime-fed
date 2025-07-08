@@ -40,6 +40,13 @@ describe('NotificacaoComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('deve chamar abrirNotificacao ao receber uma notificação no ngOnInit', () => {
+    spyOn(component, 'abrirNotificacao');
+    component.ngOnInit();
+    notificacaoSubject.next({ tipo: 'sucesso', mensagem: 'Teste' });
+    expect(component.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({ tipo: 'sucesso', mensagem: 'Teste' }));
+  });
+
   it('deve abrir notificação de tipo enviado', () => {
     const notificacao = {
       titulo: 'Teste Enviado',

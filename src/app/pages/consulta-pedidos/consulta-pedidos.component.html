@@ -1,0 +1,119 @@
+<section class="section ff-inter" role="main">
+    <div class="section pai-container">
+
+        <app-modal-alteracao *ngIf="modalAlteracao"
+            [pedido]="pedido"
+            [usuario]="usuario" 
+            (fecharModal)="modalAlteracao = false; pedido = undefined"
+            (pedidoAtualizado)="atualizarPedido($event)"
+        ></app-modal-alteracao>
+        <app-menu-lateral></app-menu-lateral>
+
+        <div class="container" role="region" aria-label="Consultar ponto">
+            <div class="display-column">
+                <p class="texto" role="heading" aria-level="1">Consultar pedidos de registro/alteração</p>
+
+                <form  role="form" [formGroup]="formulario" (ngSubmit)="consultar()" aria-label="Formulário de consulta de ponto">
+                    <div class="div-inputs">
+                        <div class="data display-row" role="group" aria-label="Seleção de datas">
+                            <span class="display-column">
+                                <label for="inicio">Data de início</label>
+                                <input 
+                                    type="date" 
+                                    name="inicio" 
+                                    formControlName="inicio" 
+                                    role="textbox" 
+                                    aria-label="Data de início" 
+                                    aria-describedby="inicio-required"
+                                    [attr.aria-invalid]="formulario.get('inicio')?.invalid ? 'true' : 'false'"
+                                    [class.shake]="shakeFields['inicio']" 
+                                    [class.invalid]="formulario.get('inicio')?.invalid && formulario.get('inicio')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']"
+                                    >
+                            </span>
+            
+                            <span class="display-column">
+                                <label for="final">Data de fim</label>
+                                <input 
+                                    type="date"
+                                    name="final" 
+                                    formControlName="final" 
+                                    role="textbox" 
+                                    aria-label="Data final"
+                                    aria-describedby="final-required"
+                                    [attr.aria-invalid]="formulario.get('final')?.invalid ? 'true' : 'false'"
+                                    [class.shake]="shakeFields['final']" 
+                                    [class.invalid]="formulario.get('final')?.invalid && formulario.get('final')?.touched || formulario.errors?.['dataFinalAntesDeInicio'] || formulario.errors?.['datasDepoisDeDataAtual']"
+                                    >
+                            </span>
+                        </div>
+    
+                        <div class="display-row selects">
+                            <span class="display-column">
+                                <label for="slc-tipo">Tipo de pedido</label>
+                                <select name="tipo" formControlName="tipo" id="slc-tipo" aria-label="Tipo de pedido">
+                                    <option value="#">Selecione uma opção</option>
+                                    <option value="ALTERACAO">Alteração</option>
+                                    <option value="REGISTRO">Registro</option>
+                                </select>
+                            </span>
+    
+                            <span class="display-column">
+                                <label for="slc-status">Status do pedido</label>
+                                <select name="status" formControlName="status" id="slc-status" aria-label="Status do pedido">
+                                    <option value="#">Selecione uma opção</option>
+                                    <option value="PENDENTE">Pendente</option>
+                                    <option value="REJEITADO">Rejeitado</option>
+                                    <option value="APROVADO">Aprovado</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="caixa-mensagem display-column">
+                        <p class="erro" *ngIf="formulario.errors?.['dataFinalAntesDeInicio']" role="alert"> A data final não pode ser anterior à data inicial. </p>
+                        <p class="erro" *ngIf="formulario.errors?.['datasDepoisDeDataAtual']" role="alert"> As datas não podem ser futuras. Selecione datas até o dia de hoje. </p>
+                        <p *ngIf="carregando" class="spinner" role="status"></p>
+                    </div>
+
+                    <button class="botao" type="submit" role="button"> Consultar </button>
+                </form>
+            </div>
+
+            <div class="caixa-mensagem" *ngIf="pedidos.length === 0 && error" aria-label="Mensagem de erro" role="alert">
+                <p class="erro"> {{ error }} </p>
+            </div>
+
+            <div class="tabela center" role="region" *ngIf="pedidos.length > 0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th role="columnheader">Funcionário</th>
+                            <th role="columnheader">Data de registro</th>
+                            <th role="columnheader">Status do registro</th>
+                            <th role="columnheader">Tipo de pedido</th>
+                            <th role="columnheader">Data do pedido</th>
+                            <th role="columnheader">Status do pedido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pedido of pedidos" role="row">
+                            <td role="cell">{{ pedido.login }}</td>
+                            <td role="cell">{{ pedido.dataRegistro }}</td>
+                            <td role="cell" [ngClass]="statusClass(pedido.statusRegistro)" > <b> {{ pedido.statusRegistro | capitalize }} </b> </td>
+                            <td role="cell">{{ pedido.tipoPedido == 'ALTERACAO' ? 'Alteração' : 'Registro'}} </td>
+                            <td role="cell">{{ pedido.dataPedido }}</td>
+                            <td role="cell" [ngClass]="statusClass(pedido.statusPedido)" > <b> {{ pedido.statusPedido | capitalize }} </b> </td>
+                            <td role="cell" class="icone-cel">
+                                <span class="material-symbols-outlined" (click)="abrirModalAlteracao(pedido)">
+                                    info
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <app-notificacao></app-notificacao>
+</section>

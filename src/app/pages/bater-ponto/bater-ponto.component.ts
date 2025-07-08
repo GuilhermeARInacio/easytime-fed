@@ -64,13 +64,15 @@ export class BaterPontoComponent {
             setInterval(() => {
               this.sair();
             }, 1000);
+          } else if (err.status === 500 || err.status === 502 || err.status === 0) {
+            this.error = 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.';
           } else {
             this.error = err.error || 'Erro ao bater ponto. Tente novamente mais tarde.';
           }
 
           this.popUpService.abrirNotificacao({
             titulo: 'Erro',
-            mensagem: this.error ?? 'Erro ao bater ponto. Tente novamente mais tarde.',
+            mensagem: this.error || 'Erro ao bater ponto. Tente novamente mais tarde.',
             tipo: 'erro',
             icon: ''
           });

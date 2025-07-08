@@ -45,15 +45,14 @@ export class ModalRelatorioComponent {
       'Saída',
       'Entrada',
       'Saída',
+      'Status',
       'Horas Trabalhadas'
     ];
     const filename = 'relatorio_' + this.usuario + '_' + this.dataInicio + '_' + this.dataFinal + '.pdf';
 
-    console.log('Exportar PDF');
-    console.log(this.registros);
-
     const doc = new jsPDF();
 
+    doc.setFontSize(14);
     doc.text('Relatório de ' + this.usuario, 10, 10);
 
     const tableColumn = headers;
@@ -69,6 +68,7 @@ export class ModalRelatorioComponent {
         item.saida2,  
         item.entrada3,
         item.saida3,
+        item.status,
         item.horasTrabalhadas
       ];
       tableRows.push(rowData);
@@ -77,7 +77,16 @@ export class ModalRelatorioComponent {
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
-      startY: 20
+      startY: 20,
+      styles: {
+        fontSize: 9
+      },
+      headStyles: {
+        fillColor: '#2979FF', 
+        textColor: 255,            
+        fontStyle: 'bold',
+        halign: 'center'
+      }
     });
 
     doc.save(filename);
@@ -106,6 +115,7 @@ export class ModalRelatorioComponent {
       'Saída_2': item.saida2,
       'Entrada_3': item.entrada3,
       'Saída_3': item.saida3,
+      'Status': item.status,
       'Horas Trabalhadas': item.horasTrabalhadas
     }));
 

@@ -51,6 +51,7 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('login', this.formulario.get('login')?.value || '');
+          localStorage.setItem('role', response.role);
           
           this.error = null;
           this.router.navigate(['/bater-ponto']);
@@ -60,8 +61,10 @@ export class LoginComponent {
 
           if (err.status === 401) {
             this.error = 'Login ou senha inválidos. Verifique suas credenciais.';
+          } else if (err.status === 500 || err.status === 502 || err.status === 0) {
+            this.error = 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.';
           } else {
-            this.error = err.error.message || 'Erro ao realizar login. Tente novamente mais tarde.';
+            this.error = err.error || 'Erro ao realizar login. Tente novamente mais tarde.';
           }
         }
       })
@@ -73,7 +76,6 @@ export class LoginComponent {
         if (control?.invalid) {
           this.shakeFields[controlName] = true;
 
-          // Remove a classe após a animação (300ms)
           setTimeout(() => {
             this.shakeFields[controlName] = false;
           }, 300);

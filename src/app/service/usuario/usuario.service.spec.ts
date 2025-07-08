@@ -27,7 +27,7 @@ describe('UsuarioService', () => {
 
   it('deve buscar usuário fazer login (POST)', () => {
     const login = { login: 'usuario', senha: 'senha123' };
-    const responseMock = { token: 'token123' };
+    const responseMock = { token: 'token123', role: "admin" };
 
     service.login(login).subscribe(response => {
       expect(response).toEqual(responseMock);

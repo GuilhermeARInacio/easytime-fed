@@ -64,4 +64,25 @@ describe('MenuLateralComponent', () => {
     document.body.removeChild(menu);
     document.body.removeChild(menuSuspenso);
   });
+
+  it('deve alternar as classes do menu com ESC', () => {
+    const menu = document.createElement('div');
+    menu.className = 'menu-lateral';
+    document.body.appendChild(menu);
+
+    const menuSuspenso = document.createElement('div')
+    menuSuspenso.className = 'menu-suspenso';
+    document.body.appendChild(menuSuspenso);
+
+    component.menuColapsado = false;
+
+    component.fecharMenuComEsc();
+
+    expect(menu.classList.contains('menu-lateral--colapsed')).toBeFalse();
+    expect(menuSuspenso.classList.contains('menu-suspenso--shown')).toBeTrue();
+    expect(component.menuColapsado).toBeTrue();
+
+    document.body.removeChild(menu);
+    document.body.removeChild(menuSuspenso);
+  });
 });

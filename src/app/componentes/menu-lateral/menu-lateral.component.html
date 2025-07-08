@@ -41,6 +41,19 @@
             </span>
             <p class="menu-legenda" *ngIf="!menuColapsado">Consultar registros</p>
         </a>
+        <a *ngIf="role === 'admin'"
+            class="display-row menu-botao" 
+            [routerLink]="['/pedidos-registro']" 
+            routerLinkActive="ativo" 
+            ariaCurrentWhenActive="page" 
+            aria-label="Consultar pedidos de registro"
+            role="listitem"
+        >
+            <span class="material-symbols-outlined icone-menu" style="transform: translateX(-2px);">
+                rule
+            </span>
+            <p class="menu-legenda" *ngIf="!menuColapsado">Consultar pedidos</p>
+        </a>
         <a (click)="sair()" class="display-row menu-botao" role="listitem" aria-label="Sair do sistema" tabindex="0">
             <span  class="material-symbols-outlined icone-menu icone-sair" style="transform: translateX(2px);">
                 logout

@@ -1,21 +1,153 @@
-<div class="overlay center" role="presentation">
-    <div class="modal-relatorio display-column" role="dialog" aria-modal="true" aria-label="Exportar Relatório">
-        <h2 class="subtitulo" role="heading" aria-level="1">Alterar ponto</h2>
+<div class="overlay center ff-inter" role="presentation" aria-hidden="false">
+    <div class="modal-alteracao display-column" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-alteracao">
+        <h2 class="subtitulo" role="heading" id="titulo-modal-alteracao" aria-level="1">{{ !pedido ? "Alterar registro de ponto" : "Informações do pedido" }}</h2>
 
-        <div>
-            <p><b>Id registro: </b> {{ registro?.id }}</p>
-            <p><b>Login usuario: </b> {{ usuario }}</p>
-            <p><b>Data: </b> {{ registro?.data}}</p>
-            <p><b>Entrada 1: </b> {{ registro?.entrada1}}</p>
-            <p><b>Saída 1: </b> {{ registro?.saida1 }}</p>
-            <p><b>Entrada 2: </b> {{ registro?.entrada2 }}</p>
-            <p><b>Saída 2: </b> {{ registro?.saida2 }}</p>
-            <p><b>Entrada 3: </b> {{ registro?.entrada3 }}</p>
-            <p><b>Saída 3: </b> {{ registro?.saida3 }}</p>
-            <p><b>Horas Trabalhadas: </b> {{ registro?.horasTrabalhadas }}</p>
-            <p><b>Status: </b> {{ (registro?.status || '') | capitalize }}</p>
-        </div>
+        <p class="texto" id="data-registro" *ngIf="!pedido && !pedidoAlteracao"> Data: {{ registro?.data }}</p>
+        <p class="texto" *ngIf="!registro" [ngClass]="!pedido ? statusClass(pedidoAlteracao?.status || '') : statusClass(pedido.statusPedido || '')"> Status do pedido: <b> {{ !pedido ? pedidoAlteracao?.status : pedido.statusPedido}} </b></p>
+        <p class="linha"></p>
+        <form [formGroup]="formulario" (ngSubmit)="enviarAlteracao()" class="display-column" role="form" aria-labelledby="titulo-modal-alteracao" aria-describedby="data-registro">
+            <div class="display-column area-input">
+                <div class="display-row input-time">
+                    <label for="entrada1">Entrada 1: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada" 
+                        aria-label="Entrada 1"
+                        name="entrada1"
+                        formControlName="entrada1"
+                        role="textbox"
+                        aria-label="Campo para digitar a entrada 1"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('entrada1')?.invalid && formulario.get('entrada1')?.touched"
+                        [class.shake]="shakeFields['entrada1']"
+                        [class.invalid]="formulario.get('entrada1')?.invalid && formulario.get('entrada1')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida1">Saída 1: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída"
+                        aria-label="Saída 1" 
+                        name="saida1"
+                        formControlName="saida1"
+                        role="textbox"
+                        aria-label="Campo para digitar a saida 1"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('saida1')?.invalid && formulario.get('saida1')?.touched"
+                        [class.shake]="shakeFields['saida1']"
+                        [class.invalid]="formulario.get('saida1')?.invalid && formulario.get('saida1')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="entrada2">Entrada 2: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada"
+                        aria-label="Entrada 2" 
+                        name="entrada2"
+                        formControlName="entrada2"
+                        role="textbox"
+                        aria-label="Campo para digitar a entrada 2"
+                        [attr.aria-invalid]="formulario.get('entrada2')?.invalid && formulario.get('entrada2')?.touched"
+                        [class.shake]="shakeFields['entrada2']"
+                        [class.invalid]="formulario.get('entrada2')?.invalid && formulario.get('entrada2')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida2">Saída 2: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída"
+                        aria-label="Saída 2" 
+                        name="saida2"
+                        formControlName="saida2"
+                        role="textbox"
+                        aria-required="true"
+                        aria-label="Campo para digitar a saida 2"
+                        [attr.aria-invalid]="formulario.get('saida2')?.invalid && formulario.get('saida2')?.touched"
+                        [class.shake]="shakeFields['saida2']"
+                        [class.invalid]="formulario.get('saida2')?.invalid && formulario.get('saida2')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="entrada3">Entrada 3: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Entrada"
+                        aria-label="Entrada 3" 
+                        name="entrada3"
+                        formControlName="entrada3"
+                        role="textbox"
+                        aria-label="Campo para digitar a entrada 3"
+                        [attr.aria-invalid]="formulario.get('entrada3')?.invalid && formulario.get('entrada3')?.touched"
+                        [class.shake]="shakeFields['entrada3']"
+                        [class.invalid]="formulario.get('entrada3')?.invalid && formulario.get('entrada3')?.touched"
+                    />
+                </div>
+                <div class="input-time">
+                    <label for="saida3">Saída 3: </label>
+                    <input 
+                        type="time" 
+                        placeholder="Saída"
+                        aria-label="Saída 3" 
+                        name="saida3"
+                        formControlName="saida3"
+                        role="textbox"
+                        aria-label="Campo para digitar a saida 3"
+                        [attr.aria-invalid]="formulario.get('saida3')?.invalid && formulario.get('saida3')?.touched"
+                        [class.shake]="shakeFields['saida3']"
+                        [class.invalid]="formulario.get('saida3')?.invalid && formulario.get('saida3')?.touched"
+                    />
+                </div>
+                <div class="display-column input-textarea" *ngIf="pedido?.alteracaoPonto || registro || pedidoAlteracao">
+                    <label for="justificativa">Justificativa</label>
+                    <textarea 
+                        class="ff-inter" 
+                        placeholder="Justificativa" 
+                        aria-label="Campo para digitar a justificativa"
+                        formControlName="justificativa"
+                        name="justificativa"
+                        role="textbox"
+                        aria-required="true"
+                        [attr.aria-invalid]="formulario.get('justificativa')?.invalid && formulario.get('justificativa')?.touched"
+                        [class.shake]="shakeFields['justificativa']"
+                        [class.invalid]="formulario.get('justificativa')?.invalid && formulario.get('justificativa')?.touched"
+                    ></textarea>
+                </div>
+                <div class="caixa-mensagem display-column" aria-live="assertive" [style]="!registro ? `height: 0px` : ``">
+                    <p class="erro" id="horarioComercial" *ngIf="
+                        (this.formulario.get('entrada1')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada1')?.touched) ||
+                        (this.formulario.get('saida1')?.errors?.['horarioForaComercial'] && this.formulario.get('saida1')?.touched) ||
+                        (this.formulario.get('entrada2')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada2')?.touched) ||
+                        (this.formulario.get('saida2')?.errors?.['horarioForaComercial'] && this.formulario.get('saida2')?.touched) ||
+                        (this.formulario.get('entrada3')?.errors?.['horarioForaComercial'] && this.formulario.get('entrada3')?.touched) ||
+                        (this.formulario.get('saida3')?.errors?.['horarioForaComercial'] && this.formulario.get('saida3')?.touched);" 
+                    role="alert">Os horários devem ser entre 06:00 e 23:00.</p>
+                    <p class="erro" id="entradaSaidaEntrada1" *ngIf="formulario.get('entrada1')?.errors?.['required'] && formulario.get('entrada1')?.touched || formulario.get('saida1')?.errors?.['required'] && formulario.get('saida1')?.touched" role="alert">Por favor, preencha a entrada e saída 1.</p>
+                    <p class="erro" id="justificativa-erro" *ngIf="formulario.get('justificativa')?.errors?.['required'] && formulario.get('justificativa')?.touched" role="alert">Por favor, preencha a justificativa.</p>
+                    <p class="erro" id="horarioSaidaAnteriorEntrada" *ngIf="formulario.errors?.['horarioSaidaAnteriorEntrada']" role="alert">O horário de saída deve ser posterior à entrada.</p>
+                </div>
+            </div>
 
-        <button (click)="fechar()" class="botao" role="button" aria-label="Cancelar exportação">Cancelar</button>
+            <div class="status-pedido display-row" *ngIf="pedido">
+                <button type="button" class="botao recusar" (click)="recusarPedido()" role="button" aria-label="Recusar pedido" [attr.aria-disabled]="pedido.statusPedido != `PENDENTE`">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </button>
+                <button type="button" class="botao aceitar" (click)="aceitarPedido()" role="button" aria-label="Aceitar pedido" [attr.aria-disabled]="pedido.statusPedido != `PENDENTE`">
+                    <span class="material-symbols-outlined">
+                        check
+                    </span>
+                </button>
+            </div>
+
+            <div [ngClass]="registro ? `botoes` : `center`">
+                <button (click)="fechar()" type="button" class="botao botao-cancelar" role="button" aria-label="Cancelar pedido de alteração" [style]="!registro ? `width: 100%` : ``">Cancelar</button>
+                <button type="submit" class="botao" role="button" aria-label="Enviar pedido de alteração" *ngIf="registro">Salvar</button>
+            </div>
+        </form>
+
     </div>
 </div>

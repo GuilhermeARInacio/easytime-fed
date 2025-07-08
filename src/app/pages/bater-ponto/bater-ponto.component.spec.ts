@@ -109,16 +109,29 @@ describe('BaterPontoComponent', () => {
     expect(component.sair).toHaveBeenCalled();
   }));
 
-  it('deve tratar outros erros ao bater ponto', () => {
+  it('deve tratar outros tipos de erros ao bater ponto', () => {
     spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
-    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: 'Erro inesperado' })));
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 400, error: null })));
 
     component.baterPonto();
 
-    expect(component.error).toBe('Erro inesperado');
     expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
       titulo: 'Erro',
-      mensagem: 'Erro inesperado',
+      mensagem: 'Erro ao bater ponto. Tente novamente mais tarde.',
+      tipo: 'erro'
+    }));
+  });
+
+  it('deve tratar erro 500', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('usuarioValido');
+    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: 'Server error' })));
+
+    component.baterPonto();
+
+    expect(component.error).toBe('Desculpe, ocorreu um erro interno. Tente novamente mais tarde.');
+    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
+      titulo: 'Erro',
+      mensagem: 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.',
       tipo: 'erro'
     }));
   });
@@ -144,16 +157,4 @@ describe('BaterPontoComponent', () => {
     expect(component.atualizarHorario).toHaveBeenCalledTimes(4);
   }));
 
-  it('deve exibir mensagem padrão se err.error estiver vazio ao bater ponto', () => {
-    pontoServiceSpy.baterPonto.and.returnValue(throwError(() => ({ status: 500, error: undefined })));
-
-    component.baterPonto();
-
-    expect(component.error).toBe('Erro ao bater ponto. Tente novamente mais tarde.');
-    expect(popUpServiceSpy.abrirNotificacao).toHaveBeenCalledWith(jasmine.objectContaining({
-      titulo: 'Erro',
-      mensagem: 'Erro ao bater ponto. Tente novamente mais tarde.',
-      tipo: 'erro'
-    }));
-  });
 });
