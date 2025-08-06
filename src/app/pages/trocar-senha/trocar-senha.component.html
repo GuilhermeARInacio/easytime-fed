@@ -51,7 +51,7 @@
                 </div>
 
 
-                <label for="repetirSenha">Confirmar nova senha</label>
+                <label for="repetirSenha"> Confirmar nova senha </label>
                 <div class="senha-input">
                     <input 
                         name="repetirSenha" 
@@ -68,7 +68,7 @@
                     <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()" role="button" tabindex="0" aria-label="Alternar visibilidade da senha"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
                 </div>
 
-                <div class="caixa-mensagem" [style.height]="formulario.get('novaSenha')?.touched ? '3.5em' : '1em'">
+                <div class="caixa-mensagem" [style.height]="formulario.get('novaSenha')?.touched || formulario.get('repetirSenha')?.touched ? '3.5em' : '1em'">
                     <div *ngIf="formulario.get('novaSenha')?.touched || formulario.get('repetirSenha')?.touched" class="lista-validacao">
                         <ul>
                             <li [ngClass]="formulario.get('novaSenha')?.errors?.['minlength'] || formulario.get('novaSenha')?.errors?.['required'] ? 'erro' : 'sucesso'">Pelo menos 8 caractéres</li>

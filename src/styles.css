@@ -172,6 +172,7 @@ router-outlet {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5em;
 }
 
 .caixa-mensagem .erro {
@@ -208,10 +209,6 @@ input.shake, textarea.shake, select.invalid {
   .logo {
     width: 14vw;
   }
-
-  .caixa-mensagem {
-    height: 1.5em;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -233,10 +230,6 @@ input.shake, textarea.shake, select.invalid {
 
   .botao {
     height: 2.4em;
-  }
-
-  .caixa-mensagem {
-    height: 1.5em;
   }
 }
 
@@ -342,10 +335,6 @@ input.shake, textarea.shake, select.invalid {
 
   .link {
     font-size: 1.5em;
-  }
-
-  .caixa-mensagem {
-    font-size: 1.3em;
   }
 
   .texto {

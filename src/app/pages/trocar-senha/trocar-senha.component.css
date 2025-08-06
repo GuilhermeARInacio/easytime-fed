@@ -71,10 +71,6 @@
     width: 38vw;
   }
 
-  .senha-input .icon {
-    top: 0.5em
-  }
-
   .lista-validacao {
     font-size: 0.9em;
   }
@@ -132,11 +128,5 @@
 
   .lista-validacao {
     font-size: 0.8em;
-  }
-}
-
-@media (min-width: 1701px) {
-  .senha-input .icon {
-    font-size: 2em;
   }
 }
