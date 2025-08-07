@@ -1,4 +1,4 @@
-describe('Teste de Login com campos vazios - Easytime', () => {
+describe('Teste de Login com campos vazios', () => {
   it('Não deve logar e deve mostrar mensagem de erro ao deixar campos vazios', () => {
     cy.visit('http://localhost:4200/login');
  

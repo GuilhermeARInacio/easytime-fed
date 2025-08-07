@@ -1,4 +1,4 @@
-describe('Teste de Login com erro - Easytime', () => {
+describe('Teste de Login com erro', () => {
   it('Deve exibir mensagem de erro ao tentar logar com credenciais inválidas', () => {
     cy.visit('http://localhost:4200/login');
 

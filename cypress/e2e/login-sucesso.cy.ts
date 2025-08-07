@@ -1,10 +1,10 @@
-describe('Teste de Login com sucesso - Easytime', () => {
+describe('Teste de Login com sucesso', () => {
   it('Deve logar com sucesso e redirecionar para a tela de bater ponto', () => {
     cy.visit('http://localhost:4200/login');    // url da aplicação
  
     // Preenche o formulário
     cy.get('input[name="login"]').type('vivisantos'); // ajuste conforme credencial real
-    cy.get('input[name="senha"]').type('vivi@123');   // ajuste conforme credencial real
+    cy.get('input[name="senha"]').type('vivi#123');   // ajuste conforme credencial real
  
     // Clica no botão ENTRAR
     cy.contains('Entrar').click();

@@ -1,4 +1,4 @@
-describe('Teste de Login com senha vazia - Easytime', () => {
+describe('Teste de Login com senha vazia', () => {
   it('Não deve permitir login com senha vazia', () => {
     cy.visit('http://localhost:4200/login');
   
