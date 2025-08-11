@@ -17,7 +17,7 @@ describe('Exportar pontos em PDF', () => {
     cy.get('input[name="inicio"]').type('2025-06-01');
     cy.get('input[name="final"]').type('2025-07-08');
 
-    cy.get('button:contains("Consultar")').click();
+    cy.get('button').contains("Consultar").click();
 
     cy.get('.tabela').should('exist');
 
