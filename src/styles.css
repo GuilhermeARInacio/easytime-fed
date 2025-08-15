@@ -3,7 +3,8 @@
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 24
+    'opsz' 24;
+  user-select: none;
 }
 
 @keyframes shake {
@@ -22,6 +23,14 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+input[type="radio"], input[type="checkbox"],
+select,
+textarea {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
 }
 
 body {
@@ -183,7 +192,7 @@ router-outlet {
   color: #4caf50;
 }
 
-input, select {
+.input-txt, select {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding-left: 10px;
