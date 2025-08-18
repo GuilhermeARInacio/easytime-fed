@@ -70,4 +70,27 @@ describe('UsuarioService', () => {
     expect(req.request.body).toEqual(trocarSenha);
     req.flush(responseMock);
   });
+
+  it('deve cadastrar usuário (POST)', () => {
+    const novoUsuario = {
+      nome: 'João da Silva',
+      email: 'joao@email.com',
+      login: 'joaosilva',
+      password: 'Senha@123',
+      sector: 'TI',
+      jobTitle: 'Desenvolvedor',
+      role: 'user',
+      isActive: true
+    };
+    const responseMock = "Usuário cadastrado com sucesso";
+
+    service.cadastrarUsuario(novoUsuario).subscribe(response => {
+      expect(response).toEqual(responseMock);
+    });
+
+    const req = httpMock.expectOne(`${environment.apiUrl}users/create`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(novoUsuario);
+    req.flush(responseMock);
+  });
 });

@@ -25,6 +25,20 @@ export class ModalAlteracaoComponent {
   formulario!: FormGroup;
   shakeFields: { [key: string]: boolean } = {};
   error: string | null = null;
+  // component: { 
+  //   login: string; 
+  //   idPonto: number; 
+  //   data: string; 
+  //   entrada1: string; 
+  //   saida1: string; 
+  //   entrada2: string; 
+  //   saida2: string; 
+  //   entrada3: string; 
+  //   saida3: string; 
+  //   justificativa: string; 
+  //   status: string; 
+  //   horarioAtual: Date;
+  // };
 
   constructor(
     private renderer: Renderer2,

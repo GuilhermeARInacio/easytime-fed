@@ -2,6 +2,11 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export function temLetraValidacao(control: AbstractControl): ValidationErrors | null {
   const senha = control.value;
+
+  if(!senha) {
+    return { temLetraValidacao: true };
+  }
+
   const temLetra = /[A-Za-z]/.test(senha);
 
   if (temLetra) {
@@ -37,14 +42,14 @@ export function temEspecialValidacao(control: AbstractControl): ValidationErrors
 
 export function senhasIguaisValidacao(senhaNova: string, senhaRepetida: string): ValidatorFn {
   return (formulario: AbstractControl): ValidationErrors | null => {
-    senhaNova = formulario.get('novaSenha')?.value;
-    senhaRepetida = formulario.get('repetirSenha')?.value;
+    const senha = formulario.get(senhaNova)?.value;
+    const repetirSenha = formulario.get(senhaRepetida)?.value;
 
-    if( !senhaNova || !senhaRepetida) {
+    if( !senha || !repetirSenha) {
       return { senhasIguaisValidacao: true };
     }
 
-    if (senhaNova == senhaRepetida) {
+    if (senha == repetirSenha) {
       return null;
     } else {
       return { senhasIguaisValidacao: true };

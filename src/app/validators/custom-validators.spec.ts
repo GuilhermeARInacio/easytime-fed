@@ -1,10 +1,15 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { dataFinalAntesDeInicio, datasDepoisDeDataAtual, horarioForaComercial, horarioSaidaAnteriorEntrada, senhaValidacao, temEspecialValidacao, temLetraValidacao, temNumeroValidacao } from './custom-validators';
+import { dataFinalAntesDeInicio, dataFinalRequired, datasDepoisDeDataAtual, horarioForaComercial, horarioSaidaAnteriorEntrada, senhaValidacao, temEspecialValidacao, temLetraValidacao, temNumeroValidacao } from './custom-validators';
 import { senhasIguaisValidacao } from './custom-validators';
 
 describe('temLetraValidacao', () => {
   it('deve retornar null se houver letra', () => {
     const control = new FormControl('abc123');
+    expect(temLetraValidacao(control)).toBeNull();
+  });
+
+  it('deve retornar null se o campo estiver vazio', () => {
+    const control = new FormControl('');
     expect(temLetraValidacao(control)).toBeNull();
   });
 
@@ -200,6 +205,40 @@ describe('horarioForaComercial', () => {
   it('deve retornar null se campo estiver vazio', () => {
     const control = new FormControl('');
     expect(horarioForaComercial(control)).toBeNull();
+  });
+});
+
+describe('dataFinalRequired', () => {
+  it('deve retornar erro se final estiver vazio e início preenchido', () => {
+    const group = new FormGroup({
+      inicio: new FormControl('2023-01-01'),
+      final: new FormControl('')
+    }, [dataFinalRequired('inicio', 'final')]);
+    expect(group.errors).toEqual({ dataFinalRequired: true });
+  });
+
+  it('deve retornar null se final e início estiverem preenchidos', () => {
+    const group = new FormGroup({
+      inicio: new FormControl('2023-01-01'),
+      final: new FormControl('2023-01-02')
+    }, [dataFinalRequired('inicio', 'final')]);
+    expect(group.errors).toBeNull();
+  });
+
+  it('deve retornar null se início estiver vazio', () => {
+    const group = new FormGroup({
+      inicio: new FormControl(''),
+      final: new FormControl('')
+    }, [dataFinalRequired('inicio', 'final')]);
+    expect(group.errors).toBeNull();
+  });
+
+  it('deve retornar null se ambos estiverem preenchidos', () => {
+    const group = new FormGroup({
+      inicio: new FormControl('2023-01-01'),
+      final: new FormControl('2023-01-01')
+    }, [dataFinalRequired('inicio', 'final')]);
+    expect(group.errors).toBeNull();
   });
 });
 

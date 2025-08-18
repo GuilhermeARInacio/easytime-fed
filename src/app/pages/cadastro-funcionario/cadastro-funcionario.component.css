@@ -104,6 +104,7 @@ input[type="radio"] {
 
 .botao:hover{
     transition: background-color ease-in-out 0.5s;
+    cursor: pointer;
 }
 
 .botao[aria-disabled = true]{
