@@ -5,6 +5,7 @@ import { EnviarCodigoComponent } from './pages/enviar-codigo/enviar-codigo.compo
 import { BaterPontoComponent } from './pages/bater-ponto/bater-ponto.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { ConsultaPedidosComponent } from './pages/consulta-pedidos/consulta-pedidos.component';
+import { CadastroFuncionarioComponent } from './pages/cadastro-funcionario/cadastro-funcionario.component';
 
 export const routes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full'},
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'trocar-senha', component: TrocarSenhaComponent, title: 'Easytime | Redefinir Senha' },
     { path: 'bater-ponto', component: BaterPontoComponent, title: 'Easytime | Bater Ponto' },
     { path: 'consulta', component: ConsultaComponent, title: 'Easytime | Consultar Registros' },
-    { path: 'pedidos-registro', component: ConsultaPedidosComponent, title: 'Easytime | Consultar Pedidos' }
+    { path: 'pedidos-registro', component: ConsultaPedidosComponent, title: 'Easytime | Consultar Pedidos' },
+    { path: 'cadastro-funcionario', component: CadastroFuncionarioComponent, title: 'Easytime | Cadastrar Funcionário' }
 
 ];

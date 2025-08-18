@@ -1,0 +1,173 @@
+<section class="section ff-inter" role="main">
+    <div class="section pai-container">
+
+        <app-menu-lateral></app-menu-lateral>
+
+        <div class="container" role="region" aria-label="Cadastrar funcionário">
+            <div class="display-column">
+                <p class="texto" role="heading" aria-level="1">Cadastrar funcionário</p>
+
+                <form [formGroup]="formulario" (ngSubmit)="cadastrar()" role="form" aria-label="Formulário de cadastro de funcionário">
+                    <div class="form">
+                        <div class="display-column" role="group">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" formControlName="nome" aria-describedby="nome-required" placeholder="Digite o nome" class="input-txt"
+                                role="textbox"
+                                aria-label="Campo para digitar o nome"
+                                aria-required="true"
+                                [attr.aria-invalid]="formulario.get('nome')?.invalid && formulario.get('nome')?.touched"
+                                [class.shake]="shakeFields['nome']" 
+                                [class.invalid]="formulario.get('nome')?.invalid && formulario.get('nome')?.touched"
+                            >
+                            <div class="caixa-mensagem">
+                                <p id="nome-required" class="erro" *ngIf="formulario.get('nome')?.errors?.['required'] && formulario.get('nome')?.touched" role="alert">
+                                    Por favor, preencha o nome.
+                                </p>
+                                <p id="nome-minLength" class="erro" *ngIf="formulario.get('nome')?.errors?.['minlength'] && formulario.get('nome')?.touched" role="alert">
+                                    Por favor, o nome precisa ter pelo menos 3 caracteres.
+                                </p>
+                                <p id="nome-pattern" class="erro" *ngIf="formulario.get('nome')?.errors?.['pattern'] && formulario.get('nome')?.touched" role="alert">
+                                    Por favor, o nome só pode conter letras.
+                                </p>
+                            </div>
+    
+                            <label for="login">Login</label>
+                            <input type="text" id="login" formControlName="login" aria-describedby="login-required" placeholder="Digite o login" class="input-txt"
+                                role="textbox"
+                                aria-label="Campo para digitar o login"
+                                aria-required="true"
+                                [attr.aria-invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"
+                                [class.shake]="shakeFields['login']" 
+                                [class.invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched">
+                            <div class="caixa-mensagem">
+                                <p id="login-required" class="erro" *ngIf="formulario.get('login')?.errors?.['required'] && formulario.get('login')?.touched" role="alert">
+                                    Por favor, preencha o login.
+                                </p>
+                                <p id="login-minLength" class="erro" *ngIf="formulario.get('login')?.errors?.['minlength'] && formulario.get('login')?.touched" role="alert">
+                                    Por favor, o login precisa ter pelo menos 3 caracteres.
+                                </p>
+                                <p id="login-pattern" class="erro" *ngIf="formulario.get('login')?.errors?.['pattern'] && formulario.get('login')?.touched" role="alert">
+                                    Por favor, o login deve conter letras.
+                                </p>
+                            </div>
+    
+                            <label for="setor">Setor</label>
+                            <select name="setor" id="setor" formControlName="setor" aria-describedby="setor-required" [attr.aria-invalid]="formulario.get('setor')?.invalid && formulario.get('setor')?.touched">
+                                <option value="">Selecione um setor</option>
+                                <option value="administrativo">Administrativo</option>
+                                <option value="ti">TI</option>
+                                <option value="financeiro">Financeiro</option>
+                                <option value="rh">Recursos Humanos</option>
+                            </select>
+                            <div class="caixa-mensagem">
+                                <p id="setor-required" class="erro" *ngIf="formulario.get('setor')?.errors?.['required'] && formulario.get('setor')?.touched" role="alert">
+                                    Por favor, preencha o setor.
+                                </p>
+                            </div>
+    
+                            <label for="cargo">Cargo</label>
+                            <select name="cargo" id="cargo" formControlName="cargo" aria-describedby="cargo-required" [attr.aria-invalid]="formulario.get('cargo')?.invalid && formulario.get('cargo')?.touched">
+                                <option value="">Selecione um cargo</option>
+                                <option value="gerente">Gerente</option>
+                                <option value="analista">Analista</option>
+                                <option value="estagiario">Estagiário</option>
+                            </select>
+                            <div class="caixa-mensagem">
+                                <p id="cargo-required" class="erro" *ngIf="formulario.get('cargo')?.errors?.['required'] && formulario.get('cargo')?.touched" role="alert">
+                                    Por favor, preencha o cargo.
+                                </p>
+                            </div>
+                        </div>
+    
+                        <div class="display-column" role="group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" formControlName="email" aria-describedby="email-required" placeholder="Digite o e-mail" class="input-txt">
+                            <div class="caixa-mensagem">
+                                <p id="email-required" class="erro" *ngIf="formulario.get('email')?.errors?.['required'] && formulario.get('email')?.touched" role="alert">
+                                    Por favor, preencha o e-mail.
+                                </p>
+                                <p id="email-pattern" class="erro" *ngIf="formulario.get('email')?.errors?.['pattern'] && formulario.get('email')?.touched" role="alert">
+                                    Por favor, digite um e-mail válido.
+                                </p>
+                            </div>
+    
+                            <label for="senha">Senha</label>
+                            <input 
+                                class="input-txt"
+                                name="senha" 
+                                type="{{ showPassword ? 'text' : 'password' }}" 
+                                placeholder="Senha" 
+                                formControlName="senha" 
+                                role="textbox"
+                                aria-label="Campo para digitar a nova senha"
+                                aria-required="true"
+                                aria-describedby="senha-required"
+                                [attr.aria-invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched"
+                                [class.shake]="shakeFields['senha']" 
+                                [class.invalid]="formulario.get('senha')?.invalid && formulario.get('senha')?.touched"
+                            />
+                            <div class="caixa-mensagem">
+                                <p id="novaSenha-required" class="erro" role="alert" *ngIf="formulario.get('senha')?.errors?.['required'] && formulario.get('senha')?.touched">Por favor, preencha a senha</p>
+                            </div>
+    
+    
+                            <label for="repetirSenha"> Confirmar senha </label>
+                            <div class="senha-input">
+                                <input 
+                                    class="input-txt"
+                                    name="repetirSenha" 
+                                    type="{{ showPassword ? 'text' : 'password' }}" 
+                                    placeholder="Confirmar senha" 
+                                    formControlName="repetirSenha" 
+                                    role="textbox"
+                                    aria-label="Campo para digitar a confirmação da senha"
+                                    aria-required="true"
+                                    [attr.aria-invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"
+                                    [class.shake]="shakeFields['repetirSenha']" 
+                                    [class.invalid]="formulario.get('repetirSenha')?.invalid && formulario.get('repetirSenha')?.touched || formulario.errors?.['senhasIguaisValidacao']?.invalid"
+                                />
+                                <span class="material-symbols-outlined icon" (click)="togglePasswordVisibility()" role="button" tabindex="0" aria-label="Alternar visibilidade da senha"> {{ showPassword ? 'visibility_off' : 'visibility'}} </span>
+                            </div>
+                            <div class="caixa-mensagem" style="height: 4em;">
+                                <div class="lista-validacao">
+                                    <ul>
+                                        <li [ngClass]="formulario.get('senha')?.errors?.['minlength'] || formulario.get('senha')?.errors?.['required'] ? 'erro' : 'sucesso'">Pelo menos 8 caractéres</li>
+                                        <li [ngClass]="formulario.get('senha')?.errors?.['temLetraValidacao'] ? 'erro' : 'sucesso'">Pelo menos uma letra</li>
+                                        <li [ngClass]="formulario.get('senha')?.errors?.['temNumeroValidacao'] ? 'erro' : 'sucesso'">Pelo menos um número</li>
+                                    </ul>
+                                    <ul>
+                                        <li [ngClass]="formulario.get('senha')?.errors?.['temEspecialValidacao'] ? 'erro' : 'sucesso'">Pelo menos um símbolo</li>
+                                        <li [ngClass]="formulario.errors?.['senhasIguaisValidacao'] ? 'erro' : 'sucesso'">Senhas iguais</li>
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class="tipo-usuario">
+                                <p>Tipo de usuário:</p>
+                                <span class="radio-role">
+                                    <label>
+                                        <input type="radio" name="role" id="usuario" value="usuario" checked>
+                                        Usuário comum
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="role" id="admin" value="admin">
+                                        Administrador
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="botao" type="submit" role="button" [attr.aria-disabled]="formulario.invalid"> Cadastrar funcionário </button>
+                </form>
+            </div>
+
+            <div class="caixa-mensagem" *ngIf="error" aria-label="Mensagem de erro" role="alert">
+                <p class="erro"> {{ error }}</p>
+            </div>
+        </div>
+    </div>
+
+    <app-notificacao></app-notificacao>
+</section>
+

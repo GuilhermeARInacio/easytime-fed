@@ -4,7 +4,7 @@
 
 .menu-lateral {
   height: 100vh;
-  width: 14vw;
+  width: 15vw;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,12 +18,12 @@
   box-shadow: 10px 10px 20px -9px rgba(143,143,143,0.75);
   -webkit-box-shadow: 10px 10px 20px -9px rgba(143,143,143,0.75);
   -moz-box-shadow: 10px 10px 20px -9px rgba(143,143,143,0.75);
-  transition: transform 0.3s ease, width 0.3s ease;
+  transition: transform 0.2s ease, width 0.2s ease;
 }
 
 .menu-lateral--collapsed {
   width: 4em;
-  transition: transform 0.3s ease, width 0.3s ease;
+  transition: transform 0.2s ease, width 0.2s ease;
   overflow: hidden;
 
   box-shadow: 5px -1px 16px 0px rgba(222, 222, 222, 0.75);
@@ -100,7 +100,7 @@ ul {
 
 @media (max-width: 1200px) {
   .menu-lateral{
-    width: 10em;
+    width: 12em;
   }
 
   .menu-lateral--collapsed{
@@ -176,7 +176,7 @@ ul {
   }
 
   .menu-lateral{
-    width: 12em;
+    width: 14em;
     transform: translateX(0);
     opacity: 1;
     transition: transform 0.3s ease, opacity 0.3s ease;

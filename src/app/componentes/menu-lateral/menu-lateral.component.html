@@ -54,6 +54,19 @@
             </span>
             <p class="menu-legenda" *ngIf="!menuColapsado">Consultar pedidos</p>
         </a>
+        <a *ngIf="role === 'admin'"
+            class="display-row menu-botao" 
+            [routerLink]="['/cadastro-funcionario']" 
+            routerLinkActive="ativo" 
+            ariaCurrentWhenActive="page" 
+            aria-label="Cadastrar novo funcionário"
+            role="listitem"
+        >
+            <span class="material-symbols-outlined icone-menu" style="transform: translateX(-2px);">
+                person_add
+            </span>
+            <p class="menu-legenda" *ngIf="!menuColapsado">Cadastrar funcionário</p>
+        </a>
         <a (click)="sair()" class="display-row menu-botao" role="listitem" aria-label="Sair do sistema" tabindex="0">
             <span  class="material-symbols-outlined icone-menu icone-sair" style="transform: translateX(2px);">
                 logout

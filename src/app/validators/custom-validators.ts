@@ -22,6 +22,11 @@ export function temNumeroValidacao(control: AbstractControl): ValidationErrors |
 
 export function temEspecialValidacao(control: AbstractControl): ValidationErrors | null {
   const senha = control.value;
+
+  if (!senha) {
+    return { temEspecialValidacao: true };
+  }
+
   const temEspecial = /[^A-Za-z0-9]/.test(senha);
 
   if (temEspecial) {

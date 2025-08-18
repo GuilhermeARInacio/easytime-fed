@@ -14,7 +14,7 @@
                     class="input-codigo" 
                     name="codigo" 
                     maxlength="8" 
-                    type="text" 
+                    type="text" class="input-txt" 
                     placeholder="Código" 
                     formControlName="codigo" 
                     role="textbox"
@@ -35,6 +35,7 @@
                 <label for="novaSenha">Nova senha</label>
                 <input 
                     name="novaSenha" 
+                    class="input-txt"
                     type="{{ showPassword ? 'text' : 'password' }}" 
                     placeholder="Nova senha" 
                     formControlName="novaSenha" 
@@ -55,6 +56,7 @@
                 <div class="senha-input">
                     <input 
                         name="repetirSenha" 
+                        class="input-txt"
                         type="{{ showPassword ? 'text' : 'password' }}" 
                         placeholder="Confirmar nova senha" 
                         formControlName="repetirSenha" 
