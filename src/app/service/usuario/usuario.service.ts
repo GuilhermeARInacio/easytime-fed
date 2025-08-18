@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { RegistroPonto } from '../../interface/ponto/registro-ponto';
 import { ConsultaRegistros } from '../../interface/ponto/consulta-registros';
 import { Router } from '@angular/router';
+import { CadastroUsuario } from '../../interface/usuario/cadastro-usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,12 @@ export class UsuarioService {
     return this.http.post<string>(`${this.API_URL}senha/redefinir`, trocarSenha, { 
       responseType: 'text' as 'json',
       context: new HttpContext().set(IGNORAR_INTERCPTOR, true) 
+    });
+  }
+
+  cadastrarUsuario(usuario: CadastroUsuario): Observable<string> {
+    return this.http.put<string>(`${this.API_URL}users/create`, usuario, { 
+      responseType: 'text' as 'json',
     });
   }
 }

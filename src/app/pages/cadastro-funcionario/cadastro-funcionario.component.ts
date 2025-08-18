@@ -22,7 +22,6 @@ export class CadastroFuncionarioComponent {
   error: string | null = null;
   sucesso: string | null = null;
   shakeFields: { [key: string]: boolean } = {};
-  carregando: boolean = false;
   showPassword: boolean = false;
 
   constructor(
@@ -102,7 +101,79 @@ export class CadastroFuncionarioComponent {
   }
 
   cadastrar() {
+    this.sucesso = null;
+
+    if (this.formulario.valid) {
+      const usuario = {
+        nome: this.formulario.get('nome')?.value,
+        email: this.formulario.get('email')?.value,
+        login: this.formulario.get('login')?.value,
+        password: this.formulario.get('senha')?.value,
+        sector: this.formulario.get('setor')?.value,
+        jobTitle: this.formulario.get('cargo')?.value,
+        role: this.formulario.get('role')?.value || 'user',
+        isActive: true
+      }
+
+      this.usuarioService.cadastrarUsuario(usuario).subscribe({
+        next: (response) => {
+          this.sucesso = 'Usuário cadastrado com sucesso!';
+          console.log('Usuario cadastrado com sucesso: ', response)
+
+          this.abrirNotificacao({
+            titulo: 'Cadastro concluído',
+            mensagem: this.sucesso,
+            tipo: 'sucesso',
+            icon: ''
+          });
+
+          this.formulario.reset();
+          this.formulario.get('setor')?.setValue('');
+          this.formulario.get('cargo')?.setValue('');
+        },
+        error: (error) => {
+          console.error('Erro ao cadastrar usuário:', error);
+
+          if (error.status === 401) {
+            this.error = 'Login expirado. Por favor, faça login novamente.';
+
+            this.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: this.error,
+              tipo: 'erro',
+              icon: ''
+            });
+
+            setTimeout(() => {
+              this.sair();
+            }, 1000);
+
+          } else if (error.status === 500 || error.status === 502 || error.status === 0){
+            this.error = 'Desculpe, ocorreu um erro interno. Tente novamente mais tarde.';
+            this.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: this.error,
+              tipo: 'erro',
+              icon: ''
+            });
+          } else {
+            this.abrirNotificacao({
+              titulo: 'Erro',
+              mensagem: error.error || 'Desculpe, ocorreu um erro ao tentar cadastrar um usuário, tente novamente mais tarde.',
+              tipo: 'erro',
+              icon: ''
+            });
+          }
+
+        }
+      });
+    }
     
+  }
+
+  sair() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   togglePasswordVisibility(){
