@@ -40,7 +40,7 @@ export class UsuarioService {
   }
 
   cadastrarUsuario(usuario: CadastroUsuario): Observable<string> {
-    return this.http.put<string>(`${this.API_URL}users/create`, usuario, { 
+    return this.http.post<string>(`${this.API_URL}users/create`, usuario, { 
       responseType: 'text' as 'json',
     });
   }

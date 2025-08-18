@@ -29,8 +29,6 @@ export class CadastroFuncionarioComponent {
     private usuarioService: UsuarioService,
     private popUpService: PopUpService,
     private router: Router,
-    private renderer: Renderer2,
-    private element: ElementRef
   ){}
 
   ngOnInit() {
@@ -42,7 +40,7 @@ export class CadastroFuncionarioComponent {
       nome: ['', Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.pattern(/^[a-zA-Z\s]+$/)
+        Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/)
       ])],
       email: ['', Validators.compose([
         Validators.required,

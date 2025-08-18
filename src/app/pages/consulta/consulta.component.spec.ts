@@ -301,6 +301,7 @@ describe('ConsultaComponent', () => {
         saida3: '',
         justificativa: 'teste',
         status: 'PENDENTE',
+        horarioAtual: new Date()
       };
 
     const registro = {
