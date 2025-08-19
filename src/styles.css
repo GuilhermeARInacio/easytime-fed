@@ -91,7 +91,7 @@ section{
   text-align: center;
 }
 
-.container{
+.container {
   background-color: white;
   height: fit-content;
   padding: 1em;
@@ -267,6 +267,14 @@ input.shake, textarea.shake, select.invalid {
 @media (max-width: 480px) {
   .logo {
     width: 35vw;
+  }
+
+  .container {
+    width: 100vw;
+    min-height: 100vh;
+    margin-left: 0;
+    padding-top: 4em;
+    padding-bottom: 2em;
   }
 
   .subtitulo {
