@@ -42,10 +42,10 @@ describe('ConsultaPedidosComponent', () => {
         { provide: PopUpService, useValue: popUpServiceSpy },
       ],
     })
-      .overrideComponent(ConsultaPedidosComponent, {
-        set: { template: '<div></div>' },
-      })
-      .compileComponents();
+    .overrideComponent(ConsultaPedidosComponent, {
+      set: { template: '<div></div>' },
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(ConsultaPedidosComponent);
     component = fixture.componentInstance;
@@ -193,6 +193,8 @@ describe('ConsultaPedidosComponent', () => {
   });
 
   it('deve popular pedidos e exibir sucesso ao consultar com sucesso', (done) => {
+    component.ngOnInit();
+
     const pedidosMock = [
       {
         id: 1,
@@ -264,6 +266,8 @@ describe('ConsultaPedidosComponent', () => {
   });
 
   it('deve exibir erro interno ao receber erro 500', (done) => {
+    component.ngOnInit();
+
     pontoServiceSpy.consultarPedidos.and.returnValue(
       throwError(() => ({
         status: 0,
@@ -272,6 +276,7 @@ describe('ConsultaPedidosComponent', () => {
       }))
     );
 
+    component.ngOnInit();
     component.consultar();
 
     setTimeout(() => {
@@ -288,6 +293,7 @@ describe('ConsultaPedidosComponent', () => {
       throwError(() => ({ status: 400, error: 'Nenhum pedido encontrado' }))
     );
 
+    component.ngOnInit();
     component.consultar();
 
     setTimeout(() => {

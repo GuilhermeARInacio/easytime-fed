@@ -96,6 +96,7 @@ describe('ModalAlteracaoComponent', () => {
       saida3: '',
       justificativa: 'justificativa',
       status: 'PENDENTE',
+      horarioAtual: new Date()
     };
     component.ngOnChanges();
     expect(component.formulario.value.entrada1).toBe('08:00');

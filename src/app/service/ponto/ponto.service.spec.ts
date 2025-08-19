@@ -102,6 +102,7 @@ describe('PontoService', () => {
       saida3: '',
       justificativa: '',
       status: '',
+      horarioAtual: new Date()
     }
     
     service.consultarAlteracao(id as any).subscribe(res => expect(res)

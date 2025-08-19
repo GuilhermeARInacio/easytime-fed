@@ -77,12 +77,13 @@ describe('BaterPontoComponent', () => {
     component.baterPonto();
 
     expect(pontoServiceSpy.baterPonto).toHaveBeenCalledWith({ 
+      usuario: '',
       horarioAtual: new Date()
       .toLocaleTimeString('pt-BR', {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
-      }) 
+      }),
     });
     
     expect(component.error).toBeNull();
