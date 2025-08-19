@@ -158,7 +158,13 @@
                         </div>
                     </div>
                     
-                    <button class="botao" type="submit" role="button" [attr.aria-disabled]="formulario.invalid"> Cadastrar funcionário </button>
+                    <button 
+                        class="botao" 
+                        type="submit" 
+                        role="button"
+                        aria-label="Cadastrar funcionário"
+                        [attr.aria-disabled]="formulario.invalid"
+                    > Cadastrar funcionário </button>
                 </form>
             </div>
 
