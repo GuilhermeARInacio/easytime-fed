@@ -181,11 +181,19 @@ export class ConsultaPedidosComponent {
     }
   }
 
-  atualizarPedido(event: { id: number, status: string }) {
+  atualizarPedido(event: { id: number, status: string, idPonto: number }) {
     const pedido = this.pedidos.find(p => p.id === event.id);
     if (pedido) {
       pedido.statusPedido = event.status;
       pedido.statusRegistro = event.status;
+
+      if(pedido.tipoPedido == 'ALTERACAO' && event.status === 'APROVADO') {
+
+        const pedidoRegistro = this.pedidos.find(pr => pr.idPonto === event.idPonto && pr.tipoPedido === 'REGISTRO');
+        if (pedidoRegistro) {
+          this.pedidos.splice(this.pedidos.indexOf(pedidoRegistro), 1);
+        }
+      }
     }
   }
 

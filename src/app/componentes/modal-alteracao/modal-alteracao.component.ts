@@ -17,7 +17,7 @@ import { PedidoPonto } from '../../interface/ponto/pedido-ponto';
 export class ModalAlteracaoComponent {
 
   @Output() fecharModal = new EventEmitter<void>();
-  @Output() pedidoAtualizado = new EventEmitter<{ id: number, status: string }>();
+  @Output() pedidoAtualizado = new EventEmitter<{ id: number, status: string, idPonto: number }>();
   @Input() usuario = '';
   @Input() registro: RegistroPonto | undefined;
   @Input() pedidoAlteracao: AlterarPonto | undefined;
@@ -274,7 +274,7 @@ export class ModalAlteracaoComponent {
           });
         
           this.error = null;
-          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'REJEITADO' });
+          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'REJEITADO', idPonto: this.pedido!.idPonto });
 
           setTimeout(() => {
             this.formulario.reset();
@@ -322,7 +322,7 @@ export class ModalAlteracaoComponent {
           });
         
           this.error = null;
-          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'APROVADO' });
+          this.pedidoAtualizado.emit({ id: this.pedido!.id, status: 'APROVADO', idPonto: this.pedido!.idPonto });
 
           setTimeout(() => {
             this.formulario.reset();
