@@ -185,6 +185,7 @@ export class ConsultaPedidosComponent {
     const pedido = this.pedidos.find(p => p.id === event.id);
     if (pedido) {
       pedido.statusPedido = event.status;
+      pedido.statusRegistro = event.status;
     }
   }
 
