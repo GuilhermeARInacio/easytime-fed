@@ -76,4 +76,11 @@
     </div>
 </div>
 
+<div *ngIf="showSessionModal" class="modal-overlay">
+  <div class="modal-content">
+    <p class="texto">Desculpe, sua sessão foi alterada em outra aba. Clique em 'Confirmar' para ser desconectado.</p>
+    <button class="botao" (click)="confirmarLogout()">Confirmar</button>
+  </div>
+</div>
+
 
